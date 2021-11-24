@@ -1,0 +1,356 @@
+<ion-header class="af-none">
+  <ion-toolbar class="header-bg">
+    <button class="back-button" ion-button icon-only slot="start" (click)="prevStep()">
+      <ion-icon name="arrow-back-sharp" size="small"></ion-icon>
+    </button>
+    <ion-title class="cs-title">Get Recycling Shares</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="dark">
+
+  <div class="content-framework">
+    <div class="header-box">
+      <img class="header-image" src="assets/img/client-1/header-logo.png">
+
+
+      <ion-slides pager="true" class="no-lines sm-slide pb30">
+        <ion-slide *ngFor="let slide of slides; let i = index" class="no-lines pb30">
+          <ion-img [src]="slide.poster" (click)="playVideo(i)"></ion-img>
+        </ion-slide>
+      </ion-slides>
+
+      <div *ngIf="progress > -1">
+
+        <ion-grid class="ion-no-padding">
+          <ion-row>
+            <ion-col col-4>
+              <div class="infoblock">
+                <p class="stats">
+                  <span class="emphasis xx-large">
+                    {{ (vitals.TokenSalesPrice ? (vitals.TokenSalesPrice | currency : 'ZAR': 'R') : "--")  }}
+                  </span> <br>
+                  <span class="item-subtitle">
+                    {{ (vitals.TokenSalesPrice ? "a share" : "")  }}
+                  </span> <br>
+                  <span class="small">
+                    {{ ((vitals.TokensAvailable ? (vitals.TokensAvailable | number: '1.0')  :  "")) + (vitals.TokensAvailable ? "&nbsp;left" : "") }}
+                  </span>
+                </p>
+              </div>
+            </ion-col>
+            <ion-col col-4>
+              <div class="infoblock">
+                <p class="stats">
+                  <span class="emphasis xx-large">{{ (vitals.TokenSalesPrice ? "10%" : "--")  }}</span> <br>
+                  <span class="item-subtitle">{{ (vitals.TokenSalesPrice ? "OFF" : "")  }}</span> <br>
+                  <span class="small">{{ (vitals.TokenSalesPrice ? "Round 1" : "")  }}</span>
+                </p>
+              </div>
+            </ion-col>
+            <ion-col col-4>
+              <div class="infoblock">
+                <p class="stats">
+                  <span class="emphasis xx-large">{{ (vitals.TokenSalesPrice ? "24X" : "--")  }}</span> <br>
+                  <span class="item-subtitle">{{ (vitals.TokenSalesPrice ? "Target" : "")  }}</span> <br>
+                  <span class="small">{{ (vitals.TokenSalesPrice ? "5Yr Exit" : "")  }}</span>
+                </p>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+        <ion-button (click)="toggleBuyPopupVisibility()"
+          *ngIf="(fiatObjects && fiatObjects.length > 0) && (toFloat(vitals.TokensAvailable) > 0) && (toFloat(vitals.DaysLeft) > 0) && (percentComplete >= 0) && !transactionObj.confirm"
+          color="tertiary">Buy shares</ion-button>
+
+
+        <div class="infoblock mt25" *ngIf="false">
+          <h3 class="content-heading">Shares sold</h3>
+          <p>Don't miss out, there are a limited number of shares available in this investment round.</p>
+          <progress-bar [progress]="progress" [color]="'#22486A'"></progress-bar>
+        </div>
+        <div class="infoblock mt25" *ngIf="daysToGo < 14">
+          <h3 class="content-heading">Raise window</h3>
+          <p>This share offer will close in the next few days!</p>
+          <progress-bar [progress]="100 - daysToGo" [color]="getStrokeColor()"></progress-bar>
+        </div>
+      </div>
+
+      <div class="infoblock mt25" style="background: var(--ion-color-secondary);">
+        <h3 class="content-heading">Investment Notes</h3>
+        <p>Infinite Industries is a post-revenue startup seeking Seed Investment. Their unique product has found
+          remarkable traction in South Africa with keen international interest.
+          Infinite needs capital to scale to meet demand. Shares have the potential of earning dividends twice per year.
+          Dividends are paid out to your Azuza Wallet in South African Rand.</p>
+      </div>
+
+      <div *ngIf="progress === -1">
+        <p class="soldout Exo2-n">SOLD OUT!</p>
+      </div>
+
+      <div class="infoblock mt25">
+        <h3 class="content-heading">Our story</h3>
+        <ion-grid class="ion-no-padding">
+          <ion-row>
+            <ion-col col-10>
+              <p>Infinite Industries invented technology that efficiently recycles waste plastic that is considered too
+                expensive to recycle.</p>
+
+              <p>This technology solves a costly and environmentally sensitive problem for manufacturers that use these
+                complex plastic materials by disposing of their waste in an eco-friendly manner, free of charge.
+                Infinite Industries transforms the waste into low cost houses, building materials, school desks,
+                manholes and more.</p>
+
+              <p>The company was founded thirteen years ago. With a verified order book in excess of R120 million the
+                business has entered a high growth phase that needs to scale to meet demand. Capital investment is
+                required to increase production capacity.</p>
+              <p>By investing in Infinite Industries you buy shares in a lucrative business whose technology helps save
+                the planet.</p>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+        <ion-slides class="no-lines sm-slide" loop="true" [options]="slideOpts" slidesPerView="1">
+          <ion-slide *ngFor="let item of productImages; let i = index" class="ion-slide-bg">
+            <ion-card class="ion-no-margin">
+              <ion-card-content>
+                <img [src]="item.src" [text]="item.description" [alt]="item.name" ionImgViewer />
+                <ion-label class="slide-label">{{item.description}}</ion-label>
+              </ion-card-content>
+            </ion-card>
+          </ion-slide>
+        </ion-slides>
+
+
+      </div>
+
+      <div class="infoblock mt25">
+        <h3 class="content-heading">The Magic</h3>
+        <ion-grid class="ion-no-padding">
+          <ion-row>
+            <ion-col col-12>
+              <p>Infinite Industries converts toothpaste tubes, and other plastic materials, into strong, eco-friendly
+                building material.
+              </p>
+              <p>They receive their raw material free of charge, which makes their products affordable and profitable.
+              </p>
+
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+        <ion-slides class="sm-slide" loop="true" [options]="slideOpts" slidesPerView="2">
+          <ion-slide *ngFor="let item of productUseCaseImages; let i = index" class="no-lines">
+            <ion-card class="ion-no-margin">
+              <ion-card-content>
+                <img [src]="item.src" [text]="item.description" [alt]="item.name" ionImgViewer />
+                <ion-label class="slide-label">{{item.description}}</ion-label>
+              </ion-card-content>
+            </ion-card>
+          </ion-slide>
+        </ion-slides>
+      </div>
+
+      <div class="infoblock mt25 highlights">
+        <h3 class="content-heading">Highlights</h3>
+
+        <ion-slides class="sm-slide bdr-0 ion-padding-top" loop="true" pager="false" [options]="sliderOpts">
+          <ion-slide class="no-lines">
+            <ion-card class="ion-no-margin">
+              <ion-card-content>
+                <img src="assets/img/client-1/milestones/card1-1.png" />
+              </ion-card-content>
+            </ion-card>
+          </ion-slide>
+          <ion-slide class="no-lines">
+            <ion-card class="ion-no-margin">
+              <ion-card-content>
+                <img src="assets/img/client-1/milestones/card1-2.png" />
+              </ion-card-content>
+            </ion-card>
+          </ion-slide>
+          <ion-slide class="no-lines">
+            <ion-card class="ion-no-margin">
+              <ion-card-content>
+                <img src="assets/img/client-1/milestones/card1-3.png" />
+              </ion-card-content>
+            </ion-card>
+          </ion-slide>
+          <ion-slide class="no-lines">
+            <ion-card class="ion-no-margin">
+              <ion-card-content>
+                <img src="assets/img/client-1/milestones/card1-4.png" />
+              </ion-card-content>
+            </ion-card>
+          </ion-slide>
+          <ion-slide class="no-lines">
+            <ion-card class="ion-no-margin">
+              <ion-card-content>
+                <img src="assets/img/client-1/milestones/card1-5.png" />
+              </ion-card-content>
+            </ion-card>
+          </ion-slide>
+        </ion-slides>
+      </div>
+
+      <div class="infoblock mt25">
+        <h3 class="content-heading">Fund raising goal</h3>
+        <ion-grid class="ion-no-padding">
+          <ion-row>
+            <ion-col col-12>
+              <p>The startup aims to raise a total of R35 million over three rounds to fund growth. The money will be
+                used to extend their production capacity and build their team.</p>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+
+      <div class="infoblock mt25">
+        <h3 class="content-heading">Raise Type: Soft Target</h3>
+        <ion-grid class="ion-no-padding">
+          <ion-row>
+            <ion-col col-12>
+              <p>Your shares are released to you and the money to the SPV five days after completing your purchase. The
+                raise target does not have to be met to distribute shares and funds.</p>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+
+      <div class="infoblock mt25">
+        <h3 class="content-heading">Round 1 numbers</h3>
+        <ion-grid class="ion-no-padding">
+          <ion-row>
+            <ion-col col-6>
+              <p class="stats">
+                <span class="item-title emphasis">R93m</span> <br>
+                <span class="item-subtitle">Current valuation</span> <br>
+              </p>
+            </ion-col>
+            <ion-col col-6>
+              <p class="stats">
+                <span class="item-title emphasis">9.67%</span> <br>
+                <span class="item-subtitle">Shares on offer</span> <br>
+              </p>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col col-6>
+              <p class="stats">
+                <span class="item-title emphasis">335 000</span> <br>
+                <span class="item-subtitle">Shares for sale</span> <br>
+              </p>
+            </ion-col>
+            <ion-col col-6>
+              <p class="stats">
+                <span class="item-title emphasis">R9.8m</span> <br>
+                <span class="item-subtitle">Raise target</span> <br>
+              </p>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+
+      <div class="slides-heading">
+        <h3>Supporting docs</h3>
+      </div>
+      <div class="docs-section">
+        <button class="ion-activatable docs-btn" (click)="launchDocs(0)">
+          Investment Memo
+        </button>
+        <button class="ion-activatable docs-btn" (click)="launchDocs(1)">
+          Company website
+        </button>
+        <button class="ion-activatable docs-btn" (click)="launchDocs(2)">
+          Company docs
+        </button>
+        <button class="ion-activatable docs-btn" (click)="launchDocs(3)">
+          Term & Conditions
+        </button>
+      </div>
+
+      <div class="slides-heading">
+        <h3>Frequest questions</h3>
+      </div>
+
+      <div class="cs-accordion mb70">
+        <ng-container *ngFor="let data of accordionData; let i = index">
+          <div class="accordion" [ngClass]="data.active ? 'active' : ''">
+            <ion-card-header (click)="data.active = !data.active"> {{!data.title?'':data.title}}
+              <ion-icon *ngIf="data.active" slot="end" name="chevron-down-sharp"></ion-icon>
+              <ion-icon *ngIf="!data.active" slot="end" name="chevron-forward-sharp"></ion-icon>
+            </ion-card-header>
+            <ion-card-content [innerHtml]="data.description">
+            </ion-card-content>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+
+
+  <ng-container *ngIf="!showBuyPopup && sessionToken">
+    <ion-fab horizontal="start" vertical="bottom" slot="fixed" #fab>
+      <ion-fab-button size="small" color="secondary" class="right" (click)="showHelp()">
+        <ion-icon name="help"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed"
+      *ngIf="sessionToken && (fiatObjects && fiatObjects.length > 0) && (toFloat(vitals.TokensAvailable) > 0) && (toFloat(vitals.DaysLeft) > 0) && (percentComplete >= 0) && !transactionObj.confirm">
+      <ion-fab-button color="light" size="small" (click)="toggleBuyPopupVisibility()">
+        <ion-icon name="cart"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+
+    <ion-fab vertical="center" horizontal="center" slot="fixed" *ngIf="showSpinner">
+      <ion-fab-button color="light">
+        <ion-spinner color="primary" name="dots"></ion-spinner>
+      </ion-fab-button>
+    </ion-fab>
+
+  </ng-container>
+</ion-content>
+
+
+<div *ngIf="showBuyPopup">
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button color="light" size="small" *ngIf="buyStep === 1"
+      [disabled]="buyStep === 1 && ((transactionObj.totalValue > toFloat(fiatObjects[0].Available)) || transactionObj.totalValue <= 0 || transactionObj.totalShares < 1)"
+      (click)="nextStep(1)">
+      <ion-icon name=arrow-forward-outline></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-fab *ngIf="buyStep === 1" vertical="bottom" horizontal="start" slot="fixed">
+    <ion-fab-button size="small" ion-fab mini color="light" (click)="toggleBuyPopupVisibility()">
+      <ion-icon name="close"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" *ngIf="buyStep === 2 && transactionObj.confirm">
+    <ion-fab-button color="light" size="small" (click)="sendTransaction()">
+      <ion-icon name="flag"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-fab horizontal="start" vertical="bottom" slot="fixed" *ngIf="buyStep > 1" #fab1>
+    <ion-fab-button class="ionFabMenuButton" size="small">
+      <ion-icon md="menu" ios="menu"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-list side="top">
+      <ion-fab-button color="secondary" size="small" (click)="nextStep(0)">
+        <ion-icon name="arrow-undo"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-button color="secondary" size="small" (click)="toggleBuyPopupVisibility()">
+        <ion-icon name="close-circle"></ion-icon>
+      </ion-fab-button>
+    </ion-fab-list>
+  </ion-fab>
+</div> 
+
+<!-- buy button -->
+<app-shared-buy-wizard *ngIf="showBuyPopup" [fiatdata]='fiatObjects[0]' [sharePrice]="sharePrice" [step]="buyStep"
+  [vitals]="vitals" [fees]="fees" (checkoutMsg)="updateTransactionObj($event)">
+</app-shared-buy-wizard>

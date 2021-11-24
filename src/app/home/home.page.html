@@ -1,20 +1,269 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
+<!--<ng-container *ngIf="doneLoading">-->
+<ion-content style="background-color: #224a6e" scroll-events="false" forceOverscroll="false">
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+  <div class="app-small-logo" (click)="toggleMenu()">
+    <ion-icon name="menu-outline"></ion-icon>
+    <img src="assets/img/azuza_logo_w_250x47.png" />
   </div>
+
+  <div class="slides-heading">
+    <h3>My Money</h3>
+  </div>
+
+  <ion-grid no-padding class="money-grid" style="padding: 0; padding-top: 5px;">
+    <ion-row nowrap no-padding>
+      <ion-col no-padding class="ion-text-start" size="3" style="padding-left: 20px;">
+        <img src="../assets/icon/RSA_flag.png" alt="" style="max-height: 45px;" />
+      </ion-col>
+      <ng-container *ngIf="!money">
+        <ion-col size="8">
+          <ion-skeleton-text animated style="float: right; width: 30%;"></ion-skeleton-text>
+          <br/>
+          <ion-skeleton-text animated style="float: right; width: 50%;"></ion-skeleton-text>
+        </ion-col>
+      </ng-container>
+      <ng-container *ngIf="money">
+        <ng-container *ngIf="money.length === 0">
+          <ion-col size="8" class="deposit-button" (click)="depositMoney()">
+            <div>
+              Deposit
+            </div>
+          </ion-col>
+        </ng-container>
+        <ng-container *ngIf="money.length > 0">
+          <ion-col class="ion-text-end" size="8">
+            <div class="money" style="text-align: right;">
+              <span>{{ money[0].CurrencySymbol + " " + ((toFloat(money[0].Available)) | number : '1.2-2') }}</span>
+              <h4>South African Rand</h4>
+            </div>
+          </ion-col>
+        </ng-container>
+      </ng-container>
+      <ion-col size="1" class="share-action-btn ion-no-padding df ac jc" (click)="showActionSheet('moneyActions',0)">
+        <div class="shares-user-info-item text-center">
+          <ion-icon style="color: white" name="ellipsis-vertical"></ion-icon>
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <ion-row nowrap no-padding class="ion-no-padding offer-row row money-border-top" style="padding-top: 3px;"
+      *ngIf="native && native.length > 0">
+      <ion-col no-padding class="ion-text-start" size="3" style="padding-left: 20px;">
+        <img src="../assets/icon/FraxCoin.png" alt="" style="max-height: 45px;" />
+      </ion-col>
+      <ion-col class="ion-text-end" size="8">
+        <div class="money" style="text-align: right;">
+          <span>{{ trimDecimalZeros(native[0].Available) }} FRX</span>
+          <h4>Fraxeum Coin</h4>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+
+  <div class="slides-heading" *ngIf="shares && shares.length > 0">
+    <h3>My Shares</h3>
+  </div>
+
+  <ion-slides pager="true" resistance="false" class="white-slide sm-slide">
+    <ion-slide *ngFor="let item of shares, let idx = index" class="main">
+      <ion-card class="swipecard pl20">
+        <ion-card-content>
+          <ion-grid class="grid-margin ion-no-padding pb30">
+            <ion-row nowrap class="ion-no-padding" (click)="shareViewCarousel(idx)">
+              <ion-col size="10">
+                <h4 class="holders">
+                  {{ item.showShares ? item.SPVNAME : (item.showMarket ? "Market movement" : "Shares in wallet") }}
+                </h4>
+              </ion-col>
+              <ion-col size="2" class="share-action-btn ion-no-padding df ac jc">
+                <div class="shares-user-info-item text-center ">
+                  <label class="small" style="margin-right: 5px; color:#ffffff;">Tap
+                    <ion-icon name="click" class="af-icon"></ion-icon>
+                  </label>
+                </div>
+              </ion-col>
+            </ion-row>
+
+            <ion-row nowrap class="ion-no-padding pt10">
+              <ion-col size="1" class="ion-no-padding df ac jc">
+                <div class="shares-user-info-item text-center ">
+                  <ion-icon *ngIf="item.Lock" name="ellipsis-vertical" (click)="showHelp()">
+                  </ion-icon>
+                </div>
+              </ion-col>
+
+
+              <!-- shows shares owned start -->
+              <ion-col size="10" class="ion-no-padding" (click)="shareViewCarousel(idx)"
+                [hidden]="item.showDetail || item.showMarket">
+                <ion-row nowrap class="ion-no-padding border-bottom offer-row row">
+                  <ion-col size="12" class="ion-no-padding">
+                    <div class="offer">
+                      <p>My Shares </p>
+                      <span>{{ (formatNum(item.Available) + formatNum(item.escrow_in)) | number : '1.0' }}</span>
+                    </div>
+                  </ion-col>
+                </ion-row>
+                <ion-row nowrap class="ion-no-padding offer-row row">
+                  <ion-col size="6" class="ion-no-padding border-right ">
+                    <div class="offer">
+                      <span>{{ (item.share_value | currency : 'ZAR': 'R' ) }}</span>
+                      <p>Share price</p>
+                    </div>
+                  </ion-col>
+                  <ion-col size="6" class="ion-no-padding df ac jc">
+                    <div class="offer">
+                      <span>{{ ( item.share_value * ( (+item.Available) + (+item.escrow_in)) ) | currency : 'ZAR': 'R' }}</span>
+                      <p>Total value</p>
+                    </div>
+                  </ion-col>
+                </ion-row>
+              </ion-col>
+              <!-- shows shares owned end -->
+
+
+
+              <!-- shows wallet details -->
+              <ion-col size="10" class="ion-no-padding" (click)="shareViewCarousel(idx)"
+                [hidden]="item.showMarket || item.showShares">
+                <ion-row nowrap class="ion-no-padding border-bottom offer-row row">
+                  <ion-col size="6" class="ion-no-padding border-right ">
+                    <div class="offer">
+                      <p>Shares (Fixed) </p>
+                      <span>{{ item.escrow_out | number : '1.0'  }}</span>
+                    </div>
+                  </ion-col>
+                  <ion-col size="6" class="ion-no-padding df ac jc">
+                    <div class="offer">
+                      <p>Shares (Normal) </p>
+                      <span>{{ item.Available | number : '1.0'  }}</span>
+                    </div>
+                  </ion-col>
+                </ion-row>
+                <ion-row nowrap class="ion-no-padding offer-row row">
+                  <ion-col size="6" class="ion-no-padding border-right ">
+                    <div class="offer">
+                      <span>{{ item.escrow_in  | number : '1.0' }}</span>
+                      <p>Bought shares (Escrow) </p>
+                    </div>
+                  </ion-col>
+                  <ion-col size="6" class="ion-no-padding df ac jc">
+                    <div class="offer">
+                      <span>{{ item.escrow_out | number : '1.0'  }}</span>
+                      <p>Sold shares (Escrow) </p>
+                    </div>
+                  </ion-col>
+                </ion-row>
+              </ion-col>
+              <!-- show Market summary end -->
+
+
+              <!-- shows market -->
+              <ion-col size="10" class="ion-no-padding" (click)="shareViewCarousel(idx)"
+                [hidden]="item.showDetail || item.showShares">
+                <!-- PRIMARY MARKET -->
+                <ion-row *ngIf="item.market!=='S'" nowrap class="offer-row row">
+                  <ion-col size="12" style="display: flex; align-items: center; justify-content: center;">
+                    <p class="text-white"><b>OTC Market</b></p>
+                  </ion-col>
+                </ion-row>
+                <ion-row *ngIf="item.market!=='S'" class="offer-row row">
+                  <ion-col size="12" style="display: flex; align-items: center; justify-content: center;">
+                    <p class="text-white" style="margin-bottom: 20px;">OTC trade launch follows 7 days after a
+                      successful due diligence has been
+                      completed.</p>
+                  </ion-col>
+                </ion-row>
+                <!-- SECONDARY MARKET LOCKED-->
+                <ion-row *ngIf="item.market==='S' && item.Lock" nowrap class="offer-row row">
+                  <ion-col size="12" style="display: flex; align-items: center; justify-content: center;">
+                    <p class="text-white"><b>OTC Market</b></p>
+                  </ion-col>
+                </ion-row>
+                <ion-row *ngIf="item.market==='S' && item.Lock" class="offer-row row">
+                  <ion-col size="12" style="display: flex; align-items: center; justify-content: center;">
+                    <p class="text-white">OTC share trading is currently suspended. Please check the Azuza or company
+                      websites for details.</p>
+                  </ion-col>
+                </ion-row>
+                <!-- SECONDARY MARKET -->
+                <ion-row *ngIf="item.market==='S' && !item.Lock" nowrap
+                  class="ion-no-padding border-bottom offer-row row">
+                  <ion-col size="6" class="ion-no-padding border-right ">
+                    <div class="offer">
+                      <p>Total supply </p>
+                      <span>{{ item.Stats.totalOnOffer | number: '0.0' }}</span>
+                    </div>
+                  </ion-col>
+                  <ion-col size="6" class="ion-no-padding df ac jc">
+                    <div class="offer">
+                      <p>Bid spread</p>
+                      <span>{{ (item.Stats.offerMax - item.Stats.offerMin) | currency : 'ZAR': 'R'  }}</span>
+                    </div>
+                  </ion-col>
+                </ion-row>
+                <ion-row *ngIf="item.market==='S'" nowrap class="ion-no-padding offer-row row">
+                  <ion-col size="6" class="ion-no-padding border-right ">
+                    <div class="offer">
+                      <span>{{ item.Stats.totalBids | number: '0.0' }}</span>
+                      <p>Current demand</p>
+                    </div>
+                  </ion-col>
+                  <ion-col size="6" class="ion-no-padding df ac jc">
+                    <div class="offer">
+                      <span>{{ (item.share_value | currency : 'ZAR': 'R' ) }}</span>
+                      <p>Last sale {{  convertDate(item.Stats.timestamp) | date: 'd/M/yy': 'GMT+2': 'en-GB' }}</p>
+                    </div>
+                  </ion-col>
+                </ion-row>
+              </ion-col>
+              <!-- shows shares owned start -->
+
+              <ion-col size="1" class=" ion-no-padding df ac jc">
+                <div class="shares-user-info-item text-center ">
+                  <ion-icon name="ellipsis-vertical" (click)="showActionSheet('sharesActions',idx)"></ion-icon>
+                </div>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-content>
+      </ion-card>
+    </ion-slide>
+  </ion-slides>
+
+  <div class="slides-heading">
+    <h3>Investment Opportunities</h3>
+  </div>
+
+  <div class="opportunity">
+    <img [src]="bannerImages[0].uri" class="home-banner-image" [routerLink]="[bannerImages[0].routerLink]" /><br />
+    <img [src]="bannerImages[1].uri" class="home-banner-image" [routerLink]="[bannerImages[1].routerLink]" />
+  </div>
+
+  <div class="opportunity">
+
+  </div>
+
+  <div class="slides-heading">
+    <h3>Coming Opportunities</h3>
+  </div>
+
+  <div class="opportunity">
+    <img [src]="bannerImages[2].uri" class="home-banner-image" />
+  </div>
+  <div class="opportunity">
+    <img [src]="bannerImages[3].uri" class="home-banner-image" />
+  </div>
+  <div class="opportunity">
+    <img [src]="bannerImages[4].uri" class="home-banner-image" />
+  </div>
+
+
+  <ion-fab horizontal="start" vertical="bottom" slot="fixed">
+    <ion-fab-button class="ionFabMenuButton" size="small" (click)="showHelp()">
+      <ion-icon size="small" name="information"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>
+<!--</ng-container>-->

@@ -1,0 +1,113 @@
+<ion-content class="ion-padding">
+  <div class="logo-block">
+    <div class="small-logo" style="margin: unset;">
+      <img src="assets/img/azuza_logo_w_250x47.png" class="slide-image-go"
+        style="margin-top:20px; margin-left: auto; margin-right:auto; max-height: 40px;">
+    </div>
+  </div>
+  <ion-slides class="about-slide-content" no-padding style="height: 110%; margin-top: -20px;" pager="true">
+    <ion-slide>
+      <h3 class="slide-title text-white">What is Azuza?</h3>
+      <div class="infoblock ion-padding text-white">
+        <p>Azuza is market place where eco-friendly, sustainable startups come to raise capital. Azuza members get
+          exclusive access to early stage, high growth startups that aim to positively impact our planet, nature and
+          humanity as a whole.</p>
+      </div>
+
+      <div class="terms-btn" *ngIf="!noSocial">
+        <ion-button expand="full" shape="round" color="secondary" (click)="showShareActionsheet()">
+          <ion-icon name="megaphone" class="mr8 large"></ion-icon>Share Azuza
+        </ion-button>
+      </div>
+
+      <div class="terms-btn">
+        <ion-button expand="full" shape="round" color="secondary" (click)="callme('get-info')">
+          <ion-icon name="chatbubbles" class="mr8 large"></ion-icon>Request Info
+        </ion-button>
+      </div>
+
+      <div class="terms-btn">
+        <ion-button expand="full" shape="round" color="secondary" (click)="launchExternalWebsite('visit-azuza')">
+          <ion-icon name="chatbubbles" class="mr8 large"></ion-icon>Visit website
+        </ion-button>
+      </div>
+    </ion-slide>
+    <ion-slide>
+      <h3 class="slide-title text-white">Raise Capital</h3>
+      <div class="infoblock ion-padding text-white">
+        <p>If your business needs capital and it does good things for humanity, the environment or the planet then we invite you to list your investment pitch on Azuza. Your business
+          must be formally incorporated and have earned its first money to qualify.</p>
+      </div>
+      <div class="terms-btn">
+        <ion-button expand="full" shape="round" color="secondary" (click)="callme('raise-capital')">
+          <ion-icon name="thumbs-up" class="mr8 large"></ion-icon>Speak to us
+        </ion-button>
+      </div>
+    </ion-slide>
+    <ion-slide>
+      <h3 class="slide-title text-white">Create an Azuza</h3>
+      <div class="infoblock ion-padding text-white">
+        <p>Want to run Azuza in another country, for a different purpose or under your own brand?
+        </p>
+        <p>Azuza is an implementation of the Fraxeum Invest Business-in-a-Box and can be skinned, set up and configured to
+          meet almost any requirement and operated in almost any country.</p>
+      </div>
+      <div class="terms-btn">
+        <ion-button expand="full" shape="round" color="secondary" (click)="callme('azuza-bib')">
+          <ion-icon name="information-circle" class="mr8 large"></ion-icon>Tell me more
+        </ion-button>
+      </div>
+    </ion-slide>
+    <ion-slide>
+      <h3 class="slide-title text-white">Team</h3>
+      <div class="infoblock ion-padding text-white">
+        <p>Azuza is run an operated by a great team of planet loving people:</p>
+        <p class="small">Management: Llewellyn Morkel (Founder, Managing Partner), Johann Peens (Investment), Riana Pretorius
+          (Investment), Paresh Daya
+          (Operations), Henry Swanepoel CA(SA) (Finance), Barry Tuck (Marketing), Kirsty Bisset (Marketing), Dhruv
+          Agarwal (Due Diligence), Bobby Lanham-Love (Legal), Christopher Ricardo (Legal).</p>
+        <p class="small">Technical: L.Morkel (Lead), E.Naude, G.Bishop, R.Chauhan, R.Bhutani.</p>
+      </div>
+    </ion-slide>
+    <ion-slide>
+      <h3 class="slide-title text-white">Blockchain Tech</h3>
+      <div class="infoblock ion-padding text-white">
+        <p>Azuza is built on Fraxeum technology, a blockchain with a vision to fuel fintech innovation across the globe.
+        </p>
+        <p>The way that people work with money is changing. Join us as a partner or investor on the forefront of the
+          global financial system revolution. </p>
+      </div>
+      <div class="terms-btn">
+        <ion-button expand="full" shape="round" color="secondary" (click)="callme('invest')">
+          <ion-icon name="thumbs-up" class="mr8 large"></ion-icon>Get more info
+        </ion-button>
+      </div>
+    </ion-slide>
+    <ion-slide>
+      <h3 class="slide-title text-white">Legal</h3>
+      <div class="infoblock ion-padding text-white">
+        <p>
+          Azuza Venture Capital is not a financial services provider. We do not offer financial advice and we do not provide financial services of any kind. Our market place
+          is purely intended to connect investors with startup businesses. Our revenue is earned from listing fees, Azuza token fees, and professional services around listings.
+        </p>
+      </div>
+      <div class="terms-btn">
+        <ion-button expand="full" shape="round" color="secondary" (click)="launchExternalWebsite('terms-of-use')">
+          <ion-icon name="reader" class="mr8 large"></ion-icon>Terms of use
+        </ion-button>
+      </div>
+      <div class="terms-btn">
+        <ion-button expand="full" shape="round" color="secondary" (click)="launchExternalWebsite('privacy-policy')">
+          <ion-icon name="eye-off" class="mr8 large"></ion-icon>Privacy policy
+        </ion-button>
+      </div>
+    </ion-slide>
+  </ion-slides>
+
+  <ion-fab vertical="bottom" horizontal="start" slot="fixed">
+    <ion-fab-button size="small" color="secondary" (click)="router.navigate(['home'])">
+      <ion-icon name="close"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+</ion-content>

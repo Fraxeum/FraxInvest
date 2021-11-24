@@ -1,0 +1,682 @@
+<ion-content style="background-color: #224a6e" scroll-events="false" forceOverscroll="false">
+    <div class="logo-block">
+        <div [ngClass]="pageLogo">
+            <img src="assets/img/azuza_logo_w_250x47.png" />
+        </div>
+    </div>
+
+    <div class="auth-content">
+
+        <div class="outerlayer-div">
+
+            <!-- Login form -->
+            <div *ngIf="currentPage==='login'">
+
+                <div class="auth-block" *ngIf="hideLogin" style="padding-bottom: 0.5em;">
+                    <!-- biometric login -->
+                    <div class="auth-block-text">
+                        <div (click)="toggleLoginMethod()" style="margin-bottom: 1em;">
+                            Biometric login is enabled. Tap
+                            <ion-icon size="small" color="light" name="finger-print-outline">
+                            </ion-icon> to log in with your fingerprint. Tap this text to reset or log in with your password.
+                        </div>
+
+                        <div class="bioLoginBtns">
+                            <ion-fab verticle="bottom" horizontal="center" edge slot="fixed">
+                                <ion-fab-button color="light" (click)="loginFingerPrint()">
+                                    <ion-icon *ngIf="!setFingerPrintSpinner" color="dark" name="finger-print-outline">
+                                    </ion-icon>
+                                    <ion-spinner *ngIf="setFingerPrintSpinner" color="primary" name="dots">
+                                    </ion-spinner>
+                                </ion-fab-button>
+                            </ion-fab>
+                        </div>
+                    </div>
+                </div>
+                <ion-grid *ngIf="!hideLogin" no-padding style="width: 100% !important;">
+                    <ion-row no-padding style="width: 100% !important;">
+
+                        <ion-col no-padding style="padding-left: 1em;">
+                            <ion-label [ngClass]="selectedOption === 'login' ? 'selected' : 'not-selected'" class="Exo2-n">
+                                Log in</ion-label>
+                        </ion-col>
+                        <ion-col size="8" *ngIf="!showRegisterLoading" no-padding class="ion-text-right" style="padding-right: 1em;">
+                            <ion-label [ngClass]="selectedOption === 'register' ? 'selected' : 'not-selected'" class="Exo2-n" (click)="showRegister()">
+                                Register
+                            </ion-label>
+
+                            <span class="not-selected">&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+
+                            <ion-label [ngClass]="selectedOption === 'reset' ? 'selected' : 'not-selected'" class="Exo2-n" (click)="forgotPass()">Reset
+                            </ion-label>
+                        </ion-col>
+
+                        <ion-col *ngIf="showRegisterLoading" class="ion-text-center" style="padding: unset; padding-right: 1em;">
+                            <ion-spinner color="light" name="dots"></ion-spinner>
+                        </ion-col>
+
+                    </ion-row>
+                </ion-grid>
+                <div class="form-content">
+                    <!-- normal login, register, password reset -->
+                    <div class="input-block" *ngIf="!hideLogin">
+                        <ion-grid class="ion-no-padding">
+                            <ion-row class="ion-no-padding">
+                                <ion-col size="12" class="ion-no-padding">
+                                    <ion-input class="ion-text-center" (keypress)="checkLoginEnter($event)" placeholder="Enter username" [(ngModel)]="rememberMe.email">
+                                    </ion-input>
+                                </ion-col>
+                            </ion-row>
+                            <ion-row class="ion-no-padding">
+                                <ion-col size="12" class="ion-no-padding">
+                                    <ion-input class="ion-text-center" [type]="fieldType" autocomplete="current-password" placeholder="Enter password" [(ngModel)]="rememberMe.password" (keypress)="checkLoginEnter($event)">
+                                    </ion-input>
+                                </ion-col>
+                            </ion-row>
+                        </ion-grid>
+                    </div>
+                </div>
+                <ion-button [disabled]="!rememberMe.email || !rememberMe.password || showLoginLoading" *ngIf="currentPage==='login' && !hideLogin" type="submit" enterkeyhint="enter" class="regBtn" expand="full" fill="outline" (click)="login()" style="margin: 2em 0 1em">
+                    <div *ngIf="!showLoginLoading">
+                        <span *ngIf="(rememberMe.email && rememberMe.password)">GO!</span>
+                        <span *ngIf="(!rememberMe.email || !rememberMe.password)">Log in</span>
+                    </div>
+                    <ion-spinner *ngIf="showLoginLoading" color="light" name="dots" slot="end"></ion-spinner>
+                </ion-button>
+
+
+                <div *ngIf="!hideLogin">
+                    <!-- normal login, register, password reset -->
+                    <div class="slides-heading" style="padding-left: 1em;">
+                        <h3 class="Exo2-n">Preview</h3>
+                    </div>
+                </div>
+                <div class="opportunity">
+                    <img [src]="bannerImages[0].uri" class="home-banner-image" (click)="loadPage(0)" /><br />
+                    <img [src]="bannerImages[1].uri" class="home-banner-image" (click)="loadPage(1)" />
+                </div>
+            </div>
+            <!-- Log into your account start -->
+
+
+            <!-- Create your account start -->
+            <!-- Registration step 1 -->
+            <div *ngIf="currentPage==='register-1'" style="width: 100% !important;">
+                <div class="form-content" style="width: 100% !important;">
+                    <div class="action-hint scroller" style="width: 100% !important;">
+                        <ion-grid class="ion-no-padding" style="width: 100% !important;">
+                            <ion-row class="ion-no-padding" style="width: 100% !important;">
+                                <ion-col size="12" class="ion-no-padding">
+                                    <p class="action-text text-white">
+                                        Azuza showcases early stage startups that offer high growth potential and a positively impact to our planet, nature or humanity. Azuza is where Angel Investors do good and
+                                        <br /><br />
+                                        <span class="small">
+                      <b>Legal disclaimer</b>
+                      Azuza, it's affiliated businesses and staff do not facilitate investment or provide financial
+                      advice of any kind.
+                      Azuza Wealth is an authorised Financial Service Provider regulated by the Financial Services
+                      Conduct Authority (FSCA) in South Africa (FSP no. 31263).
+                    </span>
+                                    </p>
+                                </ion-col>
+                            </ion-row>
+                        </ion-grid>
+                    </div>
+                </div>
+                <ion-button type="submit" enterkeyhint="enter" class="regBtn" expand="full" fill="outline" (click)="startSignup()">Let's go!
+                </ion-button>
+                <ion-button (click)="goHome()" expand="full" fill="clear" size="small" style="--border-width: 0!important; margin-top: 2em; color: white;" *ngIf="currentPage === 'register-1' && regStep === 1 && navHistory.length === 0" type="button" class="returningUserLink">
+                    Continue sign up | Log in
+                </ion-button>
+            </div>
+
+            <!-- Registration step 2 -->
+            <!-- Terms & conditons start -->
+            <div *ngIf="currentPage==='register-2'">
+                <div class="form-content">
+                    <h3 class="signup Exo2-n">Service Terms & Privacy</h3>
+
+                    <div class="action-hint">
+                        <p class="action-text text-white">
+                            It is important that you read the Azuza terms of service and privacy policy. Access to these documents are provided below. Beyond this point it is mutually understood that you have read and agreed with our terms of service.
+                        </p>
+                    </div>
+
+                    <ion-grid class="ion-no-padding" style="width: 100% !important;">
+                        <ion-row class="ion-no-padding" style="width: 100% !important;">
+                            <ion-col size="12" class="ion-no-padding">
+                                <ion-button shape="round" expand="full" color="secondary" class="terms-btn" (click)="launchExternalWebsite('terms-of-use')">
+                                    <ion-icon name="documents" class="mr8 large"></ion-icon> Terms of Use
+                                </ion-button>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row class="ion-no-padding">
+                            <ion-col size="12" class="ion-no-padding">
+                                <ion-button shape="round" expand="full" color="secondary" class="terms-btn" (click)="launchExternalWebsite('privacy-policy')">
+                                    <ion-icon name="shield-checkmark" class="mr8 large"></ion-icon> Privacy Policy
+                                </ion-button>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row class="ion-no-padding">
+                            <ion-col size="12" class="ion-no-padding">
+                                <ion-button shape="round" expand="full" color="secondary" class="terms-btn" (click)="launchExternalWebsite('cookies-policy')">
+                                    <ion-icon name="shield-checkmark" class="mr8 large"></ion-icon> Cookies Policy
+                                </ion-button>
+                            </ion-col>
+                        </ion-row>
+                    </ion-grid>
+
+                    <ion-item (click)="acceptTerms()" class="accept-terms-btn">
+                        <ion-label class="ion-text-wrap" style="color: white;">
+                            Tap here if you agree to be bound by these terms of use.
+                        </ion-label>
+                        <ion-icon slot="end" name="checkmark-circle-outline" [ngStyle]="rememberMe.agree ? {'color': 'rgba(255,255,255,1)' } : {'color': 'rgba(255,255,255,0.2)' }" class="tc-btn-icon">
+                        </ion-icon>
+                    </ion-item>
+                </div>
+
+                <ion-button *ngIf="rememberMe.agree" type="submit" enterkeyhint="enter" [disabled]="!rememberMe.agree" class="regBtn" expand="full" fill="outline" (click)="registrationNav(1)">Next
+                </ion-button>
+            </div>
+            <!-- Terms & conditons end -->
+            <!-- step 1 enter email address -->
+            <div *ngIf="currentPage==='register-3'">
+                <div class="form-content">
+                    <h3 class="signup Exo2-n">How we connect</h3>
+                    <div class="action-hint">
+                        <p class="action-text text-white">Provide a private email address where we can send you important system and admin related messages.
+                            <br />
+                            <br /><span class="small">Your email address will be encrypted and safely stored and
+                used
+                only to communicate with you.</span>
+                        </p>
+                    </div>
+                    <div class="input-block" style="margin-top: 1em;">
+                        <ion-grid class="ion-no-padding">
+                            <ion-row class="ion-no-padding">
+                                <ion-col size="10" class="ion-no-padding">
+                                    <ion-input inputmode="email" class="text-white ion-text-center" autocomplete="email" placeholder="Type your email address" (ionChange)="validateEmailAddressCreated()" [(ngModel)]="rememberMe.email" (keypress)="checkKeypadEnter($event)">
+                                    </ion-input>
+                                </ion-col>
+
+                                <ion-col size="2" class="ion-no-padding">
+                                    <!-- mail icon -->
+                                    <div *ngIf="emailValid == null " class="switch-button button-right text-center flex-center">
+                                        <ion-icon name="chevron-back-circle"></ion-icon>
+                                    </div>
+                                    <!-- correct email -->
+                                    <div *ngIf="emailValid === true" class="switch-button button-right text-center flex-center">
+                                        <ion-icon *ngIf="!checkEmail" name="checkmark-circle"></ion-icon>
+                                        <ion-spinner *ngIf="checkEmail" color="light" name="dots" slot="end">
+                                        </ion-spinner>
+                                    </div>
+
+                                    <!-- error email -->
+                                    <div *ngIf="emailValid === false" class="switch-button button-right text-center flex-center">
+                                        <ion-icon name="alert-circle"></ion-icon>
+                                    </div>
+                                </ion-col>
+                            </ion-row>
+                        </ion-grid>
+                    </div>
+                </div>
+
+                <ion-button type="submit" enterkeyhint="enter" inputmode="email" [disabled]="!emailValid" class="regBtn" expand="full" fill="outline" (click)="registrationNav(1)">Next
+                </ion-button>
+
+                <ion-button *ngIf="showHomeBtn" (click)="goHome()" expand="full" fill="clear" size="small" type="button" class="returningUserLink">
+                    Exit to log in screen
+                </ion-button>
+
+            </div>
+            <!-- Create your account end -->
+
+            <!-- choose password -->
+            <div *ngIf="currentPage==='register-4'">
+                <div class="form-content">
+                    <h3 class="signup Exo2-n">Choose a strong password</h3>
+                    <!-- password hint start -->
+                    <div class="action-hint" style="margin-bottom: 1em" *ngIf="!showPWhints && passwordValid">
+                        <ion-grid class="password-hints">
+                            <ion-row>
+                                <ion-col size="12" class="text-white password-hints">
+                                    Your password is good! If you want to change it later you can do it in the app once you've logged in.
+                                </ion-col>
+                            </ion-row>
+                        </ion-grid>
+                    </div>
+
+                    <div class="action-hint" style="margin-bottom: 1em" *ngIf="showPWhints">
+                        <ion-grid class="password-hints">
+                            <ion-row>
+                                <ion-col size="12" class="text-white password-hints">
+                                    Your password should contain at least one of each of the following character types:
+                                </ion-col>
+                            </ion-row>
+                            <ion-row>
+                                <ion-col size="2" class="text-white password-hints ion-text-center">
+                                    <ion-icon class="larger" name="chevron-forward-circle" *ngIf="!gota">
+                                    </ion-icon>
+                                    <ion-icon class="larger ion-af-bg" name="checkmark-circle" *ngIf="gota" color="success">
+                                    </ion-icon>
+                                </ion-col>
+                                <ion-col size="10" class="text-white password-hints">
+                                    At least one lowercase letter
+                                </ion-col>
+                            </ion-row>
+                            <ion-row>
+                                <ion-col size="2" class="text-white password-hints ion-text-center">
+                                    <ion-icon class="larger" name="chevron-forward-circle" *ngIf="!gotA">
+                                    </ion-icon>
+                                    <ion-icon class="larger ion-af-bg" name="checkmark-circle" *ngIf="gotA" color="success">
+                                    </ion-icon>
+                                </ion-col>
+                                <ion-col size="10" class="text-white password-hints">
+                                    At least one UPPERCASE letter
+                                </ion-col>
+                            </ion-row>
+                            <ion-row>
+                                <ion-col size="2" class="text-white password-hints ion-text-center">
+                                    <ion-icon class="larger" name="chevron-forward-circle" *ngIf="!got1">
+                                    </ion-icon>
+                                    <ion-icon class="larger ion-af-bg" name="checkmark-circle" *ngIf="got1" color="success">
+                                    </ion-icon>
+                                </ion-col>
+                                <ion-col size="10" class="text-white password-hints">At least one numb3r
+                                </ion-col>
+                            </ion-row>
+                            <ion-row>
+                                <ion-col size="2" class="text-white password-hints ion-text-center">
+                                    <ion-icon class="larger" name="chevron-forward-circle" *ngIf="!got$">
+                                    </ion-icon>
+                                    <ion-icon class="larger ion-af-bg" name="checkmark-circle" *ngIf="got$" color="success">
+                                    </ion-icon>
+                                </ion-col>
+                                <ion-col size="10" class="text-white password-hints">At least one $pecial character
+                                </ion-col>
+                            </ion-row>
+                            <ion-row>
+                                <ion-col size="2" class="text-white password-hints ion-text-center">
+                                    <ion-icon class="larger" name="chevron-forward-circle" *ngIf="!got8">
+                                    </ion-icon>
+                                    <ion-icon class="larger ion-af-bg" name="checkmark-circle" *ngIf="got8" color="success">
+                                    </ion-icon>
+                                </ion-col>
+                                <ion-col size="10" class="text-white password-hints">
+                                    More than 7 but less than 73 characters long
+                                </ion-col>
+                            </ion-row>
+                        </ion-grid>
+                    </div>
+                    <!-- password hint end -->
+
+                    <div class="input-block">
+                        <ion-grid class="ion-no-padding">
+                            <ion-row class="ion-no-padding">
+                                <ion-col size="10" class="ion-no-padding ion-text-center">
+                                    <ion-input [type]="fieldType" class=" text-white" autocomplete="nope" placeholder="Password" [(ngModel)]="rememberMe.password" (ionChange)="validatePasswordCreated()" (ionFocus)="togglePWHints()" (keyup)="checkKeypadEnter($event)">
+                                    </ion-input>
+                                    <ion-label class="small" color="light" style="opacity: 20%;">
+                                        {{ rememberMe.password }}</ion-label>
+                                </ion-col>
+                                <ion-col size="2" class="ion-no-padding" (click)="toggleShowPassword()">
+                                    <!-- hide icon -->
+                                    <div *ngIf="!showPassword && !passwordValid" class="switch-button button-right text-center flex-center">
+                                        <ion-icon name="eye"></ion-icon>
+                                    </div>
+
+                                    <!-- show icon -->
+                                    <div *ngIf="showPassword && !passwordValid" class="switch-button button-right text-center flex-center">
+                                        <ion-icon name="eye-off"></ion-icon>
+                                    </div>
+
+                                    <!-- valid password -->
+                                    <div *ngIf="passwordValid" class="switch-button button-right text-center flex-center">
+                                        <ion-icon name="checkmark-circle"></ion-icon>
+                                    </div>
+
+                                </ion-col>
+                            </ion-row>
+                        </ion-grid>
+                    </div>
+                </div>
+
+                <ion-button type="submit" enterkeyhint="enter" inputmode="text" [disabled]="!passwordValid" class="regBtn" expand="full" fill="outline" (click)="registrationNav(1)">Next
+                </ion-button>
+            </div>
+            <!-- Create your account end -->
+
+            <!-- register-5 is biometric enrollment handled by OS -->
+
+            <!-- Create an account recovery start -->
+            <div *ngIf="currentPage==='register-6'">
+                <div class="form-content">
+                    <h3 class="signup Exo2-n">Account security</h3>
+
+                    <div class="action-hint">
+                        <p class="action-text text-white" style="margin: 10px 0 20px 0">
+                            These 12 words makes up your account security key. You'll need your account security key to authorise sensitive transactions or reset your password. We will email these words to you, please store it safely.
+                        </p>
+                    </div>
+
+                    <!--
+                  <div class="input-block" style="margin-top: 1em;" *ngIf="arr.length < 12">
+                      <ion-grid class="ion-no-padding">
+                          <ion-row class="ion-no-padding">
+                              <ion-col size="10" class="ion-no-padding">
+                                  <ion-input type="text" class=" text-white" autocomplete="off"
+                                      placeholder="Type {{ numberNames[arr.length] }} word" [(ngModel)]="newWord"
+                                      (keypress)="checkEnter($event)" name="tags" maxTags="1" #tagsfield
+                                      id="tagsfield" clearInput>
+                                  </ion-input>
+                              </ion-col>
+                              <ion-col size="2" class="ion-no-padding" (click)="updateList()">
+                                  <div class="switch-button button-right text-center flex-center transparent">
+                                      <ion-icon name="add-circle-outline" class="larger"></ion-icon>
+                                  </div>
+                              </ion-col>
+                          </ion-row>
+                      </ion-grid>
+                  </div>-->
+
+                    <div class="keyword-items">
+                        <ng-container *ngFor="let item of arr; index as i">
+                            <div class="keyword-text">
+                                {{ item }}
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+
+                <ion-button type="submit" class="regBtn" expand="full" fill="outline" enterkeyhint="enter" (click)="registrationNav(1)">Next
+                </ion-button>
+
+            </div>
+            <!-- Create an account recovery end -->
+
+            <!-- Confirm your keywords start 
+          <div *ngIf="currentPage==='register-xxx'">
+              <div class="form-content">
+                  <h3 class="signup Exo2-n">Confirm your keywords</h3>
+
+                  <div class="action-hint">
+                      <p class="action-text text-white" style="margin: 10px 0 20px 0">
+                          Tap each word to rearrange them into their
+                          original order. If you get stuck, press the
+                          back button to see your words.
+                      </p>
+                  </div>
+
+                  <ion-grid class="ion-no-padding"
+                      *ngIf="arr.length > 0 && userOrderedArr.length < originalArr.length">
+                      <ion-row class="ion-no-padding">
+                          <ion-col size="12" class="ion-no-padding">
+                              <div class="shuffled-words-block">
+                                  <div class="keyword-items">
+                                      <ng-container *ngFor="let item of arr; index as i">
+                                          <div class="keyword-text" (click)="orderItem(item, i)">
+                                              {{ item }}
+                                              <ion-icon class="ml5 larger" name="caret-down-circle">
+                                              </ion-icon>
+                                          </div>
+                                      </ng-container>
+                                  </div>
+                              </div>
+                          </ion-col>
+                      </ion-row>
+                  </ion-grid>
+
+                  <div class="word-list">
+                      <ion-grid class="ion-no-padding" *ngIf="userOrderedArr.length > 0">
+                          <ion-row class="ion-no-padding">
+                              <ion-col size="12" class="ion-no-padding">
+                                  <div class="keyword-items">
+                                      <ng-container *ngFor="let item of userOrderedArr; index as i">
+                                          <div class="keyword-text">
+                                              {{ item }}
+                                              <ion-icon class="ml5 larger" name="checkmark-circle"></ion-icon>
+                                          </div>
+                                      </ng-container>
+                                  </div>
+                              </ion-col>
+                          </ion-row>
+                      </ion-grid>
+                  </div>
+              </div>
+
+              <ion-button type="submit" enterkeyhint="enter"
+                  [disabled]="! userOrderedArr || (userOrderedArr.length < arr.length)" class="regBtn" expand="full"
+                  fill="outline" (click)="registrationNav(1)">Next
+              </ion-button>
+
+          </div>
+          <!-- keywords end -->
+
+
+            <!-- FICA start -->
+            <div *ngIf="currentPage==='register-7'">
+                <div class="form-content">
+                    <h3 class="signup Exo2-n">FICA Requirements</h3>
+                    <div class="action-hint">
+                        <p class="action-text text-white" style="margin: 10px 0 20px 0">
+                            We need to collect personal information that will allow us to verify your identity in compliance with FICA legislation. <br /><br />
+                            <span class="small">Your personal information will be shared with Transunion for
+                purposes of
+                verifying your identity.</span>
+                        </p>
+                    </div>
+
+                    <h3 class="signup Exo2-n" style="margin-top: 1em;">Personal details</h3>
+                    <div class="input-block">
+                        <ion-grid class="ion-no-padding">
+                            <ion-row class="ion-no-padding">
+                                <ion-col size="12" class="ion-no-padding">
+                                    <ion-input class="text-white" autocomplete="given-name" placeholder="Given names" [(ngModel)]="regData.name">
+                                    </ion-input>
+                                </ion-col>
+                            </ion-row>
+                            <ion-row class="ion-no-padding">
+                                <ion-col size="12" class="ion-no-padding">
+                                    <ion-input class="text-white" autocomplete="family-name" placeholder="Surname" [(ngModel)]="regData.surname">
+                                    </ion-input>
+                                </ion-col>
+                            </ion-row>
+                            <ion-row class="ion-no-padding">
+                                <ion-col size="12" class="ion-no-padding">
+                                    <ion-input class="text-white" autocomplete="street-address" placeholder="Home address" [(ngModel)]="regData.homeaddress" (keyup)="checkKeypadEnter($event)">
+                                    </ion-input>
+                                </ion-col>
+                            </ion-row>
+                            <ion-row class="ion-no-padding">
+                                <ion-col size="12" class="ion-no-padding">
+                                    <ion-input class="text-white" placeholder="Referral code" [(ngModel)]="regData.referralCode" (keyup)="checkKeypadEnter($event)">
+                                    </ion-input>
+                                </ion-col>
+                            </ion-row>
+                        </ion-grid>
+                    </div>
+                </div>
+                <ion-button type="submit" enterkeyhint="enter" inputmode="text" [disabled]="!regData.name || !regData.surname  || !regData.homeaddress" class="regBtn" expand="full" fill="outline" (keyup)="checkKeypadEnter($event)" (click)="registrationNav(1)">
+                    <span *ngIf="!showSignupSpinner">Next</span>
+                    <ion-spinner *ngIf="showSignupSpinner" color="light" name="dots"></ion-spinner>
+                </ion-button>
+            </div>
+
+            <!-- Password reset starts -->
+            <div *ngIf="currentPage==='lost-password'">
+                <div class="form-content">
+                    <h3 class="signup Exo2-n">Confirm your keywords</h3>
+
+                    <div class="action-hint">
+                        <p class="action-text text-white" style="margin: 10px 0 20px 0">
+                            Enter the email address that you used to register and then enter you account recovery keywords. If you don't have your account recovery keywords, please contact Azuza support (support@azuzawealth.com) to complete a face to face identity verification.
+                        </p>
+                    </div>
+
+                    <div class="input-block" style="margin-top: 1em" *ngIf="arr.length < 12">
+                        <ion-grid class="ion-no-padding">
+                            <ion-row class="ion-no-padding">
+
+                                <ion-col size="12" class="ion-no-padding">
+                                    <ion-input inputmode="email" class=" text-white" autocomplete="email" placeholder="Email address" [(ngModel)]="rememberMe.email">
+                                    </ion-input>
+                                </ion-col>
+                            </ion-row>
+                            <ion-row class="ion-no-padding">
+
+                                <ion-col size="10" class="ion-no-padding">
+                                    <ion-input type="text" class=" text-white" autocomplete="off" placeholder="Type {{ numberNames[arr.length] }} word only" [(ngModel)]="newWord" (keypress)="checkEnter($event)" name="tags" maxTags="1" #resettagsfield id="resettagsfield" clearInput>
+                                    </ion-input>
+                                </ion-col>
+                                <ion-col size="2" class="ion-no-padding" (click)="updateList()">
+                                    <div class="switch-button button-right text-center flex-center transparent">
+                                        <ion-icon name="add-circle-outline" class="larger"></ion-icon>
+                                    </div>
+                                </ion-col>
+                            </ion-row>
+
+                        </ion-grid>
+                    </div>
+
+                    <div class="keyword-items">
+                        <ng-container *ngFor="let item of arr; index as i">
+                            <div class="keyword-text" *ngIf="arr && arr[i] != null" (click)="removeTag(i)">
+                                <span>{{ item }}</span>
+                                <ion-icon class="ml5 larger" name="close-circle"></ion-icon>
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+
+                <ion-button type="submit" enterkeyhint="enter" inputmode="email" [disabled]="rememberMe.email == '' || ( arr.length < 9 || arr.length > 12 )" class="regBtn" expand="full" fill="outline" (click)="doPasswordReset()">
+                    <span *ngIf="!showResetSpinner">Next</span>
+                    <ion-spinner *ngIf="showResetSpinner" color="light" name="dots" slot="end"></ion-spinner>
+                </ion-button>
+            </div>
+            <!-- password reset end -->
+
+            <!-- choose new password -->
+            <div *ngIf="currentPage==='password-choose-new'">
+                <div class="form-content">
+                    <h3 class="signup Exo2-n">Choose a new password</h3>
+                    <div class="action-hint">
+                        <p class="action-text text-white">
+                            Choose a strong password to protect access to your account.
+                        </p>
+                    </div>
+
+                    <div class="input-block">
+                        <ion-grid class="ion-no-padding">
+                            <ion-row class="ion-no-padding">
+                                <ion-col size="2" class="ion-no-padding">
+                                    <div class="switch-button button-left text-center flex-center">
+                                        <ion-icon name="key"></ion-icon>
+                                    </div>
+                                </ion-col>
+                                <ion-col size="8" class="ion-no-padding">
+                                    <ion-input [type]="fieldType" class=" text-white" autocomplete="nope" placeholder="Password" [(ngModel)]="rememberMe.password" (ionChange)="validatePasswordCreated()" (ionFocus)="togglePWHints()" (keyup)="checkKeypadEnter($event)">
+                                    </ion-input>
+                                </ion-col>
+                                <ion-col size="2" class="ion-no-padding" (click)="toggleShowPassword()">
+                                    <!-- hide icon -->
+                                    <div *ngIf="!showPassword && !passwordValid" class="switch-button button-right text-center flex-center">
+                                        <ion-icon name="eye"></ion-icon>
+                                    </div>
+
+                                    <!-- show icon -->
+                                    <div *ngIf="showPassword && !passwordValid" class="switch-button button-right text-center flex-center">
+                                        <ion-icon name="eye-off"></ion-icon>
+                                    </div>
+
+                                    <!-- valid password -->
+                                    <div *ngIf="passwordValid" class="switch-button button-right text-center flex-center">
+                                        <ion-icon name="checkmark-circle"></ion-icon>
+                                    </div>
+
+                                </ion-col>
+                            </ion-row>
+                        </ion-grid>
+                    </div>
+
+                    <!-- password hint start -->
+                    <div class="input-block mb80" *ngIf="showPWhints">
+                        <ion-grid class="password-hints">
+                            <ion-row>
+                                <ion-col size="12" class="text-white password-hints">
+                                    Your password should contain at least one of each of the following character types:
+                                </ion-col>
+                            </ion-row>
+                            <ion-row>
+                                <ion-col size="2" class="text-white password-hints ion-text-center">
+                                    <ion-icon class="larger" name="chevron-forward-circle" *ngIf="!gota">
+                                    </ion-icon>
+                                    <ion-icon class="larger ion-af-bg" name="checkmark-circle" *ngIf="gota" color="success">
+                                    </ion-icon>
+                                </ion-col>
+                                <ion-col size="10" class="text-white password-hints">
+                                    At least one lowercase letter
+                                </ion-col>
+                            </ion-row>
+                            <ion-row>
+                                <ion-col size="2" class="text-white password-hints ion-text-center">
+                                    <ion-icon class="larger" name="chevron-forward-circle" *ngIf="!gotA">
+                                    </ion-icon>
+                                    <ion-icon class="larger ion-af-bg" name="checkmark-circle" *ngIf="gotA" color="success">
+                                    </ion-icon>
+                                </ion-col>
+                                <ion-col size="10" class="text-white password-hints">
+                                    At least one UPPERCASE letter
+                                </ion-col>
+                            </ion-row>
+                            <ion-row>
+                                <ion-col size="2" class="text-white password-hints ion-text-center">
+                                    <ion-icon class="larger" name="chevron-forward-circle" *ngIf="!got1">
+                                    </ion-icon>
+                                    <ion-icon class="larger ion-af-bg" name="checkmark-circle" *ngIf="got1" color="success">
+                                    </ion-icon>
+                                </ion-col>
+                                <ion-col size="10" class="text-white password-hints">At least one numb3r
+                                </ion-col>
+                            </ion-row>
+                            <ion-row>
+                                <ion-col size="2" class="text-white password-hints ion-text-center">
+                                    <ion-icon class="larger" name="chevron-forward-circle" *ngIf="!got$">
+                                    </ion-icon>
+                                    <ion-icon class="larger ion-af-bg" name="checkmark-circle" *ngIf="got$" color="success">
+                                    </ion-icon>
+                                </ion-col>
+                                <ion-col size="10" class="text-white password-hints">At least one $pecial character
+                                </ion-col>
+                            </ion-row>
+                            <ion-row>
+                                <ion-col size="2" class="text-white password-hints ion-text-center">
+                                    <ion-icon class="larger" name="chevron-forward-circle" *ngIf="!got8">
+                                    </ion-icon>
+                                    <ion-icon class="larger ion-af-bg" name="checkmark-circle" *ngIf="got8" color="success">
+                                    </ion-icon>
+                                </ion-col>
+                                <ion-col size="10" class="text-white password-hints">
+                                    More than 7 but less than 73 characters long
+                                </ion-col>
+                            </ion-row>
+                        </ion-grid>
+                    </div>
+                    <!-- password hint end -->
+                </div>
+
+                <ion-button type="submit" enterkeyhint="enter" inputmode="text" [disabled]="!passwordValid" class="regBtn" expand="full" fill="outline" (click)="changePassword()">Next
+                </ion-button>
+
+
+            </div>
+            <!-- Create your account end -->
+
+        </div>
+    </div>
+
+    <ion-fab *ngIf="currentPage !== 'login' && regStep < 8" horizontal="start" vertical="bottom" slot="fixed" #fab>
+        <ion-fab-button size="small" color="secondary" class="right" *ngIf="navHistory && navHistory.length > 0" (click)="goBack()">
+            <ion-icon name="arrow-back-outline"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
+</ion-content>

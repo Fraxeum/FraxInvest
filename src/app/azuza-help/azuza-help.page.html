@@ -1,0 +1,13 @@
+<ion-header class="af-none">
+    <ion-toolbar class="header-bg">
+    <ion-buttons slot="start">
+      <ion-icon name="close-circle" color="light" class="mr12" style="font-size: 24px;" (click)="dismiss()"></ion-icon>
+    </ion-buttons>
+    <ion-title class="cs-title">AZUZA Help</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="azuza-help" [innerHtml]='htmlData'>
+  </div>
+</ion-content>

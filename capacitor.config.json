@@ -1,6 +1,8 @@
 {
-	"appId": "io.ionic.starter",
-	"appName": "ionicPwa",
-	"webDir": "www",
-	"bundledWebRuntime": false
+    "appId": "io.ionic.starter",
+    "appName": "ionicPwa",
+    "webDir": "www",
+    "bundledWebRuntime": false,
+    "linuxAndroidStudioPath": "/opt/android-studio/bin/studio.sh"
+
 }

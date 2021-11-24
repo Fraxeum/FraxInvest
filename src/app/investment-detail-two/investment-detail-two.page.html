@@ -1,0 +1,348 @@
+<ion-header class="af-none ">
+  <ion-toolbar class="header-bg">
+    <button class="back-button" ion-button icon-only slot="start" (click)="prevStep()">
+      <ion-icon name="arrow-back-sharp" size="small"></ion-icon>
+    </button>
+    <ion-title class="cs-title">Get Farming Shares</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="dark">
+
+  <div class="content-framework">
+    <div class="header-box">
+      <img class="header-image" src="assets/img/client-2/header-logo.png">
+
+      <ion-slides pager="true" class="no-lines sm-slide pb30">
+        <ion-slide *ngFor="let slide of slides; let i = index" class="no-lines pb30">
+          <ion-img [src]="slide.poster" (click)="playVideo(i)"></ion-img>
+        </ion-slide>
+      </ion-slides>
+
+      <div *ngIf="progress > -1">
+        <h3 class="content-heading">The offer</h3>
+        <ion-grid class="ion-no-padding">
+          <ion-row>
+            <ion-col col-4>
+              <div class="infoblock">
+                <p class="stats">
+                  <span class="emphasis xx-large">
+                    {{ (vitals.TokenSalesPrice ? (vitals.TokenSalesPrice | currency : 'ZAR': 'R') : "--")  }}
+                  </span> <br>
+                  <span class="item-subtitle">
+                    {{ (vitals.TokenSalesPrice ? "a share" : "--")  }}
+                  </span> <br>
+                  <span class="small">
+                    {{ ((vitals.TokensAvailable ? (vitals.TokensAvailable | number: '1.0')  :  "")) + (vitals.TokensAvailable ? "&nbsp;left" : "") }}
+                  </span>
+                </p>
+              </div>
+            </ion-col>
+            <ion-col col-4>
+              <div class="infoblock">
+                <p class="stats">
+                  <span class="emphasis xx-large">{{ (vitals.TokenSalesPrice ? "10%" : "--")  }}</span> <br>
+                  <span class="item-subtitle">{{ (vitals.TokenSalesPrice ? "OFF" : "")  }}</span> <br>
+                  <span class="small">{{ (vitals.TokenSalesPrice ? "Round 1" : "")  }}</span>
+                </p>
+              </div>
+            </ion-col>
+            <ion-col col-4>
+              <div class="infoblock">
+                <p class="stats">
+                  <span class="emphasis xx-large">{{ (vitals.TokenSalesPrice ? "27X" : "--")  }}</span> <br>
+                  <span class="item-subtitle">{{ (vitals.TokenSalesPrice ? "Target" : "")  }}</span> <br>
+                  <span class="small">{{ (vitals.TokenSalesPrice ? "5Yr Exit" : "")  }}</span>
+                </p>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+        <div class="infoblock mt25" style="background: var(--ion-color-secondary);">
+          <h3 class="content-heading">Investment Notes</h3>
+          <p>Puregrow is a post-revenue startup seeking Angel Investment. You have the opportunity to own shares in a
+            farm. Each farm owns it's own land.
+            Shares have the potential to earn dividends twice per year. Dividends are paid out to your Azuza Wallet in
+            South African Rand.</p>
+        </div>
+
+        <ion-button (click)="toggleBuyPopupVisibility()"
+          *ngIf="(fiatObjects && fiatObjects.length > 0) && (toFloat(vitals.TokensAvailable) > 0) && (toFloat(vitals.DaysLeft) > 0) && (percentComplete >= 0) && !transactionObj.confirm"
+          color="tertiary">Buy shares</ion-button>
+
+        <div class="infoblock mt25" *ngIf="false">
+          <h3 class="content-heading">Shares sold</h3>
+          <p>Don't miss out, there are a limited number of shares available in this investment round.</p>
+          <progress-bar [progress]="progress" [color]="'#22486A'"></progress-bar>
+        </div>
+        <div class="infoblock mt25" *ngIf="daysToGo < 14">
+          <h3 class="content-heading">Raise window</h3>
+          <p>This share offer will close in the next few days!</p>
+          <progress-bar [progress]="100 - daysToGo" [color]="getStrokeColor()"></progress-bar>
+        </div>
+      </div>
+
+      <div *ngIf="progress === -1">
+        <p class="soldout Exo2-n">SOLD OUT!</p>
+      </div>
+
+      <div class="infoblock mt25 highlights">
+        <h3 class="content-heading">Highlights</h3>
+
+        <ion-slides class="sm-slide bdr-0 ion-padding-top" loop="true" pager="false" [options]="sliderOpts">
+          <ion-slide class="no-lines">
+            <ion-card class="ion-no-margin">
+              <ion-card-content>
+                <img src="assets/img/client-2/milestones/card1-2.png" />
+              </ion-card-content>
+            </ion-card>
+          </ion-slide>
+          <ion-slide class="no-lines">
+            <ion-card class="ion-no-margin">
+              <ion-card-content>
+                <img src="assets/img/client-2/milestones/card2-2.png" />
+              </ion-card-content>
+            </ion-card>
+          </ion-slide>
+          <ion-slide class="no-lines">
+            <ion-card class="ion-no-margin">
+              <ion-card-content>
+                <img src="assets/img/client-2/milestones/card3-2.png" />
+              </ion-card-content>
+            </ion-card>
+          </ion-slide>
+          <ion-slide class="no-lines">
+            <ion-card class="ion-no-margin">
+              <ion-card-content>
+                <img src="assets/img/client-2/milestones/card4-2.png" />
+              </ion-card-content>
+            </ion-card>
+          </ion-slide>
+          <ion-slide class="no-lines">
+            <ion-card class="ion-no-margin">
+              <ion-card-content>
+                <img src="assets/img/client-2/milestones/card5-2.png" />
+              </ion-card-content>
+            </ion-card>
+          </ion-slide>
+        </ion-slides>
+      </div>
+
+      <div class="infoblock mt25">
+        <h3 class="content-heading">Our story</h3>
+        <ion-grid class="ion-no-padding">
+          <ion-row>
+            <ion-col col-12>
+              <p>The Pure Organic team are experienced business men and women with a passion for farming and the
+                environment.</p>
+              <p>Their story is set at a time when food security in Africa is a major socio-political concern. The
+                impact of global warming, the viral pandemic, water and electricity shortages, and over population are
+                straining the continent's ability to sustainably produce and supply food.</p>
+              <p>Einstein said: "In the middle of difficulty lies opportunity". Pure Organic devised technology that
+                allows them to farm and harvest all year round, growing greens and farming fish at two to three times
+                the rate of normal farms. The Pure Organic farms are 100% eco-friendly, low emission, off grid solutions
+                to high volume, low cost, sustainable farming.</p>
+              <p>The "Pure Organic" brand symbolises purity. Their produce are free of pesticides and genetic
+                modification.</p>
+              <p>Investors in Pure Organic invest in a 1 hectare Aquaponics farming business with 15 growing dams per
+                farm. Each business owns the farm land and is run and operated in oversight of the Azuza Foundation.</p>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+        <ion-slides class="no-lines sm-slide" loop="true" [options]="slideOpts" slidesPerView="1">
+          <ion-slide *ngFor="let item of productImages; let i = index" class="ion-slide-bg">
+            <ion-card class="ion-no-margin">
+              <ion-card-content>
+                <!-- [text]="item.description"  -->
+                <img [src]="item.src" [alt]="item.name" ionImgViewer />
+                <ion-label class="slide-label">{{item.description}}</ion-label>
+              </ion-card-content>
+            </ion-card>
+          </ion-slide>
+        </ion-slides>
+      </div>
+
+      <div class="infoblock mt25">
+        <h3 class="content-heading">The Magic</h3>
+        <ion-grid class="ion-no-padding">
+          <ion-row>
+            <ion-col col-12>
+              <p>Extraordinary growth! Shown below on the left is a small two week old lettuce plant farmed in a normal
+                farming environment. The large plant is the same age but grown at the Pure Organic aquaponics farm.</p>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col col-12>
+              <ion-img [src]="compareImg" style="max-height: 100%;max-width: 100%;display: block;margin: auto;"
+                ionImgViewer></ion-img>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+
+
+
+      <div class="infoblock mt25">
+        <h3 class="content-heading">Fund raising goal</h3>
+        <ion-grid class="ion-no-padding">
+          <ion-row>
+            <ion-col col-12>
+              <p>The startup aims to raise a total of R5,5 million in this round to setup the first commercial farm. The
+                money will be
+                used to fund the installation of aquaponic farming infrastructure and operations. More farms will be
+                funded and setup once the project objectives for
+                round 1 has been met. Investors in round 1 gets first right of refusal to invest in subsequent farms,
+                with shares offered at a discount rate.</p>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+
+      <div class="infoblock mt25">
+        <h3 class="content-heading">Raise Type: Hard Target</h3>
+        <ion-grid class="ion-no-padding">
+          <ion-row>
+            <ion-col col-12>
+              <p>Your money is kept in escrow until the raise target has been met and rolls back to you if the raise
+                target is missed.</p>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+
+      <div class="infoblock mt25">
+        <h3 class="content-heading">Round 1 numbers</h3>
+        <ion-grid class="ion-no-padding">
+          <ion-row>
+            <ion-col col-6>
+              <p class="stats">
+                <span class="item-title emphasis">R5.5m</span> <br>
+                <span class="item-subtitle">Raise Target</span> <br>
+              </p>
+            </ion-col>
+            <ion-col col-6>
+              <p class="stats">
+                <span class="item-title emphasis">44%</span> <br>
+                <span class="item-subtitle">Equity per Farm</span> <br>
+              </p>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col col-6>
+              <p class="stats">
+                <span class="item-title emphasis">1 100 000</span> <br>
+                <span class="item-subtitle">Shares for sale</span> <br>
+              </p>
+            </ion-col>
+            <ion-col col-6>
+              <p class="stats">
+                <span class="item-title emphasis">1</span>st <br>
+                <span class="item-subtitle">Farm of 10</span>
+              </p>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+
+      <div class="slides-heading">
+        <h3>Supporting docs</h3>
+      </div>
+      <div class="docs-section">
+        <button class="ion-activatable docs-btn" (click)="launchDocs(0)">
+          Investment Memo
+        </button>
+        <button class="ion-activatable docs-btn " (click)="launchDocs(1)">
+          Company website
+        </button>
+        <button class="ion-activatable docs-btn " (click)="launchDocs(2)">
+          Company docs
+        </button>
+        <button class="ion-activatable docs-btn " (click)="launchDocs(3)">
+          Term & Conditions
+        </button>
+      </div>
+
+
+      <div class="slides-heading">
+        <h3>Frequest questions</h3>
+      </div>
+
+      <div class="cs-accordion mb70">
+        <ng-container *ngFor="let data of accordionData; let i = index">
+          <div class="accordion" [ngClass]="data.active ? 'active' : ''">
+            <ion-card-header (click)="data.active = !data.active"> {{!data.title?'':data.title}} </ion-card-header>
+            <ion-card-content [innerHtml]="data.description">
+            </ion-card-content>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+
+
+  <ng-container *ngIf="!showBuyPopup && sessionToken">
+    <ion-fab horizontal="start" vertical="bottom" slot="fixed" #fab>
+      <ion-fab-button size="small" color="secondary" class="right" (click)="showHelp()">
+        <ion-icon name="help"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed"
+      *ngIf="sessionToken && (fiatObjects && fiatObjects.length > 0) && toFloat(vitals.TokensAvailable) > 0 && (percentComplete >=0) && (toFloat(vitals.DaysLeft) > 0) && !transactionObj.confirm">
+      <ion-fab-button color="light" size="small" (click)="toggleBuyPopupVisibility()">
+        <ion-icon name="cart"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+  </ng-container>
+</ion-content>
+
+<ion-fab vertical="center" horizontal="center" slot="fixed" *ngIf="showSpinner">
+  <ion-fab-button color="light">
+    <ion-spinner color="primary" name="dots"></ion-spinner>
+  </ion-fab-button>
+</ion-fab>
+
+
+<div *ngIf="showBuyPopup">
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button color="light" size="small" *ngIf="buyStep === 1"
+      [disabled]="buyStep === 1 && ((transactionObj.totalValue > toFloat(fiatObjects[0].Available)) || transactionObj.totalValue <= 0 || transactionObj.totalShares < 1)"
+      (click)="nextStep(1)">
+      <ion-icon name=arrow-forward-outline></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-fab *ngIf="buyStep === 1" vertical="bottom" horizontal="start" slot="fixed">
+    <ion-fab-button size="small" ion-fab mini color="light" (click)="toggleBuyPopupVisibility()">
+      <ion-icon name="close"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" *ngIf="buyStep === 2 && transactionObj.confirm">
+    <ion-fab-button color="light" size="small" (click)="sendTransaction()">
+      <ion-icon name="flag"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-fab horizontal="start" vertical="bottom" slot="fixed" *ngIf="buyStep > 1" #fab1>
+    <ion-fab-button class="ionFabMenuButton" size="small">
+      <ion-icon md="menu" ios="menu"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-list side="top">
+      <ion-fab-button color="secondary" size="small" (click)="nextStep(0)">
+        <ion-icon name="arrow-undo"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-button color="secondary" size="small" (click)="toggleBuyPopupVisibility()">
+        <ion-icon name="close-circle"></ion-icon>
+      </ion-fab-button>
+    </ion-fab-list>
+  </ion-fab>
+</div>
+
+<!-- buy button -->
+
+<app-shared-buy-wizard *ngIf="showBuyPopup" [fiatdata]='fiatObjects[0]' [sharePrice]="sharePrice" [step]="buyStep"
+  [vitals]="vitals" [fees]="fees" (checkoutMsg)="updateTransactionObj($event)">
+</app-shared-buy-wizard>
