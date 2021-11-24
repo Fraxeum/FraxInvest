@@ -12,6 +12,9 @@ import { Camera } from '@ionic-native/camera/ngx';
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
+import { SplashScreen } from '@ionic-native/splash-screen/ngx';
+import { Deeplinks } from '@ionic-native/deeplinks/ngx';
+import { OneSignal } from '@ionic-native/onesignal/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -23,7 +26,10 @@ import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
     Camera,
     Clipboard,
     SocialSharing,
-    PhotoViewer
+    PhotoViewer,
+    SplashScreen,
+    Deeplinks,
+    OneSignal
   ],
   bootstrap: [AppComponent],
 })
