@@ -12,7 +12,8 @@ import { MenuController, ModalController, Platform } from '@ionic/angular';
 import { UserService } from '../providers/user.service';
 import { HtmlHelpStringsService } from '../providers/html-help-strings.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NativeStorage } from '@ionic-native/native-storage/ngx';
+import { Storage } from '@ionic/storage-angular';
+
 // import { AzuzaHelpPage } from '../azuza-help/azuza-help.page';
 // import { FingerprintAIO, FingerprintOptions } from '@ionic-native/fingerprint-aio/ngx';
 // import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
@@ -123,7 +124,7 @@ export class AuthPage {
 
   constructor(
     public user: UserService,
-    public storage: NativeStorage,
+    public storage: Storage,
     public menu: MenuController,
     public helpStrings: HtmlHelpStringsService,
     public route: ActivatedRoute,
@@ -134,6 +135,7 @@ export class AuthPage {
     // public biometric: FingerprintAIO,
     // public browser: InAppBrowser
   ) {
+    // console.log();
     this.primeVariables();
     this.navHistory = [];
     this.storage = storage;
@@ -173,7 +175,7 @@ export class AuthPage {
 
   async checkFingerPrintSet() {
     try {
-      await this.storage.getItem("biostate").then(async (value) => {
+      await this.storage.get("biostate").then(async (value) => {
         if (await value) {
           this.bioState = true;
           this.hideLogin = true;
@@ -195,7 +197,7 @@ export class AuthPage {
         resolve(false);
         return;
       }
-      this.storage.getItem("CheckDate").then((value) => {
+      this.storage.get("CheckDate").then((value) => {
         if (value) {
           resolve(true);
           return;
@@ -368,7 +370,7 @@ export class AuthPage {
   async doRegiserUser() {
 
     // get onesignal push ID
-    await this.storage.getItem("uid").then(
+    await this.storage.get("uid").then(
       async uid => {
         this.oneSignalId = await uid;
       },
@@ -527,9 +529,9 @@ export class AuthPage {
       if (await data.data) {
         // commit login date to storage
         const date = new Date().toDateString();
-        await this.storage.setItem('CheckDate', date);
+        await this.storage.set('CheckDate', date);
 
-        await this.storage.setItem("session_token", data.data.token).then(
+        await this.storage.set("session_token", data.data.token).then(
           async () => {
             if (!data.data.KYCDetails.KYCRequired /* || data.data.KYCDetails.KYCComplete*/) { // load landing page
               this.loadLandingPage();
@@ -595,11 +597,11 @@ export class AuthPage {
       // succesfully logged in
       if (data.success) {
         // commit login date and session to storage
-        await this.storage.setItem("session_token", data.data.token).then(async () => { // storing session token temporarily
-          await this.storage.setItem('refCode', data.data.referral);
-          await this.storage.setItem('CheckDate', date);
+        await this.storage.set("session_token", data.data.token).then(async () => { // storing session token temporarily
+          await this.storage.set('refCode', data.data.referral);
+          await this.storage.set('CheckDate', date);
           if (data.data.bio) {
-            this.storage.setItem("biostate", data.data.bio);
+            this.storage.set("biostate", data.data.bio);
           }
 
           // load landing page if KYC is not required AND there is no withdrawal pending, or if there is, banking data has been loaded
@@ -624,7 +626,7 @@ export class AuthPage {
       // authentication error
       if (data.data.state === 0) {
         if (data.bio) {
-          this.storage.setItem("biostate", data.bio);
+          this.storage.set("biostate", data.bio);
         }
         this.user.setPermaToast(data.msg);
         return;
@@ -705,7 +707,7 @@ export class AuthPage {
 
     // pass control to kyc page
     if (this.KycDocItemsOutstanding > 0) {
-      this.storage.setItem("kyc", this.kycDocs).then(() => {
+      this.storage.set("kyc", this.kycDocs).then(() => {
         this.router.navigate(['kyc']);
         return;
       }, err => {
@@ -1199,7 +1201,7 @@ export class AuthPage {
 
     // create first use database
     const date = new Date().toDateString();
-    await this.storage.setItem('CheckDate', date);
+    await this.storage.set('CheckDate', date);
 
     // load first popup
     this.showSignupSpinner = true;
@@ -1364,7 +1366,7 @@ export class AuthPage {
   }
 
   checkCallback() {
-    this.storage.getItem("target").then(async (result) => {
+    this.storage.get("target").then(async (result) => {
       this.target = await result;
       if (this.target) {
         this.storage.remove("target").then(() => {

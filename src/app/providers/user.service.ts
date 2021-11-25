@@ -3,7 +3,7 @@ import { LoadingController, ModalController, ToastController } from '@ionic/angu
 import { Camera, CameraOptions, Direction, PictureSourceType, MediaType } from '@ionic-native/camera/ngx';
 import { AzuzaHelpPage } from '../azuza-help/azuza-help.page';
 import { ServerService } from './server.service';
-import { NativeStorage } from '@ionic-native/native-storage/ngx';
+import { Storage } from '@ionic/storage-angular';
 import { Router, NavigationExtras } from '@angular/router';
 import { VideoModalPage } from '../video-modal/video-modal.page';
 
@@ -30,7 +30,8 @@ export class UserService {
   constructor(
     public toastCtrl: ToastController,
     public serverService: ServerService,
-    public storage: NativeStorage,
+    public storage: Storage
+    ,
     public modalPage: ModalController,
     public loadingCtrl: LoadingController,
     public router: Router,
@@ -102,7 +103,7 @@ export class UserService {
 
     let token = null;
 
-    await this.storage.getItem('session_token').then(async (data: any) => {
+    await this.storage.get('session_token').then(async (data: any) => {
       token = await data;
     });
 
@@ -144,7 +145,7 @@ export class UserService {
 
     let token = null;
 
-    await this.storage.getItem('session_token').then(async (data: any) => {
+    await this.storage.get('session_token').then(async (data: any) => {
       token = await data;
     });
 
@@ -183,7 +184,7 @@ export class UserService {
 
     let token = null;
 
-    await this.storage.getItem('session_token').then(async (data: any) => {
+    await this.storage.get('session_token').then(async (data: any) => {
       token = await data;
     });
     return await new Promise((resolve, reject) => {
@@ -222,7 +223,7 @@ export class UserService {
 
     let token = null;
 
-    await this.storage.getItem('session_token').then(async (data: any) => {
+    await this.storage.get('session_token').then(async (data: any) => {
       token = await data;
     });
 
@@ -261,7 +262,7 @@ export class UserService {
 
     let token = null;
 
-    await this.storage.getItem('session_token').then(async (data: any) => {
+    await this.storage.get('session_token').then(async (data: any) => {
       token = await data;
     });
     return await new Promise((resolve, reject) => {
@@ -297,7 +298,7 @@ export class UserService {
 
     let token = null;
 
-    await this.storage.getItem('session_token').then(async (data: any) => {
+    await this.storage.get('session_token').then(async (data: any) => {
       token = await data;
     });
 
@@ -354,7 +355,7 @@ export class UserService {
 
     let token = null;
 
-    await this.storage.getItem('session_token').then(async (data: any) => {
+    await this.storage.get('session_token').then(async (data: any) => {
       token = await data;
     });
 
@@ -444,7 +445,7 @@ export class UserService {
 
     let token = null;
 
-    await this.storage.getItem('session_token').then(async (data: any) => {
+    await this.storage.get('session_token').then(async (data: any) => {
       token = await data;
     });
 
@@ -501,7 +502,7 @@ export class UserService {
 
     let token = null;
 
-    await this.storage.getItem('session_token').then(async (data: any) => {
+    await this.storage.get('session_token').then(async (data: any) => {
       token = await data;
     });
 
@@ -559,7 +560,7 @@ export class UserService {
 
     let token = null;
 
-    await this.storage.getItem('session_token').then(async (data: any) => {
+    await this.storage.get('session_token').then(async (data: any) => {
       token = await data;
     });
 
@@ -614,7 +615,7 @@ export class UserService {
 
     let token = null;
 
-    await this.storage.getItem('session_token').then(async (data: any) => {
+    await this.storage.get('session_token').then(async (data: any) => {
       token = await data;
     });
 
@@ -672,7 +673,7 @@ export class UserService {
 
     let token = null;
 
-    await this.storage.getItem('session_token').then(async (data: any) => {
+    await this.storage.get('session_token').then(async (data: any) => {
       token = await data;
     });
 
@@ -711,7 +712,7 @@ export class UserService {
 
     let token = null;
 
-    await this.storage.getItem('session_token').then(async (data: any) => {
+    await this.storage.get('session_token').then(async (data: any) => {
       token = await data;
     });
 
@@ -760,7 +761,7 @@ export class UserService {
 
     let token = null;
 
-    await this.storage.getItem('session_token').then(async (data: any) => {
+    await this.storage.get('session_token').then(async (data: any) => {
       token = await data;
     });
 
@@ -806,7 +807,7 @@ export class UserService {
       groupby: 'pair'
     };
 
-    await this.storage.getItem('session_token').then(async (data: any) => {
+    await this.storage.get('session_token').then(async (data: any) => {
       token = await data;
     });
 
@@ -883,7 +884,7 @@ export class UserService {
 
     let token = null;
 
-    await this.storage.getItem('session_token').then(async (data: any) => {
+    await this.storage.get('session_token').then(async (data: any) => {
       token = await data;
     });
     return new Promise((resolve, reject) => {
@@ -972,7 +973,7 @@ export class UserService {
   // store profile data temporarily
   public storeItem(name: string, value: any) {
 
-    this.storage.setItem(name, value).then(() => {
+    this.storage.set(name, value).then(() => {
       return true;
     });
 
@@ -1092,7 +1093,7 @@ export class UserService {
       buttons: [{
         text: 'Sign up',
         handler: () => {
-          this.storage.setItem("target", 1).then(() => {
+          this.storage.set("target", 1).then(() => {
             this.router.navigate(['/auth']);
           });
         }
@@ -1235,7 +1236,7 @@ export class UserService {
 
     let token = null;
 
-    await this.storage.getItem('session_token').then(async (data: any) => {
+    await this.storage.get('session_token').then(async (data: any) => {
       token = await data;
     });
 
@@ -1277,7 +1278,7 @@ export class UserService {
     return new Promise(async (resolve, reject) => {
       let token = null;
 
-      await this.storage.getItem('session_token').then(async (data: any) => {
+      await this.storage.get('session_token').then(async (data: any) => {
         token = await data;
       });
 
@@ -1305,7 +1306,7 @@ export class UserService {
 
     let token = null;
 
-    await this.storage.getItem('session_token').then(async (data: any) => {
+    await this.storage.get('session_token').then(async (data: any) => {
       token = await data;
     });
 
@@ -1488,7 +1489,7 @@ export class UserService {
 
     let token = null;
 
-    await this.storage.getItem('session_token').then(async (data: any) => {
+    await this.storage.get('session_token').then(async (data: any) => {
       token = await data;
     });
 
@@ -1523,7 +1524,7 @@ export class UserService {
 
     let token = null;
 
-    await this.storage.getItem('session_token').then(async (data: any) => {
+    await this.storage.get('session_token').then(async (data: any) => {
       token = await data;
     });
 
@@ -1561,7 +1562,7 @@ export class UserService {
 
     let token = null;
 
-    await this.storage.getItem('session_token').then(async (data: any) => {
+    await this.storage.get('session_token').then(async (data: any) => {
       token = await data;
     });
 
@@ -1598,7 +1599,7 @@ export class UserService {
 
     let token = null;
 
-    await this.storage.getItem('session_token').then(async (data: any) => {
+    await this.storage.get('session_token').then(async (data: any) => {
       token = await data;
     });
 
@@ -1661,7 +1662,7 @@ export class UserService {
       let token = _token;
 
       if (token == null) {
-        token = await this.storage.getItem('session_token');
+        token = await this.storage.get('session_token');
 
         if (!token) {
           // not logged in

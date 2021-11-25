@@ -267,39 +267,39 @@ export class AccountSettingsPage {
   async enrollFingerPrint(): Promise<any> {
 
 
-    return new Promise((resolve, reject) => {
-      this.biometric.registerBiometricSecret(options)
-        .then(async (result) => {
-          if (result === 'biometric_success') {
-            resolve(options.secret);
-            return;
-          }
-          this.userProv.setToast("Biometric registration failed: " + result);
-          resolve(false);
-        }, (err) => {
-          resolve(false);
-        });
+    // return new Promise((resolve, reject) => {
+    //   this.biometric.registerBiometricSecret(options)
+    //     .then(async (result) => {
+    //       if (result === 'biometric_success') {
+    //         resolve(options.secret);
+    //         return;
+    //       }
+    //       this.userProv.setToast("Biometric registration failed: " + result);
+    //       resolve(false);
+    //     }, (err) => {
+    //       resolve(false);
+    //     });
 
-    });
+    // });
 
 
-    const options = {
-      username: await this.randomString(128),
-      password: await this.randomString(10),
-      server: 'com.azuzawealth.za',
-    };
+    // const options = {
+    //   username: await this.randomString(128),
+    //   password: await this.randomString(10),
+    //   server: 'com.azuzawealth.za',
+    // };
 
-    return new Promise((resolve, reject) => {
-      NativeBiometric.setCredentials(options)
-        .then(async (result) => {
-          await result;
-          this.regData.biometricKey = await options.username;
-          resolve(true);
-        }, (err) => {
-          this.regData.biometricKey = "";
-          resolve(false);
-        });
-    })
+    // return new Promise((resolve, reject) => {
+    //   NativeBiometric.setCredentials(options)
+    //     .then(async (result) => {
+    //       await result;
+    //       this.regData.biometricKey = await options.username;
+    //       resolve(true);
+    //     }, (err) => {
+    //       this.regData.biometricKey = "";
+    //       resolve(false);
+    //     });
+    // })
 
   }
 

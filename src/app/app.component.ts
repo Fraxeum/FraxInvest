@@ -5,7 +5,7 @@ import { Deeplinks } from '@ionic-native/deeplinks/ngx';
 import { Router, Route } from '@angular/router';
 import { UserService } from './providers/user.service';
 import { OneSignal, OSNotification, OSNotificationPayload, OSPermissionSubscriptionState, OSNotificationOpenedResult } from '@ionic-native/onesignal/ngx';
-import { NativeStorage } from '@ionic-native/native-storage/ngx';
+import { Storage } from '@ionic/storage-angular';
 
 
 export interface MenuItem {
@@ -38,7 +38,7 @@ export class AppComponent {
 
   constructor(
     public platform: Platform,
-    public storage: NativeStorage,
+    public storage: Storage,
     public splashScreen: SplashScreen,
     public router: Router,
     public menu: MenuController,
@@ -48,6 +48,8 @@ export class AppComponent {
     public deeplinks: Deeplinks
   ) {
     this.startApp();
+    this.storage.create()
+
   }
 
   async startApp() {
@@ -77,7 +79,7 @@ export class AppComponent {
         this.getOneSignalId().then(async (response) => {
           if (response) {
             oneSignalId = response.userId;
-            await this.storage.setItem("uid", oneSignalId).then(() => {
+            await this.storage.set("uid", oneSignalId).then(() => {
               resolve(true);
               return;
             });
