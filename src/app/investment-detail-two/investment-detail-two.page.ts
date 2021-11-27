@@ -8,7 +8,7 @@ import { UserService } from '../providers/user.service';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { VideoModalPage } from '../video-modal/video-modal.page';
-import { Storage } from '@ionic/storage-angular';
+import { Storage } from '@capacitor/storage';
 
 type TermsObj = { 'terms1': boolean, 'terms2': boolean, 'terms3': boolean, 'terms4': boolean };
 type FiatObject = { 'FundId': string, 'SPVNAME': string, 'Type': string, 'MemberId': string, 'Currency': string, 'Withdraw': string, 'Deposit': string, 'Spend': string, 'Income': string, 'Available': string, 'escrow_in': string, 'escrow_out': string, 'CurrencySymbol': string, 'CurrencySymbolPos': string, 'CurrencyName': string, 'LocalCurrency': string, 'LocalCurrencySymbol': string, 'LocalCurrencySymbolPos': string, 'Extra': string, 'RecStatus': string, 'locale_id': string, 'currency_code': string };
@@ -48,7 +48,7 @@ export class InvestmentDetailTwoPage implements OnInit {
   @ViewChild('fab') fab: IonFab;
   @ViewChild('fab1') fab1: IonFab;
 
-  sessionToken: string = null;
+  sessionToken: any = null;
 
   legalId = 33;
   raiseType = "Hard Target";
@@ -572,7 +572,7 @@ export class InvestmentDetailTwoPage implements OnInit {
 
   async primeObjects() {
 
-    this.sessionToken = await this.storage.get('session_token');
+    this.sessionToken = await Storage.get({ key: 'session_token' });
 
     this.termsAccepted = {
       terms1: false,

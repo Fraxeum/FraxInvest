@@ -12,7 +12,7 @@ import { MenuController, ModalController, Platform } from '@ionic/angular';
 import { UserService } from '../providers/user.service';
 import { HtmlHelpStringsService } from '../providers/html-help-strings.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Storage } from '@ionic/storage-angular';
+import { Storage } from '@capacitor/storage';
 
 // import { AzuzaHelpPage } from '../azuza-help/azuza-help.page';
 // import { FingerprintAIO, FingerprintOptions } from '@ionic-native/fingerprint-aio/ngx';
@@ -73,7 +73,7 @@ export class AuthPage {
   userOrderedArr: Array<string> = [];
   originalArr: Array<string> = [];
   currentPage = "";
-  target: number;
+  target: any;
   newWord = "";
   count = 0;
 
@@ -98,7 +98,7 @@ export class AuthPage {
   tagsfield;
   checkEmail = false;
 
-  oneSignalId: string;
+  oneSignalId: any;
 
   biometricAvailable = false;
   bioState = false;
@@ -124,7 +124,7 @@ export class AuthPage {
 
   constructor(
     public user: UserService,
-    public storage: Storage,
+    //public storage: Storage,
     public menu: MenuController,
     public helpStrings: HtmlHelpStringsService,
     public route: ActivatedRoute,
@@ -138,7 +138,7 @@ export class AuthPage {
     // console.log();
     this.primeVariables();
     this.navHistory = [];
-    this.storage = storage;
+    // Storage = storage;
     this.init();
   }
 
@@ -175,7 +175,7 @@ export class AuthPage {
 
   async checkFingerPrintSet() {
     try {
-      await this.storage.get("biostate").then(async (value) => {
+      await Storage.get({ key: "biostate" }).then(async (value) => {
         if (await value) {
           this.bioState = true;
           this.hideLogin = true;
@@ -193,11 +193,11 @@ export class AuthPage {
 
   checkStoreCreated(): Promise<boolean> {
     return new Promise((resolve, reject) => {
-      if (!this.storage) {
+      if (!Storage) {
         resolve(false);
         return;
       }
-      this.storage.get("CheckDate").then((value) => {
+      Storage.get({ key: "CheckDate" }).then((value) => {
         if (value) {
           resolve(true);
           return;
@@ -370,7 +370,7 @@ export class AuthPage {
   async doRegiserUser() {
 
     // get onesignal push ID
-    await this.storage.get("uid").then(
+    await Storage.get({ key: "uid" }).then(
       async uid => {
         this.oneSignalId = await uid;
       },
@@ -529,9 +529,9 @@ export class AuthPage {
       if (await data.data) {
         // commit login date to storage
         const date = new Date().toDateString();
-        await this.storage.set('CheckDate', date);
+        await Storage.set({ key: 'CheckDate', value: date });
 
-        await this.storage.set("session_token", data.data.token).then(
+        await Storage.set({ key: "session_token", value: data.data.token }).then(
           async () => {
             if (!data.data.KYCDetails.KYCRequired /* || data.data.KYCDetails.KYCComplete*/) { // load landing page
               this.loadLandingPage();
@@ -597,11 +597,11 @@ export class AuthPage {
       // succesfully logged in
       if (data.success) {
         // commit login date and session to storage
-        await this.storage.set("session_token", data.data.token).then(async () => { // storing session token temporarily
-          await this.storage.set('refCode', data.data.referral);
-          await this.storage.set('CheckDate', date);
+        await Storage.set({ key: "session_token", value: data.data.token }).then(async () => { // storing session token temporarily
+          await Storage.set({ key: 'refCode', value: data.data.referral });
+          await Storage.set({ key: 'CheckDate', value: date });
           if (data.data.bio) {
-            this.storage.set("biostate", data.data.bio);
+            Storage.set({ key: "biostate", value: data.data.bio });
           }
 
           // load landing page if KYC is not required AND there is no withdrawal pending, or if there is, banking data has been loaded
@@ -626,7 +626,7 @@ export class AuthPage {
       // authentication error
       if (data.data.state === 0) {
         if (data.bio) {
-          this.storage.set("biostate", data.bio);
+          Storage.set({ key: "biostate", value: data.bio });
         }
         this.user.setPermaToast(data.msg);
         return;
@@ -707,7 +707,7 @@ export class AuthPage {
 
     // pass control to kyc page
     if (this.KycDocItemsOutstanding > 0) {
-      this.storage.set("kyc", this.kycDocs).then(() => {
+      Storage.set({ key: "kyc", value: JSON.stringify(this.kycDocs) }).then(() => {
         this.router.navigate(['kyc']);
         return;
       }, err => {
@@ -1201,7 +1201,7 @@ export class AuthPage {
 
     // create first use database
     const date = new Date().toDateString();
-    await this.storage.set('CheckDate', date);
+    await Storage.set({ key: 'CheckDate', value: date });
 
     // load first popup
     this.showSignupSpinner = true;
@@ -1366,10 +1366,10 @@ export class AuthPage {
   }
 
   checkCallback() {
-    this.storage.get("target").then(async (result) => {
+    Storage.get({ key: "target" }).then(async (result) => {
       this.target = await result;
       if (this.target) {
-        this.storage.remove("target").then(() => {
+        Storage.remove({ key: "target" }).then(() => {
           this.showRegister();
         });
       }

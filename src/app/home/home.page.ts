@@ -5,7 +5,7 @@ import { AuthPage } from '../auth/auth.page';
 import { HtmlHelpStringsService } from '../providers/html-help-strings.service';
 import { UserService } from '../providers/user.service';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
-import { Storage } from '@ionic/storage-angular';
+import { Storage } from '@capacitor/storage';
 
 type BannerImage = { uri: string, routerLink?: string };
 
@@ -52,6 +52,8 @@ export class HomePage {
     ,
     public router: Router
   ) {
+    console.log('home');
+
     this.menu = menuCtrl;
     this.menu.enable(true, 'main');
     this.menu.swipeGesture(true, 'main');
@@ -65,7 +67,7 @@ export class HomePage {
   }
 
   ionViewWillEnter() {
-    this.storage.get("session_token").then(
+    Storage.get({ key: "session_token" }).then(
       async (token) => {
         console.log("Stored token:" + token);
         this.sessionToken = await token;

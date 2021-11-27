@@ -2,7 +2,7 @@ import { Location } from '@angular/common';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { ActionSheetController, MenuController, NavController, NavParams, Platform } from '@ionic/angular';
-import { Storage } from '@ionic/storage';
+import { Storage } from '@capacitor/storage';
 import { SessionService } from '../providers/session/session.service';
 import { UserService } from '../providers/user.service';
 // import { FilePath } from '@ionic-native/file-path';
@@ -90,7 +90,7 @@ export class AccountSettingsPage {
     public router: Router,
     public location: Location,
     public actionSheetCtrl: ActionSheetController,
-    public storage: Storage,
+    //public storage: Storage,
     public helpStrings: HtmlHelpStringsService,
     public statusBar: StatusBar,
     public camera: Camera,
@@ -108,7 +108,7 @@ export class AccountSettingsPage {
     this.initVariables();
 
     platform.ready().then(() => {
-      this.storage.get("session_token")
+      Storage.get({ key: "session_token" })
         .then(
           async (token) => {
             this.sessionToken = await token;
@@ -217,7 +217,7 @@ export class AccountSettingsPage {
       async (result) => {
         if (result && result.data && !result.data.enrolled) {
           this.biometricState = result.data.enrolled;
-          await this.storage.set("biostate", result.data.enrolled);
+          await Storage.set({ key: "biostate", value: result.data.enrolled });
         }
       },
       err => { });
@@ -240,7 +240,7 @@ export class AccountSettingsPage {
             if (result && result.data && result.data.enrolled) {
               this.biometricState = result.data.enrolled;
               this.biometricLabel = this.getBiometricLabel();
-              await this.storage.set("biostate", result.data.enrolled);
+              await Storage.set({ key: "biostate", value: result.data.enrolled });
             }
           },
           err => { });

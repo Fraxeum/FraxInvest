@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Storage } from '@ionic/storage';
+import { Storage } from '@capacitor/storage';
 import { NavParams, IonFab } from '@ionic/angular';
 import { UserService } from '../providers/user.service';
 import { Clipboard } from '@ionic-native/clipboard/ngx';
@@ -81,7 +81,7 @@ export class DepositMoneyPage implements OnInit {
     public router: Router,
     public helpStrings: HtmlHelpStringsService,
     public browser: InAppBrowser,
-    public storage: Storage
+    //public storage: Storage
   ) {
     this.clipboard = clipboard;
     this.primeDepositOptionsData();
@@ -199,10 +199,10 @@ export class DepositMoneyPage implements OnInit {
 
   // Used to get email address for credit card payment
   async getUserEmail(): Promise<string> {
-    let token: string = null;
+    let token: any = null;
     return new Promise((resolve, reject) => {
 
-      this.storage.get("session_token").then(async (result) => {
+      Storage.get({ key: "session_token" }).then(async (result) => {
         token = result;
         await this.user.getUserInfo(token).then(
           async (response: any) => {

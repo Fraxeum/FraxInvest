@@ -3,7 +3,7 @@ import { LoadingController, ModalController, ToastController } from '@ionic/angu
 import { Camera, CameraOptions, Direction, PictureSourceType, MediaType } from '@ionic-native/camera/ngx';
 import { AzuzaHelpPage } from '../azuza-help/azuza-help.page';
 import { ServerService } from './server.service';
-import { Storage } from '@ionic/storage-angular';
+import { Storage } from '@capacitor/storage';
 import { Router, NavigationExtras } from '@angular/router';
 import { VideoModalPage } from '../video-modal/video-modal.page';
 
@@ -30,8 +30,7 @@ export class UserService {
   constructor(
     public toastCtrl: ToastController,
     public serverService: ServerService,
-    public storage: Storage
-    ,
+    //public storage: Storage    ,    
     public modalPage: ModalController,
     public loadingCtrl: LoadingController,
     public router: Router,
@@ -103,7 +102,7 @@ export class UserService {
 
     let token = null;
 
-    await this.storage.get('session_token').then(async (data: any) => {
+    await Storage.get({ key: 'session_token' }).then(async (data: any) => {
       token = await data;
     });
 
@@ -145,7 +144,7 @@ export class UserService {
 
     let token = null;
 
-    await this.storage.get('session_token').then(async (data: any) => {
+    await Storage.get({ key: 'session_token' }).then(async (data: any) => {
       token = await data;
     });
 
@@ -184,7 +183,7 @@ export class UserService {
 
     let token = null;
 
-    await this.storage.get('session_token').then(async (data: any) => {
+    await Storage.get({ key: 'session_token' }).then(async (data: any) => {
       token = await data;
     });
     return await new Promise((resolve, reject) => {
@@ -223,7 +222,7 @@ export class UserService {
 
     let token = null;
 
-    await this.storage.get('session_token').then(async (data: any) => {
+    await Storage.get({ key: 'session_token' }).then(async (data: any) => {
       token = await data;
     });
 
@@ -262,7 +261,7 @@ export class UserService {
 
     let token = null;
 
-    await this.storage.get('session_token').then(async (data: any) => {
+    await Storage.get({ key: 'session_token' }).then(async (data: any) => {
       token = await data;
     });
     return await new Promise((resolve, reject) => {
@@ -298,7 +297,7 @@ export class UserService {
 
     let token = null;
 
-    await this.storage.get('session_token').then(async (data: any) => {
+    await Storage.get({ key: 'session_token' }).then(async (data: any) => {
       token = await data;
     });
 
@@ -355,7 +354,7 @@ export class UserService {
 
     let token = null;
 
-    await this.storage.get('session_token').then(async (data: any) => {
+    await Storage.get({ key: 'session_token' }).then(async (data: any) => {
       token = await data;
     });
 
@@ -445,7 +444,7 @@ export class UserService {
 
     let token = null;
 
-    await this.storage.get('session_token').then(async (data: any) => {
+    await Storage.get({ key: 'session_token' }).then(async (data: any) => {
       token = await data;
     });
 
@@ -502,7 +501,7 @@ export class UserService {
 
     let token = null;
 
-    await this.storage.get('session_token').then(async (data: any) => {
+    await Storage.get({ key: 'session_token' }).then(async (data: any) => {
       token = await data;
     });
 
@@ -560,7 +559,7 @@ export class UserService {
 
     let token = null;
 
-    await this.storage.get('session_token').then(async (data: any) => {
+    await Storage.get({ key: 'session_token' }).then(async (data: any) => {
       token = await data;
     });
 
@@ -615,7 +614,7 @@ export class UserService {
 
     let token = null;
 
-    await this.storage.get('session_token').then(async (data: any) => {
+    await Storage.get({ key: 'session_token' }).then(async (data: any) => {
       token = await data;
     });
 
@@ -673,7 +672,7 @@ export class UserService {
 
     let token = null;
 
-    await this.storage.get('session_token').then(async (data: any) => {
+    await Storage.get({ key: 'session_token' }).then(async (data: any) => {
       token = await data;
     });
 
@@ -712,7 +711,7 @@ export class UserService {
 
     let token = null;
 
-    await this.storage.get('session_token').then(async (data: any) => {
+    await Storage.get({ key: 'session_token' }).then(async (data: any) => {
       token = await data;
     });
 
@@ -761,7 +760,7 @@ export class UserService {
 
     let token = null;
 
-    await this.storage.get('session_token').then(async (data: any) => {
+    await Storage.get({ key: 'session_token' }).then(async (data: any) => {
       token = await data;
     });
 
@@ -807,7 +806,7 @@ export class UserService {
       groupby: 'pair'
     };
 
-    await this.storage.get('session_token').then(async (data: any) => {
+    await Storage.get({ key: 'session_token' }).then(async (data: any) => {
       token = await data;
     });
 
@@ -884,7 +883,7 @@ export class UserService {
 
     let token = null;
 
-    await this.storage.get('session_token').then(async (data: any) => {
+    await Storage.get({ key: 'session_token' }).then(async (data: any) => {
       token = await data;
     });
     return new Promise((resolve, reject) => {
@@ -973,7 +972,7 @@ export class UserService {
   // store profile data temporarily
   public storeItem(name: string, value: any) {
 
-    this.storage.set(name, value).then(() => {
+    Storage.set({ key: name, value: value }).then(() => {
       return true;
     });
 
@@ -1093,7 +1092,7 @@ export class UserService {
       buttons: [{
         text: 'Sign up',
         handler: () => {
-          this.storage.set("target", 1).then(() => {
+          Storage.set({ key: "target", value: '1' }).then(() => {
             this.router.navigate(['/auth']);
           });
         }
@@ -1130,7 +1129,7 @@ export class UserService {
 
   public async removeTempUserData(): Promise<any> {
     return new Promise(async (resolve, reject) => {
-      await this.storage.remove('session_token');
+      await Storage.remove({ key: 'session_token' });
       resolve(true);
     });
 
@@ -1236,7 +1235,7 @@ export class UserService {
 
     let token = null;
 
-    await this.storage.get('session_token').then(async (data: any) => {
+    await Storage.get({ key: 'session_token' }).then(async (data: any) => {
       token = await data;
     });
 
@@ -1278,7 +1277,7 @@ export class UserService {
     return new Promise(async (resolve, reject) => {
       let token = null;
 
-      await this.storage.get('session_token').then(async (data: any) => {
+      await Storage.get({ key: 'session_token' }).then(async (data: any) => {
         token = await data;
       });
 
@@ -1306,7 +1305,7 @@ export class UserService {
 
     let token = null;
 
-    await this.storage.get('session_token').then(async (data: any) => {
+    await Storage.get({ key: 'session_token' }).then(async (data: any) => {
       token = await data;
     });
 
@@ -1489,7 +1488,7 @@ export class UserService {
 
     let token = null;
 
-    await this.storage.get('session_token').then(async (data: any) => {
+    await Storage.get({ key: 'session_token' }).then(async (data: any) => {
       token = await data;
     });
 
@@ -1524,7 +1523,7 @@ export class UserService {
 
     let token = null;
 
-    await this.storage.get('session_token').then(async (data: any) => {
+    await Storage.get({ key: 'session_token' }).then(async (data: any) => {
       token = await data;
     });
 
@@ -1562,7 +1561,7 @@ export class UserService {
 
     let token = null;
 
-    await this.storage.get('session_token').then(async (data: any) => {
+    await Storage.get({ key: 'session_token' }).then(async (data: any) => {
       token = await data;
     });
 
@@ -1599,7 +1598,7 @@ export class UserService {
 
     let token = null;
 
-    await this.storage.get('session_token').then(async (data: any) => {
+    await Storage.get({ key: 'session_token' }).then(async (data: any) => {
       token = await data;
     });
 
@@ -1662,7 +1661,7 @@ export class UserService {
       let token = _token;
 
       if (token == null) {
-        token = await this.storage.get('session_token');
+        token = await Storage.get({ key: 'session_token' });
 
         if (!token) {
           // not logged in
@@ -1701,7 +1700,7 @@ export class UserService {
 
     if (!message && show) { message = 'Your session has expired. Please log in again.'; }
 
-    await this.storage.remove('session_token');
+    await Storage.remove({ key: 'session_token' });
 
     this.dismissPopup();
 

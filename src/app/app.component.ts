@@ -5,7 +5,7 @@ import { Deeplinks } from '@ionic-native/deeplinks/ngx';
 import { Router, Route } from '@angular/router';
 import { UserService } from './providers/user.service';
 import { OneSignal, OSNotification, OSNotificationPayload, OSPermissionSubscriptionState, OSNotificationOpenedResult } from '@ionic-native/onesignal/ngx';
-import { Storage } from '@ionic/storage-angular';
+import { Storage } from '@capacitor/storage';
 
 
 export interface MenuItem {
@@ -38,7 +38,7 @@ export class AppComponent {
 
   constructor(
     public platform: Platform,
-    public storage: Storage,
+    //public storage: Storage,
     public splashScreen: SplashScreen,
     public router: Router,
     public menu: MenuController,
@@ -48,7 +48,7 @@ export class AppComponent {
     public deeplinks: Deeplinks
   ) {
     this.startApp();
-    this.storage.create()
+    // Storage.create()
 
   }
 
@@ -56,7 +56,7 @@ export class AppComponent {
     // init app once platform is ready and storage is ready.
     this.platform.ready()
       .then(async () => {
-        this.storage.remove("session_token"); // set to remove any possible old session re-use security breach
+        Storage.remove({ key: "session_token" }); // set to remove any possible old session re-use security breach
         this.menu.enable(false, "main");
         await this.initializeApp();
       })
@@ -79,7 +79,7 @@ export class AppComponent {
         this.getOneSignalId().then(async (response) => {
           if (response) {
             oneSignalId = response.userId;
-            await this.storage.set("uid", oneSignalId).then(() => {
+            await Storage.set({ key: "uid", value: oneSignalId }).then(() => {
               resolve(true);
               return;
             });
@@ -138,7 +138,7 @@ export class AppComponent {
       let sessionDetected = false;
 
       // limits login to only execute after first successful login
-      this.storage.get("autologin")
+      Storage.get("autologin")
         .then(async (response) => {
           autoLoginEnabled = await response ? true : false;
         }, (err) => {
@@ -151,7 +151,7 @@ export class AppComponent {
           }
         });
 
-      this.storage.get("session_token").then(async (token) => {
+      Storage.get("session_token").then(async (token) => {
         if (await token) {
           await this.checkTokenState(token)
             .then(

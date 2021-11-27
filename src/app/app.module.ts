@@ -11,7 +11,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { Camera } from '@ionic-native/camera/ngx';
-import { Storage } from '@ionic/storage-angular';
+import { Storage } from '@capacitor/storage';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
