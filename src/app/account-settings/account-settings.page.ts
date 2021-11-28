@@ -85,7 +85,7 @@ export class AccountSettingsPage {
   constructor(
     public navCtrl: NavController,
     public menuCtrl: MenuController,
-    public session: SessionService,
+    // public session: SessionService,
     public userProv: UserService,
     public router: Router,
     public location: Location,
@@ -111,7 +111,7 @@ export class AccountSettingsPage {
       Storage.get({ key: "session_token" })
         .then(
           async (token) => {
-            this.sessionToken = await token;
+            this.sessionToken = await token.value;
           })
         .then(
           async () => {

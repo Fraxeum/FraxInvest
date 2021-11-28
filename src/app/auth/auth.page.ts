@@ -176,7 +176,7 @@ export class AuthPage {
   async checkFingerPrintSet() {
     try {
       await Storage.get({ key: "biostate" }).then(async (value) => {
-        if (await value) {
+        if (await value.value) {
           this.bioState = true;
           this.hideLogin = true;
         } else {
@@ -198,7 +198,7 @@ export class AuthPage {
         return;
       }
       Storage.get({ key: "CheckDate" }).then((value) => {
-        if (value) {
+        if (value.value) {
           resolve(true);
           return;
         } else { resolve(false); }
@@ -372,7 +372,7 @@ export class AuthPage {
     // get onesignal push ID
     await Storage.get({ key: "uid" }).then(
       async uid => {
-        this.oneSignalId = await uid;
+        this.oneSignalId = await uid.value;
       },
       err => {
         this.oneSignalId = "";
@@ -1367,7 +1367,7 @@ export class AuthPage {
 
   checkCallback() {
     Storage.get({ key: "target" }).then(async (result) => {
-      this.target = await result;
+      this.target = await result.value;
       if (this.target) {
         Storage.remove({ key: "target" }).then(() => {
           this.showRegister();

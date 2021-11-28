@@ -103,7 +103,7 @@ export class UserService {
     let token = null;
 
     await Storage.get({ key: 'session_token' }).then(async (data: any) => {
-      token = await data;
+      token = await data.value;
     });
 
     return await new Promise((resolve, reject) => {
@@ -145,7 +145,7 @@ export class UserService {
     let token = null;
 
     await Storage.get({ key: 'session_token' }).then(async (data: any) => {
-      token = await data;
+      token = await data.value;
     });
 
     return await new Promise((resolve, reject) => {
@@ -184,7 +184,7 @@ export class UserService {
     let token = null;
 
     await Storage.get({ key: 'session_token' }).then(async (data: any) => {
-      token = await data;
+      token = await data.value;
     });
     return await new Promise((resolve, reject) => {
 
@@ -223,7 +223,7 @@ export class UserService {
     let token = null;
 
     await Storage.get({ key: 'session_token' }).then(async (data: any) => {
-      token = await data;
+      token = await data.value;
     });
 
     return await new Promise((resolve, reject) => {
@@ -262,7 +262,7 @@ export class UserService {
     let token = null;
 
     await Storage.get({ key: 'session_token' }).then(async (data: any) => {
-      token = await data;
+      token = await data.value;
     });
     return await new Promise((resolve, reject) => {
 
@@ -298,7 +298,7 @@ export class UserService {
     let token = null;
 
     await Storage.get({ key: 'session_token' }).then(async (data: any) => {
-      token = await data;
+      token = await data.value;
     });
 
     const params = {};
@@ -355,7 +355,7 @@ export class UserService {
     let token = null;
 
     await Storage.get({ key: 'session_token' }).then(async (data: any) => {
-      token = await data;
+      token = await data.value;
     });
 
     let event = '';
@@ -445,7 +445,7 @@ export class UserService {
     let token = null;
 
     await Storage.get({ key: 'session_token' }).then(async (data: any) => {
-      token = await data;
+      token = await data.value;
     });
 
     const params: { 'walletfromaddress': string, 'wallettoaddress': string, 'currency': string, 'Amount': string } = { walletfromaddress: walletfromaddress, wallettoaddress: wallettoaddress, currency: currency, Amount: amount };
@@ -502,7 +502,7 @@ export class UserService {
     let token = null;
 
     await Storage.get({ key: 'session_token' }).then(async (data: any) => {
-      token = await data;
+      token = await data.value;
     });
 
 
@@ -560,7 +560,7 @@ export class UserService {
     let token = null;
 
     await Storage.get({ key: 'session_token' }).then(async (data: any) => {
-      token = await data;
+      token = await data.value;
     });
 
     const params: { 'name': string } = { name };
@@ -615,7 +615,7 @@ export class UserService {
     let token = null;
 
     await Storage.get({ key: 'session_token' }).then(async (data: any) => {
-      token = await data;
+      token = await data.value;
     });
 
     const params: { 'JurisdictionId': number, 'SectorId': number, 'Type': number } = { JurisdictionId, SectorId, Type };
@@ -673,7 +673,7 @@ export class UserService {
     let token = null;
 
     await Storage.get({ key: 'session_token' }).then(async (data: any) => {
-      token = await data;
+      token = await data.value;
     });
 
     return await new Promise((resolve, reject) => {
@@ -712,7 +712,7 @@ export class UserService {
     let token = null;
 
     await Storage.get({ key: 'session_token' }).then(async (data: any) => {
-      token = await data;
+      token = await data.value;
     });
 
     return await new Promise((resolve, reject) => {
@@ -761,7 +761,7 @@ export class UserService {
     let token = null;
 
     await Storage.get({ key: 'session_token' }).then(async (data: any) => {
-      token = await data;
+      token = await data.value;
     });
 
 
@@ -807,7 +807,7 @@ export class UserService {
     };
 
     await Storage.get({ key: 'session_token' }).then(async (data: any) => {
-      token = await data;
+      token = await data.value;
     });
 
     return await new Promise(async (resolve, reject) => {
@@ -884,7 +884,7 @@ export class UserService {
     let token = null;
 
     await Storage.get({ key: 'session_token' }).then(async (data: any) => {
-      token = await data;
+      token = await data.value;
     });
     return new Promise((resolve, reject) => {
 
@@ -1236,7 +1236,7 @@ export class UserService {
     let token = null;
 
     await Storage.get({ key: 'session_token' }).then(async (data: any) => {
-      token = await data;
+      token = await data.value;
     });
 
     return await new Promise((resolve, reject) => {
@@ -1278,7 +1278,7 @@ export class UserService {
       let token = null;
 
       await Storage.get({ key: 'session_token' }).then(async (data: any) => {
-        token = await data;
+        token = await data.value;
       });
 
       if (token == null) {
@@ -1306,7 +1306,7 @@ export class UserService {
     let token = null;
 
     await Storage.get({ key: 'session_token' }).then(async (data: any) => {
-      token = await data;
+      token = await data.value;
     });
 
     return await new Promise((resolve, reject) => {
@@ -1432,7 +1432,7 @@ export class UserService {
     let token = temptoken;
     if (!token) {
       this.getToken().then(async (data) => {
-        token = await data;
+        token = await data.value;
       })
     }
 
@@ -1489,7 +1489,7 @@ export class UserService {
     let token = null;
 
     await Storage.get({ key: 'session_token' }).then(async (data: any) => {
-      token = await data;
+      token = await data.value;
     });
 
 
@@ -1524,7 +1524,7 @@ export class UserService {
     let token = null;
 
     await Storage.get({ key: 'session_token' }).then(async (data: any) => {
-      token = await data;
+      token = await data.value;
     });
 
     return await new Promise((resolve, reject) => {
@@ -1562,7 +1562,7 @@ export class UserService {
     let token = null;
 
     await Storage.get({ key: 'session_token' }).then(async (data: any) => {
-      token = await data;
+      token = await data.value;
     });
 
     return await new Promise((resolve, reject) => {
@@ -1599,7 +1599,7 @@ export class UserService {
     let token = null;
 
     await Storage.get({ key: 'session_token' }).then(async (data: any) => {
-      token = await data;
+      token = await data.value;
     });
 
     return new Promise((resolve, reject) => {
@@ -1661,7 +1661,9 @@ export class UserService {
       let token = _token;
 
       if (token == null) {
-        token = await Storage.get({ key: 'session_token' });
+        await Storage.get({ key: 'session_token' }).then(res => {
+          token = res.value
+        });
 
         if (!token) {
           // not logged in

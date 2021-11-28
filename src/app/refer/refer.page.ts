@@ -17,7 +17,7 @@ export class ReferPage implements OnInit {
 
   ngOnInit() {
     Storage.get({ key: 'refCode' }).then(async (code) => {
-      this.referralCode = await code;
+      this.referralCode = await code.value;
     }, err => {
       this.referralCode = "--";
     });

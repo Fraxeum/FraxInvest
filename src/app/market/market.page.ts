@@ -704,7 +704,7 @@ export class MarketPage {
       .then(
         async (token) => {
           console.log("Stored token:" + token);
-          this.sessionToken = await token;
+          this.sessionToken = await token.value;
         })
       .then(async () => {
         await this.getUserInfo(this.sessionToken).then(async (userdata) => {

@@ -579,7 +579,9 @@ export class InvestmentDetailOnePage implements OnInit {
 
   async primeObjects() {
 
-    this.sessionToken = await Storage.get({ key: 'session_token' });
+    await Storage.get({ key: 'session_token' }).then(res => {
+      this.sessionToken = res.value
+    });
 
     this.termsAccepted = {
       terms1: false,

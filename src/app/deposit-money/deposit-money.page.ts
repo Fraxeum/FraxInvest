@@ -203,7 +203,7 @@ export class DepositMoneyPage implements OnInit {
     return new Promise((resolve, reject) => {
 
       Storage.get({ key: "session_token" }).then(async (result) => {
-        token = result;
+        token = result.value;
         await this.user.getUserInfo(token).then(
           async (response: any) => {
             if (await response.data.general.Email) {

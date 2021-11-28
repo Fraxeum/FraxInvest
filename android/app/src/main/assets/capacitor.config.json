@@ -1,6 +1,6 @@
 {
-	"appId": "io.ionic.starter",
-	"appName": "ionicPwa",
+	"appId": "com.azuzawealth.za",
+	"appName": "Azuza",
 	"webDir": "www",
 	"bundledWebRuntime": false,
 	"linuxAndroidStudioPath": "/opt/android-studio/bin/studio.sh"

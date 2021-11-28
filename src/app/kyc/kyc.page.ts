@@ -276,7 +276,7 @@ export class KycPage implements OnInit {
     await Storage.get({ key: "session_token" })
       .then(
         async (token) => {
-          this.sessionToken = await token;
+          this.sessionToken = await token.value;
         });
 
     await this.user.processUpload(this.photoB64Str, this.sessionToken, this.kycDocItems[this.selectedItemId].lrid, this.kycDocItems[this.selectedItemId].name)
@@ -354,7 +354,8 @@ export class KycPage implements OnInit {
       (result) => {
         if (result) {
           console.log(result);
-          // this.kycDocs = result; // check 
+          let x: any = result.value
+          this.kycDocs = x; // check storage
         } else {
           this.kycDocs = [];
         }

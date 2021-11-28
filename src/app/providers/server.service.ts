@@ -8,23 +8,23 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ServerService {
-// <-------------- MAAK SEKER LINKS WERK --------------------<<<<<<<
+  // <-------------- MAAK SEKER LINKS WERK --------------------<<<<<<<
 
 
 
-   baseUrl = "https://app.azuzawealth.com/?";
-   azuzaServerVer = "1.3";
-   network = 1; // version 1.0.58 1 => TESTNET, 0 => MAINNET
-   httpClient = null;
+  baseUrl = "https://app.azuzawealth.com/?";
+  azuzaServerVer = "1.3";
+  network = 1; // version 1.0.58 1 => TESTNET, 0 => MAINNET
+  httpClient = null;
 
   constructor(
-     httpService: HttpClient
+    httpService: HttpClient
   ) {
     this.httpClient = httpService;
-    this.baseUrl += "ver=" +this.azuzaServerVer + "&iCd=";
+    this.baseUrl += "ver=" + this.azuzaServerVer + "&iCd=";
   }
 
-  public getGatewayPath(){
+  public getGatewayPath() {
     return this.baseUrl;
   }
 
@@ -57,7 +57,7 @@ export class ServerService {
 
 
   // check if user is still logged in
-   sessionActive(data): boolean {
+  sessionActive(data): boolean {
     if (data && data.code === "1000") {
       return false;
     }
@@ -67,7 +67,7 @@ export class ServerService {
 
   // post request takes params in JSON array list,
   public async doPostRequest(resource: string, token: string = null, params?: {}): Promise<any> {
-    
+
     if (!params) {
       params = {};
     }
@@ -77,7 +77,7 @@ export class ServerService {
       this.processPostRequest(resource, token, params).subscribe(
         data => {
           if (data && this.sessionActive(data)) {
-            
+
             resolve(data);
           } else {
             console.log("HTTP: ALERT Session Expired");
@@ -86,7 +86,7 @@ export class ServerService {
 
         },
         err => {
-         
+
           reject(err);
 
         }
@@ -98,7 +98,8 @@ export class ServerService {
   /*
 * @Returns BODY ONLY, JSON data
 */
-   processPostRequest(resource: string, token: string, params): Observable<any> {
+  processPostRequest(resource: string, token: string, params): Observable<any> {
+    console.log(token);
 
     const _fakeToken = Math.random() * 12349876;
 
@@ -122,25 +123,25 @@ export class ServerService {
   }
 
 
-   makeUrl(resource: string, token: string) {
+  makeUrl(resource: string, token: string) {
 
     return this.baseUrl + resource + "&iCn=" + this.network;
   }
 
 
 
- createPostPayload(data: any): string {
-  if (!data) { return null; }
+  createPostPayload(data: any): string {
+    if (!data) { return null; }
 
-  let payload = "";
+    let payload = "";
 
-  for (const key in data) {
-    payload += key + "=" + data[key];
-    payload += "&";
+    for (const key in data) {
+      payload += key + "=" + data[key];
+      payload += "&";
+    }
+    console.log("Payload: " + payload.substring(0, payload.length - 1));
+
+    return payload.substring(0, payload.length - 1);
   }
-  console.log("Payload: " + payload.substring(0, payload.length - 1));
-
-  return payload.substring(0, payload.length - 1);
-}
 
 }

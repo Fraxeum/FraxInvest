@@ -48,12 +48,8 @@ export class HomePage {
     public route: ActivatedRoute,
     public browser: InAppBrowser,
     public platform: Platform,
-    public storage: Storage
-    ,
     public router: Router
   ) {
-    console.log('home');
-
     this.menu = menuCtrl;
     this.menu.enable(true, 'main');
     this.menu.swipeGesture(true, 'main');
@@ -70,7 +66,7 @@ export class HomePage {
     Storage.get({ key: "session_token" }).then(
       async (token) => {
         console.log("Stored token:" + token);
-        this.sessionToken = await token;
+        this.sessionToken = await token.value;
         this.primeAssetObjects();
       })
       .then(async () => {

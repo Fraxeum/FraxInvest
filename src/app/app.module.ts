@@ -18,15 +18,16 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { Deeplinks } from '@ionic-native/deeplinks/ngx';
 import { OneSignal } from '@ionic-native/onesignal/ngx';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule,
-    IonicStorageModule.forRoot({
-      name: '__azuzaDB',
-      // driverOrder: ['sqlite', 'indexeddb', 'websql']
-    }),
+    // IonicStorageModule.forRoot({
+    //   name: '__azuzaDB',
+    //   // driverOrder: ['sqlite', 'indexeddb', 'websql']
+    // }),
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     Camera,
@@ -34,9 +35,10 @@ import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
     SocialSharing,
     PhotoViewer,
     SplashScreen,
+    StatusBar,
     Deeplinks,
     OneSignal,
-    InAppBrowser
+    InAppBrowser,
   ],
   bootstrap: [AppComponent],
 })
