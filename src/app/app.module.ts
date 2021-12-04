@@ -14,11 +14,11 @@ import { Camera } from '@ionic-native/camera/ngx';
 import { Storage } from '@capacitor/storage';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
-import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { Deeplinks } from '@ionic-native/deeplinks/ngx';
 import { OneSignal } from '@ionic-native/onesignal/ngx';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { FingerprintAIO } from '@ionic-native/fingerprint-aio/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -34,11 +34,11 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
     Clipboard,
     SocialSharing,
     PhotoViewer,
-    SplashScreen,
     StatusBar,
     Deeplinks,
     OneSignal,
     InAppBrowser,
+    FingerprintAIO,
   ],
   bootstrap: [AppComponent],
 })

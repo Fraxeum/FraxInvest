@@ -10,8 +10,8 @@ import { HtmlHelpStringsService } from '../providers/html-help-strings.service';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Camera, CameraOptions, Direction } from '@ionic-native/camera/ngx';
 import { OneSignal, OSPermissionSubscriptionState } from '@ionic-native/onesignal/ngx';
-// import { FingerprintAIO, FingerprintOptions } from '@ionic-native/fingerprint-aio/ngx';
-import { AvailableResult, BiometryType, NativeBiometric } from 'capacitor-native-biometric';
+import { FingerprintAIO, FingerprintOptions } from '@ionic-native/fingerprint-aio/ngx';
+// import { AvailableResult, BiometryType, NativeBiometric } from 'capacitor-native-biometric';
 
 type User = { 'MemberId': string, 'FirstName': string, 'LastName': string, 'IdNo': string, 'IdType': string, 'Gender': string, 'UserName': string, 'Email': string, 'RefBy': string, 'DOB': string, 'Status': string, 'KYCLevel': string, 'CountryId': string, 'Role': string, 'MemberType': string, 'RoleName': string };
 type BankAcc = { 'type': string, 'Id': '0', 'Country': string, 'BankName': string, 'AccountNumber': string, 'BranchCode': string };
@@ -96,7 +96,7 @@ export class AccountSettingsPage {
     public camera: Camera,
     onesignal: OneSignal,
     public platform: Platform,
-    // public biometric: FingerprintAIO
+    public biometric: FingerprintAIO
   ) {
     this.oneSignal = onesignal;
     const darkTheme = localStorage.getItem('darkTheme');
@@ -158,14 +158,9 @@ export class AccountSettingsPage {
   checkBiometricAvailable(): Promise<boolean> {
     return new Promise(async (resolve, reject) => {
       try {
-        await NativeBiometric.isAvailable().then((result: AvailableResult) => {
-          const isAvailable = result.isAvailable;
-          if (isAvailable) {
-            resolve(true);
-            return;
-          }
-        }, err => {
-          resolve(false);
+        await this.biometric.isAvailable().then((result) => {
+          const r = result ? true : false;
+          resolve(r);
           return;
         });
       } catch (error) {
@@ -206,6 +201,8 @@ export class AccountSettingsPage {
       await this.unlistBiometric();
       return;
     }
+    console.log('toggleBiometric');
+
     // currently off - switch on
     await this.enrollBiometric();
     return;
@@ -224,9 +221,12 @@ export class AccountSettingsPage {
   }
 
   async enrollBiometric() {
+    console.log('enrollBiometric');
 
     this.enrollFingerPrint()
       .then(async (result) => {
+        console.log('enrollFingerPrint', result);
+
         if (await !result) {
           this.biometricState = false;
           this.biometricLabel = this.getBiometricLabel();
@@ -234,6 +234,7 @@ export class AccountSettingsPage {
         }
 
         this.biometricKey = result;
+        console.log(this.biometricKey);
 
         this.registerBiometrics().then(
           async (result) => {
@@ -267,40 +268,28 @@ export class AccountSettingsPage {
   async enrollFingerPrint(): Promise<any> {
 
 
-    // return new Promise((resolve, reject) => {
-    //   this.biometric.registerBiometricSecret(options)
-    //     .then(async (result) => {
-    //       if (result === 'biometric_success') {
-    //         resolve(options.secret);
-    //         return;
-    //       }
-    //       this.userProv.setToast("Biometric registration failed: " + result);
-    //       resolve(false);
-    //     }, (err) => {
-    //       resolve(false);
-    //     });
+    const options = {
+      title: 'Azuza Biometric Enrollment',
+      disableBackup: true,
+      description: 'Make login easy and secure transactions with biometric authentication.',
+      confirmationRequired: false,
+      secret: this.randomString(128),
+      invalidateOnEnrollment: true
+    };
 
-    // });
-
-
-    // const options = {
-    //   username: await this.randomString(128),
-    //   password: await this.randomString(10),
-    //   server: 'com.azuzawealth.za',
-    // };
-
-    // return new Promise((resolve, reject) => {
-    //   NativeBiometric.setCredentials(options)
-    //     .then(async (result) => {
-    //       await result;
-    //       this.regData.biometricKey = await options.username;
-    //       resolve(true);
-    //     }, (err) => {
-    //       this.regData.biometricKey = "";
-    //       resolve(false);
-    //     });
-    // })
-
+    return new Promise((resolve, reject) => {
+      this.biometric.registerBiometricSecret(options)
+        .then(async (result) => {
+          if (result === 'biometric_success') {
+            resolve(options.secret);
+            return;
+          }
+          this.userProv.setToast("Biometric registration failed: " + result);
+          resolve(false);
+        }, (err) => {
+          resolve(false);
+        });
+    });
   }
 
   async registerBiometrics(): Promise<any> {

@@ -6,13 +6,14 @@ type KYCDocItems = Array<KYCItem>;
 type KYCItem = { name: string, lrid: string, b64img: string };
 type EmailCheckResult = { Exist: boolean, Active: boolean, Confirm: boolean, KYC: boolean };
 type BannerImage = { uri: string, page?: string };
-import { AvailableResult, BiometryType, NativeBiometric } from 'capacitor-native-biometric';
+// import { AvailableResult, BiometryType, NativeBiometric } from 'capacitor-native-biometric';
 import { Component, ChangeDetectorRef } from '@angular/core';
 import { MenuController, ModalController, Platform } from '@ionic/angular';
 import { UserService } from '../providers/user.service';
 import { HtmlHelpStringsService } from '../providers/html-help-strings.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Storage } from '@capacitor/storage';
+import { FingerprintAIO } from '@ionic-native/fingerprint-aio/ngx';
 
 // import { AzuzaHelpPage } from '../azuza-help/azuza-help.page';
 // import { FingerprintAIO, FingerprintOptions } from '@ionic-native/fingerprint-aio/ngx';
@@ -132,7 +133,7 @@ export class AuthPage {
     public modalController: ModalController,
     public changeDetector: ChangeDetectorRef,
     public platform: Platform,
-    // public biometric: FingerprintAIO,
+    public biometric: FingerprintAIO,
     // public browser: InAppBrowser
   ) {
     // console.log();
@@ -174,9 +175,13 @@ export class AuthPage {
   }
 
   async checkFingerPrintSet() {
+    console.log('checkFingerPrintSet');
+
     try {
       await Storage.get({ key: "biostate" }).then(async (value) => {
         if (await value.value) {
+          console.log('biostate ', value);
+
           this.bioState = true;
           this.hideLogin = true;
         } else {
@@ -213,14 +218,9 @@ export class AuthPage {
   checkBiometricAvailable(): Promise<boolean> {
     return new Promise(async (resolve, reject) => {
       try {
-        await NativeBiometric.isAvailable().then((result: AvailableResult) => {
-          const isAvailable = result.isAvailable;
-          if (isAvailable) {
-            resolve(true);
-            return;
-          }
-        }, err => {
-          resolve(false);
+        await this.biometric.isAvailable().then((result) => {
+          const r = (result === "OK") ? true : false;
+          resolve(r);
           return;
         });
       } catch (error) {
@@ -242,16 +242,20 @@ export class AuthPage {
 
   async enrollFingerPrint(): Promise<boolean> {
     const options = {
-      username: await this.randomString(128),
-      password: await this.randomString(10),
-      server: 'com.azuzawealth.za',
+      title: 'Azuza Biometric Enrollment',
+      disableBackup: false,
+      description: 'Make login easy and secure transactions with biometric authentication.',
+      fallbackButtonTitle: 'Use Backup',
+      confirmationRequired: false,
+      secret: await this.randomString(128),
+      invalidateOnEnrollment: true
     };
 
     return new Promise((resolve, reject) => {
-      NativeBiometric.setCredentials(options)
+      this.biometric.registerBiometricSecret(options)
         .then(async (result) => {
           await result;
-          this.regData.biometricKey = await options.username;
+          this.regData.biometricKey = await options.secret;
           resolve(true);
         }, (err) => {
           this.regData.biometricKey = "";
@@ -262,19 +266,17 @@ export class AuthPage {
 
   async loginFingerPrint() {
     const options = {
-      // title: 'Azuza Biometric Enrollment',
-      // description: 'Authenicate',
-      // fallbackButtonTitle: 'Use Backup',
-      // confirmationRequired: false,
-      // invalidateOnEnrollment: true,
-      // disableBackup: false
+      title: 'Azuza Biometric Enrollment',
+      description: 'Authenicate',
+      fallbackButtonTitle: 'Use Backup',
+      confirmationRequired: false,
+      invalidateOnEnrollment: true,
+      disableBackup: false
     };
 
-    await NativeBiometric.getCredentials({
-      server: 'com.azuzawealth.za',
-    })
+    await this.biometric.loadBiometricSecret(options)
       .then(async (result) => {
-        this.regData.biometricKey = await result.username;
+        this.regData.biometricKey = await result;
         await this.doBioMetricLogin();
 
       }, (err) => {

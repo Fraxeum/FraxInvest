@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AlertController, MenuController, Platform } from '@ionic/angular';
-import { SplashScreen } from '@ionic-native/splash-screen/ngx';
+import { SplashScreen } from '@capacitor/splash-screen';
 import { Deeplinks } from '@ionic-native/deeplinks/ngx';
 import { Router, Route } from '@angular/router';
 import { UserService } from './providers/user.service';
@@ -39,7 +39,6 @@ export class AppComponent {
   constructor(
     public platform: Platform,
     //public storage: Storage,
-    public splashScreen: SplashScreen,
     public router: Router,
     public menu: MenuController,
     public user: UserService,
@@ -47,9 +46,16 @@ export class AppComponent {
     public oneSignal: OneSignal,
     public deeplinks: Deeplinks
   ) {
+    // SplashScreen.show({
+    //   autoHide: false
+    // });
     this.startApp();
     // Storage.create()
-
+    this.platform.ready().then(async () => {
+      setTimeout(() => {
+        SplashScreen.hide();
+      }, 1000 * 2);
+    })
   }
 
   async startApp() {
@@ -59,14 +65,13 @@ export class AppComponent {
         Storage.remove({ key: "session_token" }); // set to remove any possible old session re-use security breach
         this.menu.enable(false, "main");
         await this.initializeApp();
-      })
-      .then(async () => {
+        // })
+        // .then(async () => {
         await this.setupOneSignal();
-      })
-      .then(() => {
-        this.router.navigate([this.nextPage]).then(async () => {
-          await this.splashScreen.hide();
-        });
+        // })
+        // .then(() => {
+        // this.router.navigate([this.nextPage]).then(async () => {
+        // });
       });
     return;
   }
@@ -136,7 +141,7 @@ export class AppComponent {
       /*
       let autoLoginEnabled = false;
       let sessionDetected = false;
-
+  
       // limits login to only execute after first successful login
       Storage.get("autologin")
         .then(async (response) => {
@@ -150,7 +155,7 @@ export class AppComponent {
             return;
           }
         });
-
+  
       Storage.get("session_token").then(async (token) => {
         if (await token) {
           await this.checkTokenState(token)
@@ -165,7 +170,7 @@ export class AppComponent {
             });
         }
         resolve(false);
-
+  
       }, err => {
         resolve(false);
       });*/
@@ -275,11 +280,11 @@ export class AppComponent {
           this.nextPage = 'home';
           await this.setIntervalSessionCheck();
         }
-
+  
         if (this.nextPage === 'register-1') {
           this.nextPage = "auth";
         }
-
+  
       },
       err => {
         this.nextPage = "auth";
