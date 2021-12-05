@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { NavigationExtras, Router } from '@angular/router';
-import { NativeStorage } from '@ionic-native/native-storage/ngx';
+import { Storage } from '@capacitor/storage';
 
 @Component({
   selector: 'app-refer',
@@ -10,13 +10,14 @@ import { NativeStorage } from '@ionic-native/native-storage/ngx';
 })
 export class ReferPage implements OnInit {
 
-  referralCode: string = null;
+  referralCode: any = null;
 
-  constructor(public storage: NativeStorage, public router: Router) { }
+  constructor(//public storage: Storage,
+    public router: Router) { }
 
   ngOnInit() {
-    this.storage.getItem('refCode').then(async (code) => {
-      this.referralCode = await code;
+    Storage.get({ key: 'refCode' }).then(async (code) => {
+      this.referralCode = await code.value;
     }, err => {
       this.referralCode = "--";
     });

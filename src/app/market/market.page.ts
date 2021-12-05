@@ -6,7 +6,7 @@ import { UserService } from '../providers/user.service';
 import { NegotiationPopupPage } from '../negotiation-popup/negotiation-popup.page';
 import { HtmlHelpStringsService } from '../providers/html-help-strings.service';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
-import { NativeStorage } from '@ionic-native/native-storage/ngx';
+import { Storage } from '@capacitor/storage';
 
 
 type MarketListItem = { Asset: string, CompanyName: string, Name: string, Count: string };
@@ -106,7 +106,7 @@ export class MarketPage {
     public user: UserService,
     public session: SessionService,
     public router: Router,
-    public storage: NativeStorage,
+    //public storage: Storage
     public changeDetector: ChangeDetectorRef,
     public modalCtrl: ModalController,
     public alertController: AlertController,
@@ -700,11 +700,11 @@ export class MarketPage {
   ionViewWillEnter() {
     this.menuCtrl.enable(true, 'menu');
 
-    this.storage.getItem("session_token")
+    Storage.get({ key: "session_token" })
       .then(
         async (token) => {
           console.log("Stored token:" + token);
-          this.sessionToken = await token;
+          this.sessionToken = await token.value;
         })
       .then(async () => {
         await this.getUserInfo(this.sessionToken).then(async (userdata) => {

@@ -6,13 +6,15 @@ type KYCDocItems = Array<KYCItem>;
 type KYCItem = { name: string, lrid: string, b64img: string };
 type EmailCheckResult = { Exist: boolean, Active: boolean, Confirm: boolean, KYC: boolean };
 type BannerImage = { uri: string, page?: string };
-import { AvailableResult, BiometryType, NativeBiometric } from 'capacitor-native-biometric';
+// import { AvailableResult, BiometryType, NativeBiometric } from 'capacitor-native-biometric';
 import { Component, ChangeDetectorRef } from '@angular/core';
 import { MenuController, ModalController, Platform } from '@ionic/angular';
 import { UserService } from '../providers/user.service';
 import { HtmlHelpStringsService } from '../providers/html-help-strings.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NativeStorage } from '@ionic-native/native-storage/ngx';
+import { Storage } from '@capacitor/storage';
+import { FingerprintAIO } from '@ionic-native/fingerprint-aio/ngx';
+
 // import { AzuzaHelpPage } from '../azuza-help/azuza-help.page';
 // import { FingerprintAIO, FingerprintOptions } from '@ionic-native/fingerprint-aio/ngx';
 // import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
@@ -72,7 +74,7 @@ export class AuthPage {
   userOrderedArr: Array<string> = [];
   originalArr: Array<string> = [];
   currentPage = "";
-  target: number;
+  target: any;
   newWord = "";
   count = 0;
 
@@ -97,7 +99,7 @@ export class AuthPage {
   tagsfield;
   checkEmail = false;
 
-  oneSignalId: string;
+  oneSignalId: any;
 
   biometricAvailable = false;
   bioState = false;
@@ -123,7 +125,7 @@ export class AuthPage {
 
   constructor(
     public user: UserService,
-    public storage: NativeStorage,
+    //public storage: Storage,
     public menu: MenuController,
     public helpStrings: HtmlHelpStringsService,
     public route: ActivatedRoute,
@@ -131,12 +133,13 @@ export class AuthPage {
     public modalController: ModalController,
     public changeDetector: ChangeDetectorRef,
     public platform: Platform,
-    // public biometric: FingerprintAIO,
+    public biometric: FingerprintAIO,
     // public browser: InAppBrowser
   ) {
+    // console.log();
     this.primeVariables();
     this.navHistory = [];
-    this.storage = storage;
+    // Storage = storage;
     this.init();
   }
 
@@ -172,9 +175,13 @@ export class AuthPage {
   }
 
   async checkFingerPrintSet() {
+    console.log('checkFingerPrintSet');
+
     try {
-      await this.storage.getItem("biostate").then(async (value) => {
-        if (await value) {
+      await Storage.get({ key: "biostate" }).then(async (value) => {
+        if (await value.value) {
+          console.log('biostate ', value);
+
           this.bioState = true;
           this.hideLogin = true;
         } else {
@@ -191,12 +198,12 @@ export class AuthPage {
 
   checkStoreCreated(): Promise<boolean> {
     return new Promise((resolve, reject) => {
-      if (!this.storage) {
+      if (!Storage) {
         resolve(false);
         return;
       }
-      this.storage.getItem("CheckDate").then((value) => {
-        if (value) {
+      Storage.get({ key: "CheckDate" }).then((value) => {
+        if (value.value) {
           resolve(true);
           return;
         } else { resolve(false); }
@@ -211,14 +218,9 @@ export class AuthPage {
   checkBiometricAvailable(): Promise<boolean> {
     return new Promise(async (resolve, reject) => {
       try {
-        await NativeBiometric.isAvailable().then((result: AvailableResult) => {
-          const isAvailable = result.isAvailable;
-          if (isAvailable) {
-            resolve(true);
-            return;
-          }
-        }, err => {
-          resolve(false);
+        await this.biometric.isAvailable().then((result) => {
+          const r = (result === "OK") ? true : false;
+          resolve(r);
           return;
         });
       } catch (error) {
@@ -240,16 +242,20 @@ export class AuthPage {
 
   async enrollFingerPrint(): Promise<boolean> {
     const options = {
-      username: await this.randomString(128),
-      password: await this.randomString(10),
-      server: 'com.azuzawealth.za',
+      title: 'Azuza Biometric Enrollment',
+      disableBackup: false,
+      description: 'Make login easy and secure transactions with biometric authentication.',
+      fallbackButtonTitle: 'Use Backup',
+      confirmationRequired: false,
+      secret: await this.randomString(128),
+      invalidateOnEnrollment: true
     };
 
     return new Promise((resolve, reject) => {
-      NativeBiometric.setCredentials(options)
+      this.biometric.registerBiometricSecret(options)
         .then(async (result) => {
           await result;
-          this.regData.biometricKey = await options.username;
+          this.regData.biometricKey = await options.secret;
           resolve(true);
         }, (err) => {
           this.regData.biometricKey = "";
@@ -260,19 +266,17 @@ export class AuthPage {
 
   async loginFingerPrint() {
     const options = {
-      // title: 'Azuza Biometric Enrollment',
-      // description: 'Authenicate',
-      // fallbackButtonTitle: 'Use Backup',
-      // confirmationRequired: false,
-      // invalidateOnEnrollment: true,
-      // disableBackup: false
+      title: 'Azuza Biometric Enrollment',
+      description: 'Authenicate',
+      fallbackButtonTitle: 'Use Backup',
+      confirmationRequired: false,
+      invalidateOnEnrollment: true,
+      disableBackup: false
     };
 
-    await NativeBiometric.getCredentials({
-      server: 'com.azuzawealth.za',
-    })
+    await this.biometric.loadBiometricSecret(options)
       .then(async (result) => {
-        this.regData.biometricKey = await result.username;
+        this.regData.biometricKey = await result;
         await this.doBioMetricLogin();
 
       }, (err) => {
@@ -368,9 +372,9 @@ export class AuthPage {
   async doRegiserUser() {
 
     // get onesignal push ID
-    await this.storage.getItem("uid").then(
+    await Storage.get({ key: "uid" }).then(
       async uid => {
-        this.oneSignalId = await uid;
+        this.oneSignalId = await uid.value;
       },
       err => {
         this.oneSignalId = "";
@@ -527,9 +531,9 @@ export class AuthPage {
       if (await data.data) {
         // commit login date to storage
         const date = new Date().toDateString();
-        await this.storage.setItem('CheckDate', date);
+        await Storage.set({ key: 'CheckDate', value: date });
 
-        await this.storage.setItem("session_token", data.data.token).then(
+        await Storage.set({ key: "session_token", value: data.data.token }).then(
           async () => {
             if (!data.data.KYCDetails.KYCRequired /* || data.data.KYCDetails.KYCComplete*/) { // load landing page
               this.loadLandingPage();
@@ -595,11 +599,11 @@ export class AuthPage {
       // succesfully logged in
       if (data.success) {
         // commit login date and session to storage
-        await this.storage.setItem("session_token", data.data.token).then(async () => { // storing session token temporarily
-          await this.storage.setItem('refCode', data.data.referral);
-          await this.storage.setItem('CheckDate', date);
+        await Storage.set({ key: "session_token", value: data.data.token }).then(async () => { // storing session token temporarily
+          await Storage.set({ key: 'refCode', value: data.data.referral });
+          await Storage.set({ key: 'CheckDate', value: date });
           if (data.data.bio) {
-            this.storage.setItem("biostate", data.data.bio);
+            Storage.set({ key: "biostate", value: data.data.bio });
           }
 
           // load landing page if KYC is not required AND there is no withdrawal pending, or if there is, banking data has been loaded
@@ -624,7 +628,7 @@ export class AuthPage {
       // authentication error
       if (data.data.state === 0) {
         if (data.bio) {
-          this.storage.setItem("biostate", data.bio);
+          Storage.set({ key: "biostate", value: data.bio });
         }
         this.user.setPermaToast(data.msg);
         return;
@@ -705,7 +709,7 @@ export class AuthPage {
 
     // pass control to kyc page
     if (this.KycDocItemsOutstanding > 0) {
-      this.storage.setItem("kyc", this.kycDocs).then(() => {
+      Storage.set({ key: "kyc", value: JSON.stringify(this.kycDocs) }).then(() => {
         this.router.navigate(['kyc']);
         return;
       }, err => {
@@ -1199,7 +1203,7 @@ export class AuthPage {
 
     // create first use database
     const date = new Date().toDateString();
-    await this.storage.setItem('CheckDate', date);
+    await Storage.set({ key: 'CheckDate', value: date });
 
     // load first popup
     this.showSignupSpinner = true;
@@ -1364,10 +1368,10 @@ export class AuthPage {
   }
 
   checkCallback() {
-    this.storage.getItem("target").then(async (result) => {
-      this.target = await result;
+    Storage.get({ key: "target" }).then(async (result) => {
+      this.target = await result.value;
       if (this.target) {
-        this.storage.remove("target").then(() => {
+        Storage.remove({ key: "target" }).then(() => {
           this.showRegister();
         });
       }

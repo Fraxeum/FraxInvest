@@ -19,6 +19,10 @@
     <param name="onload" value="true"/>
   </feature>
 
+  <feature name="Fingerprint">
+    <param name="android-package" value="de.niklasmerz.cordova.biometric.Fingerprint"/>
+  </feature>
+
   <feature name="InAppBrowser">
     <param name="android-package" value="org.apache.cordova.inappbrowser.InAppBrowser"/>
   </feature>
@@ -38,6 +42,11 @@
 
   <feature name="SocialSharing">
     <param name="android-package" value="nl.xservices.plugins.SocialSharing"/>
+  </feature>
+
+  <feature name="IonicDeeplinkPlugin">
+    <param name="android-package" value="io.ionic.links.IonicDeeplink"/>
+    <param name="onload" value="true"/>
   </feature>
 
   <feature name="OneSignalPush">

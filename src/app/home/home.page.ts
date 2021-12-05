@@ -5,7 +5,7 @@ import { AuthPage } from '../auth/auth.page';
 import { HtmlHelpStringsService } from '../providers/html-help-strings.service';
 import { UserService } from '../providers/user.service';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
-import { NativeStorage } from '@ionic-native/native-storage/ngx';
+import { Storage } from '@capacitor/storage';
 
 type BannerImage = { uri: string, routerLink?: string };
 
@@ -48,7 +48,6 @@ export class HomePage {
     public route: ActivatedRoute,
     public browser: InAppBrowser,
     public platform: Platform,
-    public storage: NativeStorage,
     public router: Router
   ) {
     this.menu = menuCtrl;
@@ -64,10 +63,10 @@ export class HomePage {
   }
 
   ionViewWillEnter() {
-    this.storage.getItem("session_token").then(
+    Storage.get({ key: "session_token" }).then(
       async (token) => {
         console.log("Stored token:" + token);
-        this.sessionToken = await token;
+        this.sessionToken = await token.value;
         this.primeAssetObjects();
       })
       .then(async () => {

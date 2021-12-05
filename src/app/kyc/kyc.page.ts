@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../providers/user.service';
 import { ActionSheetController } from '@ionic/angular';
-import { NativeStorage } from '@ionic-native/native-storage/ngx';
+import { Storage } from '@capacitor/storage';
 
 type KYCDocsItem = { lrid: string, uploaded: boolean, state: string };
 type KYCDocs = Array<KYCDocsItem>;
@@ -20,7 +20,7 @@ type KYCSteps = Array<KYCStepItem>;
 
 export class KycPage implements OnInit {
 
-  sessionToken: string = null;
+  sessionToken: any = null;
 
   pageLogo = 'small-logo';
 
@@ -51,7 +51,8 @@ export class KycPage implements OnInit {
     public route: ActivatedRoute,
     public router: Router,
     public changeDetectorRef: ChangeDetectorRef,
-    public storage: NativeStorage
+    //public storage: Storage
+
   ) {
 
 
@@ -272,10 +273,10 @@ export class KycPage implements OnInit {
 
   async uploadPhoto() {
     // get the session token ready to upload
-    await this.storage.getItem("session_token")
+    await Storage.get({ key: "session_token" })
       .then(
         async (token) => {
-          this.sessionToken = await token;
+          this.sessionToken = await token.value;
         });
 
     await this.user.processUpload(this.photoB64Str, this.sessionToken, this.kycDocItems[this.selectedItemId].lrid, this.kycDocItems[this.selectedItemId].name)
@@ -349,15 +350,16 @@ export class KycPage implements OnInit {
 
 
   ngOnInit() {
-    this.storage.getItem("kyc").then(
+    Storage.get({ key: "kyc" }).then(
       (result) => {
         if (result) {
           console.log(result);
-          this.kycDocs = result;
+          let x: any = result.value
+          this.kycDocs = x; // check storage
         } else {
           this.kycDocs = [];
         }
-        this.storage.remove("kyc");
+        Storage.remove({ key: "kyc" });
       });
   }
 }
