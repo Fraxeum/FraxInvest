@@ -45,7 +45,7 @@
         "@ionic/angular": "^5.5.2",
         "@ionic/storage": "^3.0.6",
         "@ionic/storage-angular": "^3.0.6",
-        "@stripe/stripe-js": "^1.21.1",
+        "@stripe/stripe-js": "^1.21.2",
         "angular-progress-bar": "^1.0.11",
         "capacitor-native-biometric": "^3.0.3",
         "capacitor-resources": "^2.0.5",
@@ -65,6 +65,7 @@
         "ngx-ionic-image-viewer": "^0.7.4",
         "onesignal-cordova-plugin": "^3.0.1",
         "rxjs": "~6.6.0",
+        "stripe": "^8.191.0",
         "tslib": "^2.2.0",
         "zone.js": "~0.11.4"
     },

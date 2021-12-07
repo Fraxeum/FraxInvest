@@ -215,12 +215,12 @@ ion-label.popup-label span {
 // menu start
 .menu-bg,
 .menu-inner {
-    background: var( --ion-color-secondary-shade);
+    background: var( --ion-color-primary-shade);
     color: white;
 }
 
 .menu-footer {
-    background: var( --ion-color-secondary-shade);
+    background: var( --ion-color-primary-shade);
 }
 
 .menu-inner {
@@ -250,7 +250,7 @@ ion-label.popup-label span {
         background-color: #23476D;
         .column {
             padding: 6.5px 5px;
-            background-color: #23476D;
+            background-color: #58afef;
             button {
                 background: transparent;
                 width: 100%;
@@ -274,7 +274,7 @@ ion-label.popup-label span {
 }
 
 .cs-menu {
-    background: #2e6495;
+    background: #000015;
     ion-button {
         &.menu-btn {
             margin: 0px;
