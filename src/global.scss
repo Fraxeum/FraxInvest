@@ -28,7 +28,7 @@ ion-input,
 ion-label {
     font-family: Arial, "Helvetica Neue", Helvetica, sans-serif !important;
     touch-action: manipulation !important;
-    color: white !important;
+    color: black !important;
 }
 
 * {
@@ -39,7 +39,7 @@ body {
     background: rgb(83, 144, 182);
     --background: rgb(83, 144, 182);
     --background: linear-gradient(140deg, rgba(83, 144, 182, 1) 90%, rgb(67, 123, 158) 100%);
-    background: #000015;
+    background: #ffffff;
 }
 
 ion-menu {
@@ -50,7 +50,7 @@ ion-menu {
 
 ion-toggle {
     --background: #fff;
-    --background-checked: rgba(255, 255, 255, 0.5) !important;
+    --background-checked: rgba(0, 0, 21, 0.5) !important;
     --handle-background: #000015;
     --handle-background-checked: rgb(52, 113, 168);
 }
@@ -62,8 +62,8 @@ ion-toggle {
 }
 
 ion-skeleton-text {
-    --background: rgba(255, 255, 255, 0.175);
-    --background-rgb: rgba(255, 255, 255, 0.175);
+    --background: rgba(0, 0, 21, 0.5);
+    --background-rgb: rgba(0, 0, 21, 0.5);
 }
 
 .videoModalCss {
@@ -180,8 +180,8 @@ ion-app {
     max-width: 1024px;
     margin-right: auto;
     margin-left: auto;
-    border-left: 1px solid rgba(255, 255, 255, 0.15);
-    border-right: 1px solid rgba(255, 255, 255, 0.15);
+    border-left: 1px solid rgba(0, 0, 21, 0.15);
+    border-right: 1px solid rgba(0, 0, 21, 0.15);
 }
 
 h1,
@@ -216,7 +216,7 @@ h3.signup {
 }
 
 .auth-block {
-    background-color: var(--ion-color-secondary);
+    background-color: var(--ion-color-primary);
     min-height: 4em;
     .auth-block-text {
         width: 100%;
@@ -262,7 +262,7 @@ h3.signup {
 .accept-terms-btn {
     margin-top: 1em;
     --inner-border-width: 0;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(0, 0, 21, 0.2);
     border-radius: 0.5em;
 }
 
@@ -293,11 +293,11 @@ h3.signup {
 }
 
 .button-outline {
-    --border-color: var(--ion-color-light);
+    --border-color: var(--ion-color-secondary);
 }
 
 hr {
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(0, 0, 21, 0.15);
 }
 
 ion-slide {
@@ -361,7 +361,7 @@ ion-icon.market {
 .list-bg {
     /* --background: rgba(44, 54, 81, 0.1) !important;*/
     --background: none;
-    --border-color: rgba(255, 255, 255, 0.1) !important;
+    --border-color: rgba(0, 0, 21, 0.1) !important;
 }
 
 .menu-icon {
@@ -373,11 +373,11 @@ ion-icon.market {
 }
 
 .bdr-bottom {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+    border-bottom: 1px solid rgba(0, 0, 21, 0.5);
 }
 
 .bdr-top {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+    border-bottom: 1px solid rgba(0, 0, 21, 0.5);
 }
 
 .black-text {
@@ -394,7 +394,7 @@ ion-icon.market {
 
 .af-none {
     position: relative;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.175) !important;
+    border-bottom: 1px solid rgba(0, 0, 21, 0.5) !important;
     &:after {
         content: '';
         background: transparent !important;
@@ -538,7 +538,7 @@ ion-fab-button[title]::after {
     transform: translateY(-50%);
     // font-size: 0.9em;
     color: var(--ion-color-tertiary);
-    background-color: rgba(255, 255, 255, 0.96);
+    background-color: rgba(0, 0, 21, 0.96);
     // line-height: 1.5em;
     padding: 4px 8px;
     border-radius: 4px;
@@ -569,7 +569,7 @@ ion-fab-button.ion-color-dark {
 }
 
 .tc-btn {
-    --border-color: rgba(255, 255, 255, 0.175);
+    --border-color: rgba(0, 0, 21, 0.5);
 }
 
 label.tc-button-content {
@@ -582,7 +582,7 @@ label.tc-button-content {
 .action-hint {
     border-radius: 5px;
     z-index: 100;
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(0, 0, 21, 0.15);
     color: var(--ion-color-tertiary-contrast);
     text-align: left;
 }
@@ -632,7 +632,7 @@ ion-viewer-modal ion-content {
     width: 100% !important;
     padding: 1.3em 1em 1em;
     ion-icon {
-        color: white;
+        color: var(--ion-color-secondary);
         zoom: 180%;
     }
     img {
@@ -659,7 +659,7 @@ ion-viewer-modal ion-content {
     justify-content: center;
     div {
         width: 100%;
-        border: 1px solid rgba(255, 255, 255, 0.175);
+        border: 1px solid rgba(0, 0, 21, 0.5);
         padding: 4px 7px;
         text-align: center;
         color: whitesmoke
@@ -750,7 +750,7 @@ app-auth {
         background-color: rgba(104, 158, 191, 0.25);
     }
     .ordered-words-block {
-        background-color: rgba(255, 255, 255, 0.25);
+        background-color: rgba(0, 0, 21, 0.25);
     }
     .item-inner {
         border-bottom: 0;
@@ -821,7 +821,7 @@ app-auth {
                 overflow: hidden;
             }
             .input-block {
-                border: 1px solid rgba(255, 255, 255, 0.1);
+                border: 1px solid rgba(0, 0, 21, 0.1);
                 color: var(--ion-color-light);
                 .switch-button {
                     width: 100%;
@@ -906,6 +906,7 @@ app-auth {
     display: block;
     width: 100% !important;
     padding: 10px 0;
+    background: var(--ion-color-secondary);
     h3 {
         padding: 0px 10px;
         color: var(--ion-color-light);
@@ -915,15 +916,15 @@ app-auth {
 
 div.slides-heading.accent {
     font-weight: bold !important;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.175);
+    border-bottom: 1px solid rgba(0, 0, 21, 0.5);
     padding: 20px 0;
 }
 
 // slide css 
 .sm-slide {
     .main {
-        border-top: 1px solid rgba(255, 255, 255, 0.2) !important;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.2) !important;
+        border-top: 1px solid rgba(0, 0, 21, 0.2) !important;
+        border-bottom: 1px solid rgba(0, 0, 21, 0.2) !important;
     }
     .swiper-slide {
         .swipecard {
@@ -953,7 +954,7 @@ div.slides-heading.accent {
     }
     .shares-user-info-item {
         ion-icon {
-            color: var(--ion-color-light);
+            color: var(--ion-color-secondary);
         }
     }
     &.bdr-0 {
@@ -969,22 +970,22 @@ div.slides-heading.accent {
 }
 
 .border-bottom {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+    border-bottom: 1px solid rgba(0, 0, 21, 0.5);
 }
 
 .border-top {
-    border-top: 1px solid rgba(255, 255, 255, 0.175);
+    border-top: 1px solid rgba(0, 0, 21, 0.5);
     margin-top: 10px;
     padding-top: 10px;
 }
 
 .border-right {
-    border-right: 1px solid rgba(255, 255, 255, 0.175);
+    border-right: 1px solid rgba(0, 0, 21, 0.5);
 }
 
 .holders {
     // font-size: 18px;
-    color: var(--ion-color-light);
+    color: var(--ion-color-secondary);
     font-family: Arial, "Helvetica Neue", Helvetica, sans-serif !important;
     padding: 0px 10px 0px 20px;
 }
@@ -1009,12 +1010,12 @@ div.slides-heading.accent {
 }
 
 .money-grid {
-    border-top: 1px solid rgba(255, 255, 255, 0.2);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    border-top: 1px solid rgba(0, 0, 21, 0.2);
+    border-bottom: 1px solid rgba(0, 0, 21, 0.2);
 }
 
 .money-border-top {
-    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    border-top: 1px solid rgba(0, 0, 21, 0.2);
 }
 
 .money {
@@ -1047,7 +1048,7 @@ div.slides-heading.accent {
 }
 
 .dm-border-top {
-    border-top: 1px solid rgba(255, 255, 255, 0.075);
+    border-top: 1px solid rgba(0, 0, 21, 0.075);
 }
 
 .swipecard-flat {
@@ -1095,18 +1096,22 @@ actionsheet {
 // action sheet
 .action-sheet-bg {
     .action-sheet-group {
-        border-top: 1px solid rgba(255, 255, 255, 0.175);
+        border-top: 1px solid rgba(0, 0, 21, 0.5);
         background: var(--ion-color-secondary);
         .action-sheet-title {
             // font-size: 18px;
             // line-height: 20px;
-            color: var(--ion-color-light);
+            color: var(--ion-color-primary) !important;
         }
         button {
             // font-size: 15px;
-            color: var(--ion-color-light);
+            color: var(--ion-color-primary) !important;
         }
     }
+}
+.action-sheet-button-inner.sc-ion-action-sheet-md{
+    color: var(--ion-color-primary) !important;
+
 }
 
 .alert-input.sc-ion-alert-md,
@@ -1122,7 +1127,7 @@ ion-label.fab-label {
     transform: translateY(-50%);
     // font-size: 13px;
     color: #23476D;
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(0, 0, 21, 0.8);
     // line-height: 24px;
     padding: 4px 8px;
     border-radius: 4px;
@@ -1166,15 +1171,19 @@ ion-label.fab-label {
     }
 }
 
+.swiper-pagination-bullet{
+    background: #000000 !important;
+}
+
 .swiper-pagination-bullet-active {
-    background: var(--ion-color-light) !important;
+    background: var(--ion-color-tertiary) !important;
 }
 
 .infoblock,
 .statsblock {
     display: block;
     max-width: 100%;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(0, 0, 21, 0.2);
     border-radius: 5px;
     margin: 15px 10px;
     padding: 7px 10px;
@@ -1197,7 +1206,7 @@ ion-label.fab-label {
             text-align: center;
             width: 100%;
             // font-size: 1.0em;
-            color: rgba(255, 255, 255, 0.75);
+            color: rgba(0, 0, 21, 0.75);
             margin: 80% auto 5px auto;
         }
         .small {
@@ -1336,7 +1345,7 @@ button {
     margin-right: auto;
     height: auto;
     border-radius: 5px;
-    border: 1px solid rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(0, 0, 21, 0.5);
     /*background: #3471a8 !important;*/
     background: #000015;
     color: white;
@@ -1359,7 +1368,7 @@ button {
             // font-size: x-large;
             font-weight: 700;
             color: var(--ion-color-light);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.6);
+            border-bottom: 1px solid rgba(0, 0, 21, 0.6);
         }
         .shares-input {
             margin-bottom: 3px;
@@ -1399,8 +1408,8 @@ button {
         padding-bottom: 5px;
         background-color: transparent;
         text-transform: none;
-        border-top: 1px solid rgba(255, 255, 255, 0.25);
-        border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+        border-top: 1px solid rgba(0, 0, 21, 0.25);
+        border-bottom: 1px solid rgba(0, 0, 21, 0.25);
         margin-top: 10px;
     }
     &:after {
@@ -1451,8 +1460,8 @@ button {
     width: 96% !important;
     margin: 10px 2% !important;
     padding: unset !important;
-    background-color: rgba(255, 255, 255, 0.175) !important;
-    border: rgba(255, 255, 255, 1) !important;
+    background-color: rgba(0, 0, 21, 0.5) !important;
+    border: rgba(0, 0, 21, 1) !important;
     color: #fff !important;
     border-radius: 10px !important;
     text-align: center !important;
@@ -1527,14 +1536,14 @@ button {
 }
 
 .segment-tab {
-    // border-bottom: 2px solid rgba(255, 255, 255, 0.5);
+    // border-bottom: 2px solid rgba(0, 0, 21, 0.5);
     ion-label {
         text-transform: capitalize;
     }
 }
 
 .border-right {
-    border-right: 1px solid rgba(255, 255, 255, 0.175) !important;
+    border-right: 1px solid rgba(0, 0, 21, 0.5) !important;
 }
 
 .tranparent-list {
@@ -1648,7 +1657,7 @@ input.alert-input.sc-ion-alert-md {
 .share-list-item {
     /*background: rgba(44, 54, 81, 0.1);*/
     /* background: #437b9e; */
-    border-bottom: 1px solid rgba(255, 255, 255, 0.175);
+    border-bottom: 1px solid rgba(0, 0, 21, 0.5);
     .list-item-share-action-btn {
         // font-size: 14px;
         // line-height: 28px;
@@ -1837,7 +1846,7 @@ ul li {
         color: var(--ion-color-light);
     }
     ion-footer ion-toolbar.in-toolbar {
-        border-top: 2px solid rgba(255, 255, 255, 0.55);
+        border-top: 2px solid rgba(0, 0, 21, 0.55);
         background: transparent;
         color: var(--ion-color-light);
     }
@@ -1845,12 +1854,12 @@ ul li {
 
 .selected {
     font-weight: bold;
-    color: rgba(255, 255, 255, 1);
+    color: rgba(0, 0, 21, 1);
 }
 
 .not-selected {
     font-weight: normal;
-    color: rgba(255, 255, 255, 0.35);
+    color: rgba(0, 0, 21, 0.35);
 }
 
 .centered {

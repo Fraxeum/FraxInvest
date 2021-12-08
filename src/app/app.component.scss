@@ -219,6 +219,10 @@ ion-label.popup-label span {
     color: white;
 }
 
+span.text-white {
+    color: #fff !important;
+}
+
 .menu-footer {
     background: var( --ion-color-primary-shade);
 }
@@ -250,7 +254,7 @@ ion-label.popup-label span {
         background-color: #23476D;
         .column {
             padding: 6.5px 5px;
-            background-color: #58afef;
+            background-color: var(--ion-color-secondary);
             button {
                 background: transparent;
                 width: 100%;
@@ -263,7 +267,7 @@ ion-label.popup-label span {
                     font-size: 0.96em;
                     line-height: 1.5em;
                     pointer-events: none;
-                    color: var(--ion-color-tertiary-contrast);
+                    color: var(--ion-color-primary);
                 }
             }
             &:first-child {
@@ -274,7 +278,7 @@ ion-label.popup-label span {
 }
 
 .cs-menu {
-    background: #000015;
+    background: #ffffff;
     ion-button {
         &.menu-btn {
             margin: 0px;
