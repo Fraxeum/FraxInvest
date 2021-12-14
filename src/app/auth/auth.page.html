@@ -1,4 +1,4 @@
-<ion-content style="background-color: #000015" scroll-events="false" forceOverscroll="false">
+<ion-content style="background-color: #ffffff" scroll-events="false" forceOverscroll="false">
     <div class="logo-block">
         <div [ngClass]="pageLogo">
             <img src="assets/img/azuza_logo_w_250x47.png" />
@@ -17,7 +17,7 @@
                     <div class="auth-block-text">
                         <div (click)="toggleLoginMethod()" style="margin-bottom: 1em;">
                             Biometric login is enabled. Tap
-                            <ion-icon size="small" color="light" name="finger-print-outline">
+                            <ion-icon size="small" color="secondary" name="finger-print-outline">
                             </ion-icon> to log in with your fingerprint. Tap this text to reset or log in with your password.
                         </div>
 
@@ -52,7 +52,7 @@
                         </ion-col>
 
                         <ion-col *ngIf="showRegisterLoading" class="ion-text-center" style="padding: unset; padding-right: 1em;">
-                            <ion-spinner color="light" name="dots"></ion-spinner>
+                            <ion-spinner color="secondary" name="dots"></ion-spinner>
                         </ion-col>
 
                     </ion-row>
@@ -81,7 +81,7 @@
                         <span *ngIf="(rememberMe.email && rememberMe.password)">GO!</span>
                         <span *ngIf="(!rememberMe.email || !rememberMe.password)">Log in</span>
                     </div>
-                    <ion-spinner *ngIf="showLoginLoading" color="light" name="dots" slot="end"></ion-spinner>
+                    <ion-spinner *ngIf="showLoginLoading" color="secondary" name="dots" slot="end"></ion-spinner>
                 </ion-button>
 
 

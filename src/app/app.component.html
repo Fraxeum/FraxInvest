@@ -3,60 +3,60 @@
         <ion-menu contentId="main-content" type="overlay" menuId="main" id="main" class="menu-bg">
             <ion-header>
                 <ion-toolbar class="user-profile">
-
+                    
                     <div class="user-profile">
                         <ion-list>
                             <ion-avatar>
                                 <img src="assets/img/azuza_logo_w_250x47.png">
                             </ion-avatar>
                         </ion-list>
-
-
+                        
+                        
                         <ion-grid class="ion-no-padding">
                             <ion-row class="other-data">
                                 <ion-col text-center class="column">
-                                    <button ion-button class="ion-no-margin" icon-start small full menuClose no-margin color="dark" (click)="openDepositPage()">
-                    <ion-icon name="wallet" class="menu-icon ion-icon"></ion-icon>
-                    <span class="text-white">Deposit</span>
-                  </button>
+                                    <button ion-button class="ion-no-margin" icon-start small full menuClose no-margin color="primary" (click)="openDepositPage()">
+                                        <ion-icon name="wallet" class="menu-icon ion-icon"></ion-icon>
+                                        <span class="text-white">Deposit</span>
+                                    </button>
                                 </ion-col>
                                 <ion-col text-center class="column">
-                                    <button ion-button icon-start small full menuClose no-margin color="dark" (click)="openOTCMarketPlace()">
-                    <ion-icon color="light" name="trending-up-outline" class="menu-icon market"></ion-icon>
-                    <span class="text-white">Market</span>
-                  </button>
+                                    <button ion-button icon-start small full menuClose no-margin color="primary" (click)="openOTCMarketPlace()">
+                                        <ion-icon color="light" name="trending-up-outline" class="menu-icon market"></ion-icon>
+                                        <span class="text-white">Market</span>
+                                    </button>
                                 </ion-col>
                             </ion-row>
                         </ion-grid>
                     </div>
                 </ion-toolbar>
             </ion-header>
-
+            
             <ion-content class="menu">
                 <div class="menu-inner">
                     <ion-list class="ion-no-padding cs-menu transparent">
-
+                        
                         <ion-button slots="start" name="start" expand="block" class="menu-btn" menuClose (click)="openHomePage()">
                             <div class="ion-btton-left">
                                 <ion-icon name="home" class="menu-icon"></ion-icon>
                                 Home
                             </div>
                         </ion-button>
-
+                        
                         <ion-button class="menu-btn" expand="block" menuClose (click)="openTransactionHistory()">
                             <div class="ion-btton-left">
                                 <ion-icon name="list" class="menu-icon"></ion-icon>
                                 My shares
                             </div>
                         </ion-button>
-
+                        
                         <ion-button class="menu-btn" expand="block" menuClose (click)="openTransferFunds()">
                             <div class="ion-btton-left">
                                 <ion-icon name="arrow-redo" class="menu-icon"></ion-icon>
                                 Transfer shares
                             </div>
                         </ion-button>
-
+                        
                         <ion-button class="menu-btn" expand="block" menuClose (click)="openOTCMarketPlace()">
                             <div class="ion-btton-left">
                                 <ion-icon name="trending-up-outline" class="menu-icon market"></ion-icon>
@@ -66,7 +66,7 @@
                     </ion-list>
                 </div>
             </ion-content>
-
+            
             <ion-footer no-shadow class="menu-footer ion-no-padding">
                 <ion-list class="ion-no-padding cs-menu">
                     <ion-button menuClose expand="block" class="ion-no-margin menu-btn" (click)="openReward()">
@@ -81,14 +81,14 @@
                             Get support
                         </div>
                     </ion-button>
-
+                    
                     <ion-button menuClose expand="block" class="ion-no-margin menu-btn" (click)="openAboutPage()">
                         <div class="ion-btton-left">
                             <ion-icon [src]="azuzaicon" color="light" class="menu-icon"></ion-icon>
                             About Azuza
                         </div>
                     </ion-button>
-
+                    
                     <div style="display: inline-block; width: 100%;">
                         <div style="width: 50%; float: left">
                             <ion-button menuClose expand="block" style="border-bottom: none;" class="ion-no-margin menu-btn" (click)="openAccountSetting()">
@@ -106,7 +106,7 @@
                             </ion-button>
                         </div>
                     </div>
-
+                    
                 </ion-list>
             </ion-footer>
         </ion-menu>
