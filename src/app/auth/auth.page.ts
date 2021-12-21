@@ -15,7 +15,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Storage } from '@capacitor/storage';
 import { FingerprintAIO } from '@ionic-native/fingerprint-aio/ngx';
 
-// import { AzuzaHelpPage } from '../azuza-help/azuza-help.page';
+// import { InstavestHelpPage } from '../Instavest-help/Instavest-help.page';
 // import { FingerprintAIO, FingerprintOptions } from '@ionic-native/fingerprint-aio/ngx';
 // import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 
@@ -242,7 +242,7 @@ export class AuthPage {
 
   async enrollFingerPrint(): Promise<boolean> {
     const options = {
-      title: 'Azuza Biometric Enrollment',
+      title: 'Instavest Biometric Enrollment',
       disableBackup: false,
       description: 'Make login easy and secure transactions with biometric authentication.',
       fallbackButtonTitle: 'Use Backup',
@@ -266,7 +266,7 @@ export class AuthPage {
 
   async loginFingerPrint() {
     const options = {
-      title: 'Azuza Biometric Enrollment',
+      title: 'Instavest Biometric Enrollment',
       description: 'Authenicate',
       fallbackButtonTitle: 'Use Backup',
       confirmationRequired: false,
@@ -406,7 +406,7 @@ export class AuthPage {
         this.checkEmail = false;
         // reset regStep to email page
         this.regStep--;
-        this.user.setToast("Connection error. Please try again or contact Azuza (support@azuzawealth.com) for assistance.");
+        this.user.setToast("Connection error. Please try again or contact Instavest (support@instavestcapital.com) for assistance.");
       }
     );
     // await this.changeDetector.detectChanges();
@@ -435,13 +435,13 @@ export class AuthPage {
         }
 
         if (!response.Active) { // account is  not active because email not confirmed and/or KYC docs hasn't been provided and/or approved.
-          this.user.setPermaToast("This account has been deactivated. Please contact support (support@azuzawealth.com) for assistance.");
+          this.user.setPermaToast("This account has been deactivated. Please contact support (support@instavestcapital.com) for assistance.");
           resolve(false);
           return;
         }
 
         // account is active - KYC docs could be outdated - this scenario is handled with login
-        this.user.setPermaToast("This email address is already associated with an Azuza account. Use a different email address to register another account or log in to access an existing account.");
+        this.user.setPermaToast("This email address is already associated with an Instavest account. Use a different email address to register another account or log in to access an existing account.");
         resolve(false);
         return;
 
@@ -546,14 +546,14 @@ export class AuthPage {
 
       } else {
         this.menu.enable(false, "main");
-        const errMsg = "We're unable to complete this request. Please try again or contact Azuza Support (support@azuzawealth.com).";
+        const errMsg = "We're unable to complete this request. Please try again or contact Instavest Support (support@instavestcapital.com).";
         const msg = data.data.msg ? data.data.msg : errMsg;
         this.user.setToast(msg);
       }
     }, error => {
       // this.user.dismissLoadingPopup();
       this.menu.enable(false, "main");
-      this.user.setToast("We're unable to complete this request. Please try again or contact Azuza Support (support@azuzawealth.com).", true);
+      this.user.setToast("We're unable to complete this request. Please try again or contact Instavest Support (support@instavestcapital.com).", true);
 
       setTimeout(() => {
         this.router.navigate(['auth']);
@@ -567,7 +567,7 @@ export class AuthPage {
   // login and go to home page
   async login() {
     if (!this.rememberMe.email || this.rememberMe.email.length < 1) {
-      this.user.setToast("Enter your email address or Azuza username in the username line");
+      this.user.setToast("Enter your email address or Instavest username in the username line");
       return;
     }
 
@@ -591,7 +591,7 @@ export class AuthPage {
 
       if (!data) {
         this.menu.enable(false, "main");
-        const errMsg = "We're unable to complete this request. Please try again or contact Azuza Support (support@azuzawealth.com).";
+        const errMsg = "We're unable to complete this request. Please try again or contact Instavest Support (support@instavestcapital.com).";
         this.user.setToast(errMsg);
         return;
       }
@@ -641,7 +641,7 @@ export class AuthPage {
     }, error => {
       this.showLoginLoading = false;
       this.menu.enable(false, "main");
-      this.user.setToast("We're unable to complete this request. Please try again or contact Azuza Support (support@azuzawealth.com).", true);
+      this.user.setToast("We're unable to complete this request. Please try again or contact Instavest Support (support@instavestcapital.com).", true);
 
       setTimeout(() => {
         this.router.navigate(['auth']);
@@ -1030,7 +1030,7 @@ export class AuthPage {
 
     if (this.currentPage === 'register') {
       if (!this.rememberMe.email || this.rememberMe.email.length < 1) {
-        this.user.setToast("You need a valid email address to create an AZUZA account");
+        this.user.setToast("You need a valid email address to create an Instavest account");
         return;
       }
 
@@ -1128,7 +1128,7 @@ export class AuthPage {
 
       if (!data) {
         this.router.navigate(['auth']);
-        this.user.setToast("The Azuza system is currently unavailable. Please try again later.");
+        this.user.setToast("The Instavest system is currently unavailable. Please try again later.");
         return;
       }
       if (data.token && data.token.length > 0) {
@@ -1195,7 +1195,7 @@ export class AuthPage {
 
   // complete the first part of registration
   async submitBasicInfo(): Promise<any> {
-    const errmsg = "An error occurred during the signup process. Try again or contact out support@azuzawealth.com for assistance.";
+    const errmsg = "An error occurred during the signup process. Try again or contact out support@instavestcapital.com for assistance.";
 
     // create seed word string
     const seedstr = await this.makePipedList(this.userOrderedArr);
@@ -1273,7 +1273,7 @@ export class AuthPage {
     if (message) {
       this.user.setToast(message);
     } else {
-      this.user.setToast("The Azuza server failed to confirm your membership registration request. Please contact Azuza support (support@azuzawealth.com).");
+      this.user.setToast("The Instavest server failed to confirm your membership registration request. Please contact Instavest support (support@instavestcapital.com).");
     }
   }
 
@@ -1307,13 +1307,13 @@ export class AuthPage {
 
     switch (option) {
       case "terms-of-use":
-        url = "http://azuzawealth.com/legal/azuzatos.pdf";
+        url = "http://instavestcapital.com/legal/Instavesttos.pdf";
         break;
       case "privacy-policy":
-        url = "https://azuzawealth.com/legal/privacy.pdf";
+        url = "https://instavestcapital.com/legal/privacy.pdf";
         break;
       case "cookies-policy":
-        url = "https://azuzawealth.com/cookie-policy-za/";
+        url = "https://instavestcapital.com/cookie-policy-za/";
         break;
     }
     if (url) {

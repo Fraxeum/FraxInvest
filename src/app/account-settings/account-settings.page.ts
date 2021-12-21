@@ -121,7 +121,7 @@ export class AccountSettingsPage {
                 this.userdata = userdata;
                 this.notificationSetting = this.userdata.fcm;
               } else { // no data received
-                this.userProv.setToast("Unable to load userdata from server. Please try again later or contact our team at support@azuzawealth.com");
+                this.userProv.setToast("Unable to load userdata from server. Please try again later or contact our team at support@instavestcapital.com");
                 this.userProv.exitToLoginPage();
               }
             });
@@ -467,7 +467,7 @@ export class AccountSettingsPage {
         });
     }, error => {
       this.KycDocItems[this.getKYCItemId(type)].b64img = "";
-      this.userProv.setToast("Upload failed. Please try again or contact Azuza support (support@azuzawealth.com)");
+      this.userProv.setToast("Upload failed. Please try again or contact Azuza support (support@instavestcapital.com)");
       return;
     });
   }
