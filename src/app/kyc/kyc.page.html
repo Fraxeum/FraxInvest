@@ -1,7 +1,63 @@
-<ion-content style="background-color: #224a6e" scroll-events="false" forceOverscroll="false">
-    <div class="logo-block">
-        <div class="small-logo">
-            <img src="assets/img/azuza_logo_w_250x47.png" />
+<ion-content style="background-color: #ffffff" scroll-events="false" forceOverscroll="false">
+  <div class="logo-block">
+    <div class="small-logo">
+      <img src="assets/img/azuza_logo_w_250x47.png" />
+    </div>
+  </div>
+
+
+  <ng-container *ngIf="currentPage==='FICA-main'">
+    <div class="infoblock">
+      <h2 class="Exo2-n">Deposit received!</h2>
+
+      <ng-container *ngIf="kycDocs && kycDocs.length > 0">
+
+        <p>Good news! We've received your payment. To release your Azuza coins into your wallet we need to verify your
+          identity inline
+          with South Africa's FAIS act requirements. Please provide the following pesonal
+          document{{ kycDocs.length > 1 ? 's' : ''}}. Your
+          personal information will be encrypted and stored securely.</p>
+
+
+        <ng-container *ngFor="let item of kycDocs">
+          <ng-container *ngIf="item.lrid === '41' || item.lrid === '43' || item.lrid === '44'">
+            <ion-button *ngIf="item.lrid === '41'" shape="round" expand="full" color="secondary"
+              (click)="navigate('ID-options')" class="doc-btn" [disabled]="item.state === 'A' || item.state === 'N'">
+              <ion-label>Proof of identity</ion-label>
+              <ion-icon *ngIf="item.state === 'A' || item.state === 'N'" color="light" slot="end" color="success"
+                name="checkmark-circle-outline"></ion-icon>
+              <ion-icon *ngIf="item.state === 'X' || item.state === ''" color="light" slot="end" name="camera-outline">
+              </ion-icon>
+              <ion-icon *ngIf="item.state === 'R'" color="light" slot="end" name="close-circle-outline"></ion-icon>
+            </ion-button>
+            <ion-button *ngIf="item.lrid === '43'" shape="round" expand="full" color="secondary"
+              (click)="navigate('PoA')" class="doc-btn" [disabled]="item.state === 'A' || item.state === 'N'">
+              <ion-label>Proof of address</ion-label>
+              <ion-icon *ngIf="item.state === 'A' || item.state === 'N'" color="light" slot="end" color="success"
+                name="checkmark-circle-outline"></ion-icon>
+              <ion-icon *ngIf="item.state === 'X' || item.state === ''" color="light" slot="end" name="camera-outline">
+              </ion-icon>
+              <ion-icon *ngIf="item.state === 'R'" color="light" slot="end" name="close-circle-outline"></ion-icon>
+            </ion-button>
+            <ion-button *ngIf="item.lrid === '44'" shape="round" expand="full" color="secondary"
+              (click)="navigate('Selfie')" class="doc-btn" [disabled]="item.state === 'A' || item.state === 'N'">
+              <ion-label>Proof of life</ion-label>
+              <ion-icon *ngIf="item.state === 'A' || item.state === 'N'" color="light" slot="end" color="success"
+                name="checkmark-circle-outline"></ion-icon>
+              <ion-icon *ngIf="item.state === 'X' || item.state === ''" color="light" slot="end" name="camera-outline">
+              </ion-icon>
+              <ion-icon *ngIf="item.state === 'R'" color="light" slot="end" name="close-circle-outline"></ion-icon>
+            </ion-button>
+          </ng-container>
+        </ng-container>
+
+        <div class="paragraph auth-block-text small ion-text-center">
+          <ion-icon color="light" slot="end" color="light" name="camera-outline">
+          </ion-icon> means document required.<br />
+          <ion-icon color="light" slot="end" color="light" name="close-circle-outline">
+          </ion-icon> means document rejected, upload again.<br />
+          <ion-icon color="light" slot="end" color="success" name="checkmark-circle-outline">
+          </ion-icon> means documents received. No action required.
         </div>
     </div>
 

@@ -1,5 +1,5 @@
 <!--<ng-container *ngIf="doneLoading">-->
-<ion-content style="background-color: #224a6e" scroll-events="false" forceOverscroll="false">
+<ion-content style="background-color: #ffffff" scroll-events="false" forceOverscroll="false">
 
   <div class="app-small-logo" (click)="toggleMenu()">
     <ion-icon name="menu-outline"></ion-icon>
@@ -41,7 +41,7 @@
       </ng-container>
       <ion-col size="1" class="share-action-btn ion-no-padding df ac jc" (click)="showActionSheet('moneyActions',0)">
         <div class="shares-user-info-item text-center">
-          <ion-icon style="color: white" name="ellipsis-vertical"></ion-icon>
+          <ion-icon style="color: #000015" name="ellipsis-vertical"></ion-icon>
         </div>
       </ion-col>
     </ion-row>
@@ -78,7 +78,7 @@
               </ion-col>
               <ion-col size="2" class="share-action-btn ion-no-padding df ac jc">
                 <div class="shares-user-info-item text-center ">
-                  <label class="small" style="margin-right: 5px; color:#ffffff;">Tap
+                  <label class="small" style="margin-right: 5px; color:#000015;">Tap
                     <ion-icon name="click" class="af-icon"></ion-icon>
                   </label>
                 </div>
@@ -262,7 +262,7 @@
 
   <ion-fab horizontal="start" vertical="bottom" slot="fixed">
     <ion-fab-button class="ionFabMenuButton" size="small" (click)="showHelp()">
-      <ion-icon size="small" name="information"></ion-icon>
+      <ion-icon size="small" name="information" color="primary"></ion-icon>
     </ion-fab-button>
   </ion-fab>
 </ion-content>
