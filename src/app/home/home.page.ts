@@ -301,11 +301,11 @@ export class HomePage {
           this.userService.setToast("Your request has been logged. Money has been moved into your escrow wallet.");
           return;
         } else {
-          this.userService.setToast("Your request could not be processed. Please contact Azuza (support@azuzawealth.com) for assistance.");
+          this.userService.setToast("Your request could not be processed. Please contact Azuza (support@instavestcapital.com) for assistance.");
         }
       },
       error => {
-        this.userService.setToast("Your request could not be processed. Please contact Azuza (support@azuzawealth.com) for assistance.");
+        this.userService.setToast("Your request could not be processed. Please contact Azuza (support@instavestcapital.com) for assistance.");
       }
     );
   }

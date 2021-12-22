@@ -84,8 +84,8 @@ export class AboutPage {
 
   checkSocialSharingApps(): Promise<any> {
 
-    const message = "#azuza";
-    const subject = "Azuza";
+    const message = "#Instavest";
+    const subject = "Instavest";
 
     return new Promise((resolve, reject) => {
       if (!this.platform.is('cordova')) {
@@ -157,26 +157,26 @@ export class AboutPage {
         break;
     }
 
-    const fileUrl = 'https://azuzawealth.com/social/' + appName + '/socialshare.png';
+    const fileUrl = 'https://instavestcapital.com/social/' + appName + '/socialshare.png';
 
 
     const options = {
-      message: '#MicroInvest #Azuza #EcoFriendly #LoveTheEarth', // not supported on some apps (Facebook, Instagram)
-      subject: 'Azuza Micro Investment', // fi. for email
-      files: [ fileUrl ], // an array of filenames either locally or remotely
-      url: 'https://azuzawealth.com/',
+      message: '#MicroInvest #Instavest #EcoFriendly #LoveTheEarth', // not supported on some apps (Facebook, Instagram)
+      subject: 'Instavest Micro Investment', // fi. for email
+      files: [fileUrl], // an array of filenames either locally or remotely
+      url: 'https://instavestcapital.com/',
       chooserTitle: 'Where to share', // Android only, you can override the default share sheet title
       appPackageName: appName, // Android only, you can provide id of the App you want to share with
       iPadCoordinates: '0,0,0,0' // IOS only iPadCoordinates for where the popover should be point.  Format with x,y,width,height
     };
 
     this.socialSharing.shareWithOptions(options).then((success) => {
-      this.user.setToast("Thank you for sharing Azuza :-)");
+      this.user.setToast("Thank you for sharing Instavest :-)");
       return;
     },
-    (err) => {
-      return;
-    });
+      (err) => {
+        return;
+      });
   }
 
   launchExternalWebsite(option: string) {
@@ -184,18 +184,18 @@ export class AboutPage {
 
     switch (option) {
       case "terms-of-use":
-        url = "https://azuzawealth.com/legal/terms.html";
+        url = "https://instavestcapital.com/legal/terms.html";
         break;
       case "privacy-policy":
-        url = "https://azuzawealth.com/legal/privacy.html";
+        url = "https://instavestcapital.com/legal/privacy.html";
         break;
       case "visit-azuza":
-        url = "https://azuzawealth.com/";
+        url = "https://instavestcapital.com/";
         break;
     }
     if (url) {
-     // window.open(url, '_system', 'location=yes');
-     const browser = this.browser.create(url, "_system");
+      // window.open(url, '_system', 'location=yes');
+      const browser = this.browser.create(url, "_system");
     }
     return;
   }
@@ -205,8 +205,8 @@ export class AboutPage {
       case "raise-capital":
         return {
           topicId: 11,
-          heading: "Azuza Listings",
-          text: "Need capital to fund high growth in your eco-friendly startup in the green or sustainable technology space? Speak to us about raising capital on Azuza."
+          heading: "Instavest Listings",
+          text: "Need capital to fund high growth in your eco-friendly startup in the green or sustainable technology space? Speak to us about raising capital on Instavest."
         };
         break;
       case "azuza-bib":
@@ -223,13 +223,13 @@ export class AboutPage {
           text: "Connect with us! We're here to help."
         }; // general
         break;
-        case "invest":
-          return {
-            topicId: 9,
-            heading: "Investor enquiries",
-            text: "Join us on the forefront of the global financial evolution!"
-          }; // general
-          break;
+      case "invest":
+        return {
+          topicId: 9,
+          heading: "Investor enquiries",
+          text: "Join us on the forefront of the global financial evolution!"
+        }; // general
+        break;
     }
   }
 

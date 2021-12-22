@@ -142,7 +142,7 @@ export class WalletPage {
                 return true;
               },
               error => {
-                this.user.setToast("Wallet creation failed. Please try again or contact Bmoney Support (support@azuzawealth.com).", true);
+                this.user.setToast("Wallet creation failed. Please try again or contact Bmoney Support (support@instavestcapital.com).", true);
               });
           }
         }
@@ -161,7 +161,7 @@ export class WalletPage {
           await this.primeDataObjects();
           await this.initAccountList();
           this.user.setShortToast("Wallet created!");
-        }, (e) => {});
+        }, (e) => { });
       }, 750);
     });
   }
@@ -513,12 +513,12 @@ export class WalletPage {
         // skips transactions where there is no blockchain reference
         await this.createItem(transactionItem).then(async (item: HistoryItem) => {
 
-          try{
+          try {
             await this.formattedEventList[element].push(item);
-          } catch(error){
+          } catch (error) {
             console.log(error.message);
-          } 
-          
+          }
+
 
           console.log('this.formattedEventList[' + element + '] = ');
           console.log(this.formattedEventList[element]);
@@ -679,7 +679,7 @@ export class WalletPage {
   }
 
   initAccountList() {
-    
+
     this.loadAccountList().then(async (data: AccountData) => {
 
       if (data && data.length > 0) {
@@ -689,12 +689,12 @@ export class WalletPage {
         return;
       }
       // data didn't load
-      this.user.setToast("No account information found for your profile. Please try again or contact Bmoney Support (support@azuzawealth.com).");
+      this.user.setToast("No account information found for your profile. Please try again or contact Bmoney Support (support@instavestcapital.com).");
       this.router.navigate(['home']);
       return;
 
     }, (error) => {
-      this.user.setToast("No account information found for your profile. Please try again or contact Azuza Support (support@azuzawealth.com).");
+      this.user.setToast("No account information found for your profile. Please try again or contact Instavest Support (support@instavestcapital.com).");
     });
   }
 

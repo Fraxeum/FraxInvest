@@ -280,23 +280,23 @@ export class InvestmentDetailTwoPage implements OnInit {
   shareToSocial(appName: string, index: number) {
     switch (appName) {
       case 'facebook':
-        this.socialSharing.shareViaFacebook("#Innovation #Azuza #SocialInvestment #SaveThePlanet #Wealth", this.slides[index].url, "https://azuzawealth.com/");
+        this.socialSharing.shareViaFacebook("#Innovation #Azuza #SocialInvestment #SaveThePlanet #Wealth", this.slides[index].url, "https://instavestcapital.com/");
         this.user.setToast(this.slides[index].url);
         break;
       case 'twitter':
-        this.socialSharing.shareViaTwitter("#Innovation #Azuza #SocialInvestment #SaveThePlanet #Wealth", this.slides[index].url, "https://azuzawealth.com/");
+        this.socialSharing.shareViaTwitter("#Innovation #Azuza #SocialInvestment #SaveThePlanet #Wealth", this.slides[index].url, "https://instavestcapital.com/");
         this.user.setToast(this.slides[index].url);
         break;
       case 'whatsapp':
-        this.socialSharing.shareViaWhatsApp("#Innovation #Azuza #SocialInvestment #SaveThePlanet #Wealth", this.slides[index].url, "https://azuzawealth.com/");
+        this.socialSharing.shareViaWhatsApp("#Innovation #Azuza #SocialInvestment #SaveThePlanet #Wealth", this.slides[index].url, "https://instavestcapital.com/");
         this.user.setToast(this.slides[index].url);
         break;
       case 'linkedin':
-        this.socialSharing.canShareVia(this.getURIScheme(index), "#Innovation #Azuza #SocialInvestment #SaveThePlanet #Wealth", this.slides[index].url, "https://azuzawealth.com/");
+        this.socialSharing.canShareVia(this.getURIScheme(index), "#Innovation #Azuza #SocialInvestment #SaveThePlanet #Wealth", this.slides[index].url, "https://instavestcapital.com/");
         this.user.setToast(this.slides[index].url);
         break;
       case 'telegram':
-        this.socialSharing.canShareVia(this.getURIScheme(index), "#Innovation #Azuza #SocialInvestment #SaveThePlanet #Wealth", this.slides[index].url, "https://azuzawealth.com/");
+        this.socialSharing.canShareVia(this.getURIScheme(index), "#Innovation #Azuza #SocialInvestment #SaveThePlanet #Wealth", this.slides[index].url, "https://instavestcapital.com/");
         this.user.setToast(this.slides[index].url);
         break;
     }
@@ -954,7 +954,7 @@ export class InvestmentDetailTwoPage implements OnInit {
     switch (id) {
       case 0: {
         // IM URL
-        url = "https://azuzawealth.com/clients/pureorganic/im";
+        url = "https://instavestcapital.com/clients/pureorganic/im";
         break;
       }
       case 1: {
@@ -964,12 +964,12 @@ export class InvestmentDetailTwoPage implements OnInit {
       }
       case 2: {
         // IM URL
-        url = "https://azuzawealth.com/clients/iindustries/companydocs.pdf";
+        url = "https://instavestcapital.com/clients/iindustries/companydocs.pdf";
         break;
       }
       case 3: {
         // IM URL
-        url = "http://azuzawealth.com/legal/azuzatos.pdf";
+        url = "http://instavestcapital.com/legal/azuzatos.pdf";
         break;
       }
     }

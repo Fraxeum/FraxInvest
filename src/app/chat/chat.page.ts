@@ -125,7 +125,7 @@ export class ChatPage {
       }
 
       if (!response.success) {
-        this.user.setToast("Your message to support couldn't be sent. Please try again or email us (support@azuzawealth.com).");
+        this.user.setToast("Your message to support couldn't be sent. Please try again or email us (support@instavestcapital.com).");
         return;
       }
 
@@ -133,7 +133,7 @@ export class ChatPage {
 
     }, err => {
       this.sending = false;
-      this.user.setToast("Your message to support couldn't be sent. Please try again or email us (support@azuzawealth.com).");
+      this.user.setToast("Your message to support couldn't be sent. Please try again or email us (support@instavestcapital.com).");
     }).then(() => {
       this.syncSupportMessages().then((data) => {
         this.sending = false;
@@ -285,7 +285,7 @@ export class ChatPage {
         return "Support topic updated to " + this.topic.heading + ". Got any queries on this topic?";
       case 4:
         return "Haha... having a little tapping party on the support page, are we? ;-)";
-      default: return "AZUZA support standing by...";
+      default: return "Instavest support standing by...";
     }
   }
 

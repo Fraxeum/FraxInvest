@@ -1,731 +1,713 @@
 <style>
-  form {
-    width: 30vw;
-    min-width: 500px;
-    align-self: center;
-    box-shadow: 0px 0px 0px 0.5px rgba(50, 50, 93, 0.1),
-      0px 2px 5px 0px rgba(50, 50, 93, 0.1), 0px 1px 1.5px 0px rgba(0, 0, 0, 0.07);
-    border-radius: 7px;
-    padding: 40px;
-  }
-
-  input {
-    border-radius: 6px;
-    margin-bottom: 6px;
-    padding: 12px;
-    border: 1px solid rgba(50, 50, 93, 0.1);
-    height: 44px;
-    font-size: 16px;
-    width: 100%;
-    background: white;
-  }
-
-  .result-message {
-    line-height: 22px;
-    font-size: 16px;
-  }
-
-  .result-message a {
-    color: rgb(89, 111, 214);
-    font-weight: 600;
-    text-decoration: none;
-  }
-
-  .hidden {
-    display: none;
-  }
-
-  #card-error {
-    color: rgb(105, 115, 134);
-    text-align: left;
-    font-size: 13px;
-    line-height: 17px;
-    margin-top: 12px;
-  }
-
-  #card-element {
-    border-radius: 4px 4px 0 0;
-    padding: 12px;
-    border: 1px solid rgba(50, 50, 93, 0.1);
-    height: 44px;
-    width: 100%;
-    background: white;
-  }
-
-  #payment-request-button {
-    margin-bottom: 32px;
-  }
-
-  /* Buttons and links */
-  button {
-    background: #5469d4;
-    color: #ffffff;
-    font-family: Arial, sans-serif;
-    border-radius: 0 0 4px 4px;
-    border: 0;
-    padding: 12px 16px;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    display: block;
-    transition: all 0.2s ease;
-    box-shadow: 0px 4px 5.5px 0px rgba(0, 0, 0, 0.07);
-    width: 100%;
-  }
-
-  button:hover {
-    filter: contrast(115%);
-  }
-
-  button:disabled {
-    opacity: 0.5;
-    cursor: default;
-  }
-
-  /* spinner/processing state, errors */
-  .spinner,
-  .spinner:before,
-  .spinner:after {
-    border-radius: 50%;
-  }
-
-  .spinner {
-    color: #ffffff;
-    font-size: 22px;
-    text-indent: -99999px;
-    margin: 0px auto;
-    position: relative;
-    width: 20px;
-    height: 20px;
-    box-shadow: inset 0 0 0 2px;
-    -webkit-transform: translateZ(0);
-    -ms-transform: translateZ(0);
-    transform: translateZ(0);
-  }
-
-  .spinner:before,
-  .spinner:after {
-    position: absolute;
-    content: "";
-  }
-
-  .spinner:before {
-    width: 10.4px;
-    height: 20.4px;
-    background: #5469d4;
-    border-radius: 20.4px 0 0 20.4px;
-    top: -0.2px;
-    left: -0.2px;
-    -webkit-transform-origin: 10.4px 10.2px;
-    transform-origin: 10.4px 10.2px;
-    -webkit-animation: loading 2s infinite ease 1.5s;
-    animation: loading 2s infinite ease 1.5s;
-  }
-
-  .spinner:after {
-    width: 10.4px;
-    height: 10.2px;
-    background: #5469d4;
-    border-radius: 0 10.2px 10.2px 0;
-    top: -0.1px;
-    left: 10.2px;
-    -webkit-transform-origin: 0px 10.2px;
-    transform-origin: 0px 10.2px;
-    -webkit-animation: loading 2s infinite ease;
-    animation: loading 2s infinite ease;
-  }
-
-  @-webkit-keyframes loading {
-    0% {
-      -webkit-transform: rotate(0deg);
-      transform: rotate(0deg);
-    }
-
-    100% {
-      -webkit-transform: rotate(360deg);
-      transform: rotate(360deg);
-    }
-  }
-
-  @keyframes loading {
-    0% {
-      -webkit-transform: rotate(0deg);
-      transform: rotate(0deg);
-    }
-
-    100% {
-      -webkit-transform: rotate(360deg);
-      transform: rotate(360deg);
-    }
-  }
-
-  @media only screen and (max-width: 600px) {
     form {
-      width: 80vw;
+        width: 30vw;
+        min-width: 500px;
+        align-self: center;
+        box-shadow: 0px 0px 0px 0.5px rgba(50, 50, 93, 0.1), 0px 2px 5px 0px rgba(50, 50, 93, 0.1), 0px 1px 1.5px 0px rgba(0, 0, 0, 0.07);
+        border-radius: 7px;
+        padding: 40px;
     }
-  }
+    
+    input {
+        border-radius: 6px;
+        margin-bottom: 6px;
+        padding: 12px;
+        border: 1px solid rgba(50, 50, 93, 0.1);
+        height: 44px;
+        font-size: 16px;
+        width: 100%;
+        background: white;
+    }
+    
+    .result-message {
+        line-height: 22px;
+        font-size: 16px;
+    }
+    
+    .result-message a {
+        color: rgb(89, 111, 214);
+        font-weight: 600;
+        text-decoration: none;
+    }
+    
+    .hidden {
+        display: none;
+    }
+    
+    #card-error {
+        color: rgb(105, 115, 134);
+        text-align: left;
+        font-size: 13px;
+        line-height: 17px;
+        margin-top: 12px;
+    }
+    
+    #card-element {
+        border-radius: 4px 4px 0 0;
+        padding: 12px;
+        border: 1px solid rgba(50, 50, 93, 0.1);
+        height: 44px;
+        width: 100%;
+        background: white;
+    }
+    
+    #payment-request-button {
+        margin-bottom: 32px;
+    }
+    /* Buttons and links */
+    
+    button {
+        background: #5469d4;
+        color: #ffffff;
+        font-family: Arial, sans-serif;
+        border-radius: 0 0 4px 4px;
+        border: 0;
+        padding: 12px 16px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        display: block;
+        transition: all 0.2s ease;
+        box-shadow: 0px 4px 5.5px 0px rgba(0, 0, 0, 0.07);
+        width: 100%;
+    }
+    
+    button:hover {
+        filter: contrast(115%);
+    }
+    
+    button:disabled {
+        opacity: 0.5;
+        cursor: default;
+    }
+    /* spinner/processing state, errors */
+    
+    .spinner,
+    .spinner:before,
+    .spinner:after {
+        border-radius: 50%;
+    }
+    
+    .spinner {
+        color: #ffffff;
+        font-size: 22px;
+        text-indent: -99999px;
+        margin: 0px auto;
+        position: relative;
+        width: 20px;
+        height: 20px;
+        box-shadow: inset 0 0 0 2px;
+        -webkit-transform: translateZ(0);
+        -ms-transform: translateZ(0);
+        transform: translateZ(0);
+    }
+    
+    .spinner:before,
+    .spinner:after {
+        position: absolute;
+        content: "";
+    }
+    
+    .spinner:before {
+        width: 10.4px;
+        height: 20.4px;
+        background: #5469d4;
+        border-radius: 20.4px 0 0 20.4px;
+        top: -0.2px;
+        left: -0.2px;
+        -webkit-transform-origin: 10.4px 10.2px;
+        transform-origin: 10.4px 10.2px;
+        -webkit-animation: loading 2s infinite ease 1.5s;
+        animation: loading 2s infinite ease 1.5s;
+    }
+    
+    .spinner:after {
+        width: 10.4px;
+        height: 10.2px;
+        background: #5469d4;
+        border-radius: 0 10.2px 10.2px 0;
+        top: -0.1px;
+        left: 10.2px;
+        -webkit-transform-origin: 0px 10.2px;
+        transform-origin: 0px 10.2px;
+        -webkit-animation: loading 2s infinite ease;
+        animation: loading 2s infinite ease;
+    }
+    
+    @-webkit-keyframes loading {
+        0% {
+            -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+        }
+        100% {
+            -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+        }
+    }
+    
+    @keyframes loading {
+        0% {
+            -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+        }
+        100% {
+            -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+        }
+    }
+    
+    @media only screen and (max-width: 600px) {
+        form {
+            width: 80vw;
+        }
+    }
 </style>
 
 <ion-header class="af-none ">
-  <ion-toolbar class="header-bg">
-    <ion-buttons slot="start">
-      <ion-menu-button color="light"></ion-menu-button>
-    </ion-buttons>
-    <ion-title class="cs-title"> Deposit </ion-title>
-  </ion-toolbar>
+    <ion-toolbar class="header-bg">
+        <ion-buttons slot="start">
+            <ion-menu-button color="light"></ion-menu-button>
+        </ion-buttons>
+        <ion-title class="cs-title"> Deposit </ion-title>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content class="transparent" style="max-width: 100%;">
 
-  <!-- Personal tab data -->
+    <!-- Personal tab data -->
 
-  <div [ngSwitch]="currentPage">
+    <div [ngSwitch]="currentPage">
 
-    <ng-container *ngSwitchCase="'connecting'">
-      <div style="width: 100%; margin: 1em 0; text-align: center;">
-        <ion-spinner color="light" name="dots"></ion-spinner>
-      </div>
-    </ng-container>
-
-    <!-- setup section start -->
-    <div *ngSwitchCase="'setup'">
-
-      <div class="infoblock mt20 mb0">
-        <p class="">
-          Deposit money into your Azuza Wallet with an EFT or Cryptocurrency payment.
-        </p>
-      </div>
-
-      <div class="slides-heading">
-        <h3>Enter your deposit amount </h3>
-      </div>
-
-      <div class="page-content">
-        <div class="outerlayer-div">
-          <div class="form-content" style="text-align: center;">
-
-            <div class="input-block">
-              <ion-grid class="ion-no-padding">
-                <ion-row class="ion-no-padding">
-                  <ion-col size="2" class="ion-no-padding">
-                    <div class="switch-button button-left text-center flex-center small">
-                      {{ depositObject.depositDetails.base }}
-                    </div>
-                  </ion-col>
-                  <ion-col size="8" class="ion-no-padding" style="padding-right: 10px;">
-                    <ion-input type="number" class="ion-text-right" autocomplete="off"
-                      placeholder="{{ depositObject.depositDetails.amount }}"
-                      [(ngModel)]="depositObject.depositDetails.amount"></ion-input>
-                  </ion-col>
-
-                  <ion-col size="2" class="ion-no-padding" (click)="toggleSwitchCurrency()">
-                    <div class="switch-button button-right text-center flex-center">
-                      <ion-icon name="swap-horizontal"></ion-icon>
-                    </div>
-                  </ion-col>
-
-                </ion-row>
-              </ion-grid>
+        <ng-container *ngSwitchCase="'connecting'">
+            <div style="width: 100%; margin: 1em 0; text-align: center;">
+                <ion-spinner color="light" name="dots"></ion-spinner>
             </div>
-            <div class="small db mt10 " *ngIf="depositObject.depositDetails.base === 'ZAR'">
-              <span class="small" style="color: white;">Investing:&nbsp;
-                {{ depositObject.depositDetails.amount ? ( depositObject.depositDetails.amount | currency : 'ZAR': 'R' ) : ( 'R 0.00' ) }}</span>
-              <br /><span style="font-size: 0.85em">&nbsp;&asymp;&nbsp;
-                {{ depositObject.depositDetails.amount ? ( (depositObject.depositDetails.amount * ZARUSDRate) | currency : 'USD': 'US$' ) : ( 'US$ 0.00' ) }}</span>
+        </ng-container>
+
+        <!-- setup section start -->
+        <div *ngSwitchCase="'setup'">
+
+            <div class="infoblock mt20 mb0">
+                <p class="">
+                    Deposit money into your Instavest Wallet with an EFT or Cryptocurrency payment.
+                </p>
             </div>
-            <div class="small db  mt10 " *ngIf="depositObject.depositDetails.base === 'BTC'">
-              <span class="small" style="color: white;">
+
+            <div class="slides-heading">
+                <h3>Enter your deposit amount </h3>
+            </div>
+
+            <div class="page-content">
+                <div class="outerlayer-div">
+                    <div class="form-content" style="text-align: center;">
+
+                        <div class="input-block">
+                            <ion-grid class="ion-no-padding">
+                                <ion-row class="ion-no-padding">
+                                    <ion-col size="2" class="ion-no-padding">
+                                        <div class="switch-button button-left text-center flex-center small">
+                                            {{ depositObject.depositDetails.base }}
+                                        </div>
+                                    </ion-col>
+                                    <ion-col size="8" class="ion-no-padding" style="padding-right: 10px;">
+                                        <ion-input type="number" class="ion-text-right" autocomplete="off" placeholder="{{ depositObject.depositDetails.amount }}" [(ngModel)]="depositObject.depositDetails.amount"></ion-input>
+                                    </ion-col>
+
+                                    <ion-col size="2" class="ion-no-padding" (click)="toggleSwitchCurrency()">
+                                        <div class="switch-button button-right text-center flex-center">
+                                            <ion-icon name="swap-horizontal"></ion-icon>
+                                        </div>
+                                    </ion-col>
+
+                                </ion-row>
+                            </ion-grid>
+                        </div>
+                        <div class="small db mt10 " *ngIf="depositObject.depositDetails.base === 'ZAR'">
+                            <span class="small" style="color: white;">Investing:&nbsp;
+                {{ depositObject.depositDetails.amount ? ( depositObject.depositDetails.amount | currency : 'ZAR': 'R' )
+                : ( 'R 0.00' ) }}</span>
+                            <br /><span style="font-size: 0.85em">&nbsp;&asymp;&nbsp;
+                {{ depositObject.depositDetails.amount ? ( (depositObject.depositDetails.amount * ZARUSDRate) | currency
+                : 'USD': 'US$' ) : ( 'US$ 0.00' ) }}</span>
+                        </div>
+                        <div class="small db  mt10 " *ngIf="depositObject.depositDetails.base === 'BTC'">
+                            <span class="small" style="color: white;">
                 Est. Rand value:&nbsp;
-                {{ depositObject.depositDetails.amount ? ( getEstBTCValue()  | currency : 'ZAR' : 'R' ) : ( 'R 0.00' ) }}
+                {{ depositObject.depositDetails.amount ? ( getEstBTCValue() | currency : 'ZAR' : 'R' ) : ( 'R 0.00' ) }}
               </span>
-            </div>
-            <div class="small db  mt10 "
-              *ngIf="depositObject.depositDetails.base !== 'ZAR' && depositObject.depositDetails.base !== 'BTC'">
-              <span class="small" style="color: white;">Est. Rand value:&nbsp;
+                        </div>
+                        <div class="small db  mt10 " *ngIf="depositObject.depositDetails.base !== 'ZAR' && depositObject.depositDetails.base !== 'BTC'">
+                            <span class="small" style="color: white;">Est. Rand value:&nbsp;
                 {{ depositObject.depositDetails.amount ? ( getEstAltValue() | currency : 'ZAR' : 'R' ) : ( 'R 0.00' ) }}
               </span>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
-      </div>
 
 
-      <div *ngIf="showCurrencyList">
-        <div class="slides-heading border-top">
-          <h3>Select a currency</h3>
-        </div>
+            <div *ngIf="showCurrencyList">
+                <div class="slides-heading border-top">
+                    <h3>Select a currency</h3>
+                </div>
 
-        <ion-list lines="full" style="margin-top: -10px">
-          <ion-item *ngFor="let item of supportedCurrencies; let i = index" class="border-bottom"
-            (click)="changeCurrency(item.symbol, +i)" [ngStyle]="getBackgroundColor(i)">
-            <ion-avatar slot="start">
-              <img [src]="item.imageUri" alt="{{ item.symbol }}" style="border-radius:0 !important" />
-            </ion-avatar>
-            <ion-label>
-              <h2>{{ item.name }}</h2>
-              <p class="small ">
-                <span *ngIf="(item.symbol !== 'ZAR') && (item.symbol !== 'BTC')"
-                  style="float:left">ZAR:{{ item.symbol }}
-                  {{ (item.rate_btc * ZARBTCRate)  | currency : 'ZAR' : 'R' }}</span>
-                <span *ngIf="item.symbol === 'ZAR' " style="float:left">ZAR:USD
-                  {{  +item.rate_usd | currency : 'ZAR' : 'R' }}</span>
-                <span *ngIf="item.symbol === 'BTC' " style="float:left">ZAR:BTC
+                <ion-list lines="full" style="margin-top: -10px">
+                    <ion-item *ngFor="let item of supportedCurrencies; let i = index" class="border-bottom" (click)="changeCurrency(item.symbol, +i)" [ngStyle]="getBackgroundColor(i)">
+                        <ion-avatar slot="start">
+                            <img [src]="item.imageUri" alt="{{ item.symbol }}" style="border-radius:0 !important" />
+                        </ion-avatar>
+                        <ion-label>
+                            <h2>{{ item.name }}</h2>
+                            <p class="small ">
+                                <span *ngIf="(item.symbol !== 'ZAR') && (item.symbol !== 'BTC')" style="float:left">ZAR:{{ item.symbol
+                  }}
+                  {{ (item.rate_btc * ZARBTCRate) | currency : 'ZAR' : 'R' }}</span>
+                                <span *ngIf="item.symbol === 'ZAR' " style="float:left">ZAR:USD
+                  {{ +item.rate_usd | currency : 'ZAR' : 'R' }}</span>
+                                <span *ngIf="item.symbol === 'BTC' " style="float:left">ZAR:BTC
                   {{ ZARBTCRate | currency : 'ZAR' : 'R' }}</span>
-              </p>
-            </ion-label>
-            <ion-icon slot="end" *ngIf="item.selected" name="checkmark-circle" style="font-size: 24px; color: white;">
-            </ion-icon>
-          </ion-item>
-        </ion-list>
-      </div>
+                            </p>
+                        </ion-label>
+                        <ion-icon slot="end" *ngIf="item.selected" name="checkmark-circle" style="font-size: 24px; color: white;">
+                        </ion-icon>
+                    </ion-item>
+                </ion-list>
+            </div>
 
-      <div *ngIf="!showCurrencyList" style="margin-top: 4em;">
-        <ion-list lines="none" class="ion-no-padding cs-transparent-list"
-          style="border-top: 1px solid rgba(255,255,255,0.075)">
-          <ion-item color="bg-none" class="share-list-item" style="padding:0px !important;">
-            <ion-grid class="ion-padding-vertical">
-              <ion-row class="ion-no-padding">
-                <ion-col size="12" class="ion-no-padding">
-                  <div class="slides-heading pl16 pr16">
-                    <h3 class="padding0">Important notes:</h3>
-                  </div>
-                </ion-col>
-              </ion-row>
-              <ion-row class="ion-no-padding">
-                <ion-col size="12">
-                  <div class="afs wp100">
-                    <span class="small lineh20">1. Switch between cash and crypto deposits using the <ion-icon
+            <div *ngIf="!showCurrencyList" style="margin-top: 4em;">
+                <ion-list lines="none" class="ion-no-padding cs-transparent-list" style="border-top: 1px solid rgba(255,255,255,0.075)">
+                    <ion-item color="bg-none" class="share-list-item" style="padding:0px !important;">
+                        <ion-grid class="ion-padding-vertical">
+                            <ion-row class="ion-no-padding">
+                                <ion-col size="12" class="ion-no-padding">
+                                    <div class="slides-heading pl16 pr16">
+                                        <h3 class="padding0">Important notes:</h3>
+                                    </div>
+                                </ion-col>
+                            </ion-row>
+                            <ion-row class="ion-no-padding">
+                                <ion-col size="12">
+                                    <div class="afs wp100">
+                                        <span class="small lineh20">1. Switch between cash and crypto deposits using the <ion-icon
                         name="swap-horizontal"></ion-icon> button above.</span>
-                  </div>
-                </ion-col>
-              </ion-row>
-              <ion-row class="ion-no-padding">
-                <ion-col size="12">
-                  <div class="afs wp100">
-                    <span class="small lineh20">2. Deposits are kept in a safe, interest bearing account transition
+                                    </div>
+                                </ion-col>
+                            </ion-row>
+                            <ion-row class="ion-no-padding">
+                                <ion-col size="12">
+                                    <div class="afs wp100">
+                                        <span class="small lineh20">2. Deposits are kept in a safe, interest bearing account transition
                       account.</span>
-                  </div>
-                </ion-col>
-              </ion-row>
-              <ion-row class="ion-no-padding">
-                <ion-col size="12">
-                  <div class="afs wp100">
-                    <span class="small lineh20">3. You can withdraw money in the Available part of your Azuza Wallet to
+                                    </div>
+                                </ion-col>
+                            </ion-row>
+                            <ion-row class="ion-no-padding">
+                                <ion-col size="12">
+                                    <div class="afs wp100">
+                                        <span class="small lineh20">3. You can withdraw money in the Available part of your Instavest Wallet
+                      to
                       your own verified bank account at any time.</span>
-                  </div>
-                </ion-col>
-              </ion-row>
-              <ion-row class="ion-no-padding">
-                <ion-col size="12">
-                  <div class="afs wp100">
-                    <span class="small lineh20">4. Money in the Escrow part of you Azuza Wallet has been used in a
+                                    </div>
+                                </ion-col>
+                            </ion-row>
+                            <ion-row class="ion-no-padding">
+                                <ion-col size="12">
+                                    <div class="afs wp100">
+                                        <span class="small lineh20">4. Money in the Escrow part of you Instavest Wallet has been used in a
                       transaction and cannot be withdrawn.</span>
-                  </div>
-                </ion-col>
-              </ion-row>
-              <ion-row class="ion-no-padding">
-                <ion-col size="12">
-                  <div class="afs wp100">
-                    <span class="small lineh20">5. Cash deposits take time to clear. EFT deposits can take up to 72
+                                    </div>
+                                </ion-col>
+                            </ion-row>
+                            <ion-row class="ion-no-padding">
+                                <ion-col size="12">
+                                    <div class="afs wp100">
+                                        <span class="small lineh20">5. Cash deposits take time to clear. EFT deposits can take up to 72
                       hours and is completely dependent on bank clearing times.</span>
-                  </div>
-                </ion-col>
-              </ion-row>
-              <ion-row class="ion-no-padding">
-                <ion-col size="12">
-                  <div class="afs wp100">
-                    <span class="small lineh20">6. Terms and Conditions as stipulated in the Azuza User Agreement
+                                    </div>
+                                </ion-col>
+                            </ion-row>
+                            <ion-row class="ion-no-padding">
+                                <ion-col size="12">
+                                    <div class="afs wp100">
+                                        <span class="small lineh20">6. Terms and Conditions as stipulated in the Instavest User Agreement
                       apply.</span>
-                  </div>
-                </ion-col>
-              </ion-row>
+                                    </div>
+                                </ion-col>
+                            </ion-row>
 
 
-            </ion-grid>
-          </ion-item>
-        </ion-list>
-      </div>
+                        </ion-grid>
+                    </ion-item>
+                </ion-list>
+            </div>
 
-    </div>
-    <!-- setup section end -->
-
-
-    <!-- EFT section start -->
-    <div *ngSwitchCase="'EFT_Final'">
-
-      <div class="infoblock">
-        <p class="">
-          You are buying R{{ depositDetails.amount }} of ZAR Tokens with which you can invest in startups on the Azuza
-          Platform. The value of
-          one ZAR token is exactly equal to one South African Rand.
-        </p>
-      </div>
+        </div>
+        <!-- setup section end -->
 
 
-      <ion-list lines="none" class="dm-border-top swipecard  swipecard-flat  ion-no-padding cs-transparent-list">
-        <ion-item color="bg-none" class="share-list-item">
-          <ion-grid class="ion-padding">
-            <ion-row class="ion-no-padding">
-              <ion-col size="12" class="ion-no-padding border-bottom">
-                <div class="slides-heading padding0">
-                  <h3 class="padding0">Transaction Summary</h3>
-                </div>
-                <div class="offer wp100" (click)="copyToClipboard('Reference number',depositDetails.reference)">
-                  <p class="wp100 ion-text-left smaller">Reference number</p>
-                  <span class="large">{{ depositDetails.reference }}</span>
-                </div>
-              </ion-col>
-            </ion-row>
-            <ion-row class="ion-no-padding">
-              <ion-col size="6" class="ion-no-padding share-content border-right">
-                <div class="offer wp100">
-                  <p class="wp100 ion-text-left smaller" style="margin-bottom: 0.5em;">Purchase amount</p>
-                  <span style="clear:right;">{{ depositDetails.amount | currency : 'ZAR': 'R' }}</span>
-                  <span
-                    style="font-size: 0.7em;">&asymp;{{ ((depositDetails.amount * ZARUSDRate) | currency : 'USD': 'US$') }}</span>
-                </div>
-              </ion-col>
+        <!-- EFT section start -->
+        <div *ngSwitchCase="'EFT_Final'">
 
-              <ion-col size="6" class="ion-no-padding share-content">
-                <div class="offer wp100">
-                  <p class="wp100 ion-text-right smaller" style="margin-bottom: 0.5em;">Card fee (+3%)</p>
-                  <span> {{ ((+depositDetails.amount) * 0.03) | currency : 'ZAR': 'R' }}</span>
-                </div>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-        </ion-item>
-      </ion-list>
+            <div class="infoblock">
+                <p class="">
+                    You are buying R{{ depositDetails.amount }} of ZAR Tokens with which you can invest in startups on the Instavest Platform. The value of one ZAR token is exactly equal to one South African Rand.
+                </p>
+            </div>
 
-      <div class="infoblock">
-        <p class="">
-          You can pay via internet banking transfer (EFT) using these banking details below (we've also just emailed it
-          to
-          you). You can also pay using a credit card. A card processing fee of 3% will be added to your payment.
-        </p>
-      </div>
 
-      <ion-list lines="none" class="dm-border-top swipecard  swipecard-flat  cs-transparent-list">
-        <ion-item *ngIf="!payingByCard" color="bg-none" class="share-list-item ion-no-padding">
-          <ion-grid class="ion-padding-vertical" class="ion-no-padding">
-            <ion-row class="ion-no-padding">
-              <ion-col size="12" class="deposit-button ion-no-padding" (click)="launchCardPayment()">
-                <ion-item class="ion-no-padding">
-                  <ion-icon color="light" name="card" slot="start"></ion-icon>
-                  <ion-label *ngIf="!loadCardPayment">Pay by Credit Card</ion-label>
-                  <ion-spinner *ngIf="loadCardPayment" color="light" name="dots"></ion-spinner>
+            <ion-list lines="none" class="dm-border-top swipecard  swipecard-flat  ion-no-padding cs-transparent-list">
+                <ion-item color="bg-none" class="share-list-item">
+                    <ion-grid class="ion-padding">
+                        <ion-row class="ion-no-padding">
+                            <ion-col size="12" class="ion-no-padding border-bottom">
+                                <div class="slides-heading padding0">
+                                    <h3 class="padding0">Transaction Summary</h3>
+                                </div>
+                                <div class="offer wp100" (click)="copyToClipboard('Reference number',depositDetails.reference)">
+                                    <p class="wp100 ion-text-left smaller">Reference number</p>
+                                    <span class="large">{{ depositDetails.reference }}</span>
+                                </div>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row class="ion-no-padding">
+                            <ion-col size="6" class="ion-no-padding share-content border-right">
+                                <div class="offer wp100">
+                                    <p class="wp100 ion-text-left smaller" style="margin-bottom: 0.5em;">Purchase amount</p>
+                                    <span style="clear:right;">{{ depositDetails.amount | currency : 'ZAR': 'R' }}</span>
+                                    <span style="font-size: 0.7em;">&asymp;{{ ((depositDetails.amount * ZARUSDRate) | currency : 'USD':
+                    'US$') }}</span>
+                                </div>
+                            </ion-col>
+
+                            <ion-col size="6" class="ion-no-padding share-content">
+                                <div class="offer wp100">
+                                    <p class="wp100 ion-text-right smaller" style="margin-bottom: 0.5em;">Card fee (+3%)</p>
+                                    <span> {{ ((+depositDetails.amount) * 0.03) | currency : 'ZAR': 'R' }}</span>
+                                </div>
+                            </ion-col>
+                        </ion-row>
+                    </ion-grid>
                 </ion-item>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-        </ion-item>
-      </ion-list>
+            </ion-list>
 
-      <ng-container *ngIf="payingByCard" color="bg-none" class="share-list-item ion-no-padding">
-        <p class="small ion-text-center" *ngIf="initStripe">Securing card payment channel...</p>
-        <form id="payment-form" style="min-width: 100% !important">
-          <div id="card-element">
-            <!--Stripe.js injects the Card Element-->
-          </div>
-          <button id="submit">
+            <div class="infoblock">
+                <p class="">
+                    You can pay via internet banking transfer (EFT) using these banking details below (we've also just emailed it to you). You can also pay using a credit card. A card processing fee of 3% will be added to your payment.
+                </p>
+            </div>
+
+            <ion-list lines="none" class="dm-border-top swipecard  swipecard-flat  cs-transparent-list">
+                <ion-item *ngIf="!payingByCard" color="bg-none" class="share-list-item ion-no-padding">
+                    <ion-grid class="ion-padding-vertical" class="ion-no-padding">
+                        <ion-row class="ion-no-padding">
+                            <ion-col size="12" class="deposit-button ion-no-padding" (click)="launchCardPayment()">
+                                <ion-item class="ion-no-padding">
+                                    <ion-icon color="light" name="card" slot="start"></ion-icon>
+                                    <ion-label *ngIf="!loadCardPayment">Pay by Credit Card</ion-label>
+                                    <ion-spinner *ngIf="loadCardPayment" color="light" name="dots"></ion-spinner>
+                                </ion-item>
+                            </ion-col>
+                        </ion-row>
+                    </ion-grid>
+                </ion-item>
+            </ion-list>
+
+            <ng-container *ngIf="payingByCard" color="bg-none" class="share-list-item ion-no-padding">
+                <p class="small ion-text-center" *ngIf="initStripe">Securing card payment channel...</p>
+                <form id="payment-form" style="min-width: 100% !important">
+                    <div id="card-element">
+                        <!--Stripe.js injects the Card Element-->
+                    </div>
+                    <button id="submit">
             <div class="spinner hidden" id="spinner"></div>
             <span id="button-text">Pay now</span>
           </button>
-          <p id="card-error" role="alert" style="text-align: center;"></p>
-          <p class="result-message small hidden">
-            Payment complete! Your ZAR Coins will be loaded to your wallet as soon as the transaction has been
-            confirmed.
-          </p>
-        </form>
-      </ng-container>
+                    <p id="card-error" role="alert" style="text-align: center;"></p>
+                    <p class="result-message small hidden">
+                        Payment complete! Your ZAR Coins will be loaded to your wallet as soon as the transaction has been confirmed.
+                    </p>
+                </form>
+            </ng-container>
 
-      <ng-container *ngIf="payingByCard">
-        <ion-list lines="none" class="dm-border-top swipecard  swipecard-flat  ion-no-padding cs-transparent-list">
-          <ion-item color="bg-none" class="share-list-item">
-            <ion-grid class="ion-padding-vertical">
-              <ion-row class="ion-no-padding">
-                <ion-col size="12">
-                  <div class="float-top-left small">
-                    <h4>Bank name</h4>
-                  </div>
+            <ng-container *ngIf="payingByCard">
+                <ion-list lines="none" class="dm-border-top swipecard  swipecard-flat  ion-no-padding cs-transparent-list">
+                    <ion-item color="bg-none" class="share-list-item">
+                        <ion-grid class="ion-padding-vertical">
+                            <ion-row class="ion-no-padding">
+                                <ion-col size="12">
+                                    <div class="float-top-left small">
+                                        <h4>Bank name</h4>
+                                    </div>
 
-                  <div class="ion-text-center">
-                    <p class="banking">{{ eftResponse.bankname }}</p>
-                  </div>
-                </ion-col>
-              </ion-row>
+                                    <div class="ion-text-center">
+                                        <p class="banking">{{ eftResponse.bankname }}</p>
+                                    </div>
+                                </ion-col>
+                            </ion-row>
 
-              <ion-row class="ion-no-padding">
-                <ion-col size="12">
-                  <div class="float-top-left small">
-                    <h4>Account number</h4>
-                  </div>
+                            <ion-row class="ion-no-padding">
+                                <ion-col size="12">
+                                    <div class="float-top-left small">
+                                        <h4>Account number</h4>
+                                    </div>
 
-                  <div class="ion-text-center">
-                    <p class="banking">{{ eftResponse.bankaccountnumber }}</p>
-                  </div>
-                </ion-col>
-              </ion-row>
+                                    <div class="ion-text-center">
+                                        <p class="banking">{{ eftResponse.bankaccountnumber }}</p>
+                                    </div>
+                                </ion-col>
+                            </ion-row>
 
-              <ion-row class="ion-no-padding">
-                <ion-col size="12">
-                  <div class="float-top-left small">
-                    <h4>Branch code</h4>
-                  </div>
+                            <ion-row class="ion-no-padding">
+                                <ion-col size="12">
+                                    <div class="float-top-left small">
+                                        <h4>Branch code</h4>
+                                    </div>
 
-                  <div class="ion-text-center">
-                    <p class="banking">{{ eftResponse.bankbranchcode }}</p>
-                  </div>
-                </ion-col>
-              </ion-row>
+                                    <div class="ion-text-center">
+                                        <p class="banking">{{ eftResponse.bankbranchcode }}</p>
+                                    </div>
+                                </ion-col>
+                            </ion-row>
 
-              <ion-row class="ion-no-padding">
-                <ion-col size="12">
-                  <div class="float-top-left small">
-                    <h4>Swift code</h4>
-                  </div>
+                            <ion-row class="ion-no-padding">
+                                <ion-col size="12">
+                                    <div class="float-top-left small">
+                                        <h4>Swift code</h4>
+                                    </div>
 
-                  <div class="ion-text-center">
-                    <p class="banking">{{ eftResponse.bankswiftcode }}</p>
-                  </div>
-                </ion-col>
-              </ion-row>
+                                    <div class="ion-text-center">
+                                        <p class="banking">{{ eftResponse.bankswiftcode }}</p>
+                                    </div>
+                                </ion-col>
+                            </ion-row>
 
-              <ion-row class="ion-no-padding">
-                <ion-col size="12">
-                  <div class="float-top-left small">
-                    <h4>Bank address</h4>
-                  </div>
+                            <ion-row class="ion-no-padding">
+                                <ion-col size="12">
+                                    <div class="float-top-left small">
+                                        <h4>Bank address</h4>
+                                    </div>
 
-                  <div class="ion-text-center">
-                    <p class="banking">{{ eftResponse.bankstreetaddress }}</p>
-                  </div>
-                </ion-col>
-              </ion-row>
-            </ion-grid>
-          </ion-item>
-        </ion-list>
-      </ng-container>
+                                    <div class="ion-text-center">
+                                        <p class="banking">{{ eftResponse.bankstreetaddress }}</p>
+                                    </div>
+                                </ion-col>
+                            </ion-row>
+                        </ion-grid>
+                    </ion-item>
+                </ion-list>
+            </ng-container>
 
-      <ion-list lines="none" class="swipecard  swipecard-flat  ion-no-padding cs-transparent-list">
-        <ion-item color="bg-none" class="share-list-item">
-          <ion-grid class="ion-padding-vertical">
-            <ion-row class="ion-no-padding">
-              <ion-col size="12" class="ion-no-padding">
-                <div class="slides-heading pl16 pr16">
-                  <h3 class="padding0">Important notes:</h3>
-                </div>
-              </ion-col>
-            </ion-row>
-            <ion-row class="ion-no-padding">
-              <ion-col size="12">
-                <div class="offer afs wp100">
-                  <span class="small lineh20">1. The EFT payment is free of charge but if you choose to use the card
+            <ion-list lines="none" class="swipecard  swipecard-flat  ion-no-padding cs-transparent-list">
+                <ion-item color="bg-none" class="share-list-item">
+                    <ion-grid class="ion-padding-vertical">
+                        <ion-row class="ion-no-padding">
+                            <ion-col size="12" class="ion-no-padding">
+                                <div class="slides-heading pl16 pr16">
+                                    <h3 class="padding0">Important notes:</h3>
+                                </div>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row class="ion-no-padding">
+                            <ion-col size="12">
+                                <div class="offer afs wp100">
+                                    <span class="small lineh20">1. The EFT payment is free of charge but if you choose to use the card
                     payment option then an additional card processing fee of 3% will be charged to your card.
                   </span>
-                </div>
-              </ion-col>
-            </ion-row>
-            <ion-row class="ion-no-padding">
-              <ion-col size="12">
-                <div class="offer afs wp100">
-                  <span class="small lineh20">2. Deposits from {{ eftResponse.bankname }} will reflect the same day,
+                                </div>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row class="ion-no-padding">
+                            <ion-col size="12">
+                                <div class="offer afs wp100">
+                                    <span class="small lineh20">2. Deposits from {{ eftResponse.bankname }} will reflect the same day,
                     usually
                     within the hour.</span>
-                </div>
-              </ion-col>
-            </ion-row>
-            <ion-row class="ion-no-padding">
-              <ion-col size="12">
-                <div class="offer afs wp100">
-                  <span class="small lineh20">3. This account accepts only EFT payments. No branch deposits will be
+                                </div>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row class="ion-no-padding">
+                            <ion-col size="12">
+                                <div class="offer afs wp100">
+                                    <span class="small lineh20">3. This account accepts only EFT payments. No branch deposits will be
                     accepted.</span>
-                </div>
-              </ion-col>
+                                </div>
+                            </ion-col>
 
 
-            </ion-row>
-            <ion-row class="ion-no-padding">
-              <ion-col size="12">
-                <div class="offer afs wp100">
-                  <span class="small lineh20">4. Ensure that you use the correct reference number.</span>
-                </div>
-              </ion-col>
-            </ion-row>
-            <ion-row class="ion-no-padding">
-              <ion-col size="12">
-                <div class="offer afs wp100">
-                  <span class="small lineh20">5. Depending on the bank you pay from, deposits may take up to two full
+                        </ion-row>
+                        <ion-row class="ion-no-padding">
+                            <ion-col size="12">
+                                <div class="offer afs wp100">
+                                    <span class="small lineh20">4. Ensure that you use the correct reference number.</span>
+                                </div>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row class="ion-no-padding">
+                            <ion-col size="12">
+                                <div class="offer afs wp100">
+                                    <span class="small lineh20">5. Depending on the bank you pay from, deposits may take up to two full
                     business days to process and reflect in your account.</span>
-                </div>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-        </ion-item>
-      </ion-list>
-    </div>
-    <!-- EFT section end -->
+                                </div>
+                            </ion-col>
+                        </ion-row>
+                    </ion-grid>
+                </ion-item>
+            </ion-list>
+        </div>
+        <!-- EFT section end -->
 
-    <!-- EFT section start -->
-    <div *ngSwitchCase="'CryptoFinal'">
+        <!-- EFT section start -->
+        <div *ngSwitchCase="'CryptoFinal'">
 
-      <div class="infoblock">
-        <p class="">
-          We're all set. Send your {{ depositObject.depositDetails.base }} to the address below. You have
-          {{ (+cryptoResponse.result.timeout)/60 }} minutes to complete
-          this transaction. Your payment needs to be confirmed by at least {{ cryptoResponse.result.confirms_needed }}
-          {{ depositObject.depositDetails.base }} peers to be credited to your account.
-        </p>
-      </div>
+            <div class="infoblock">
+                <p class="">
+                    We're all set. Send your {{ depositObject.depositDetails.base }} to the address below. You have {{ (+cryptoResponse.result.timeout)/60 }} minutes to complete this transaction. Your payment needs to be confirmed by at least {{ cryptoResponse.result.confirms_needed
+                    }} {{ depositObject.depositDetails.base }} peers to be credited to your account.
+                </p>
+            </div>
 
-      <ion-list no-padding lines="none" class="dm-border-top cs-transparent-list" style="padding-top: 0">
-        <ion-item color="bg-none" class="share-list-item" style="padding:0px !important;">
-          <ion-grid no-padding class="--padding-start: 0 !important; --inner-padding-end: 0 !important; ">
-            <ion-row no-padding>
-              <ion-col size="12" no-padding class="border-bottom">
-                <div class="slides-heading padding0">
-                  <h3 class="padding0">Deposit {{ supportedCurrencies[selectedIndex].name }}</h3>
-                </div>
-                <div class="offer wp100">
-                  <p class="wp100 ion-text-left">{{ depositObject.depositDetails.base }} address
-                    <span style="float:right;"
-                      (click)="copyToClipboard(depositObject.depositDetails.base + ' address ', cryptoResponse.result.address)">
+            <ion-list no-padding lines="none" class="dm-border-top cs-transparent-list" style="padding-top: 0">
+                <ion-item color="bg-none" class="share-list-item" style="padding:0px !important;">
+                    <ion-grid no-padding class="--padding-start: 0 !important; --inner-padding-end: 0 !important; ">
+                        <ion-row no-padding>
+                            <ion-col size="12" no-padding class="border-bottom">
+                                <div class="slides-heading padding0">
+                                    <h3 class="padding0">Deposit {{ supportedCurrencies[selectedIndex].name }}</h3>
+                                </div>
+                                <div class="offer wp100">
+                                    <p class="wp100 ion-text-left">{{ depositObject.depositDetails.base }} address
+                                        <span style="float:right;" (click)="copyToClipboard(depositObject.depositDetails.base + ' address ', cryptoResponse.result.address)">
                       <ion-icon class=" smaller" name="clipboard-outline" style="margin-left: 10px;">
                       </ion-icon>
                     </span>
-                  </p>
-                  <p style="text-align: center" (click)="copyToClipboard(depositObject.depositDetails.base,'')">
-                    <img ion-img [src]="cryptoResponse.result.qrcode_url"
-                      style="max-width: 50%; margin-left: auto; margin-right: auto; margin-bottom: 10px; clear: both;"
-                      alt="" />
-                    <br />
-                    <span style="font-size: small;" class="smaller">
+                                    </p>
+                                    <p style="text-align: center" (click)="copyToClipboard(depositObject.depositDetails.base,'')">
+                                        <img ion-img [src]="cryptoResponse.result.qrcode_url" style="max-width: 50%; margin-left: auto; margin-right: auto; margin-bottom: 10px; clear: both;" alt="" />
+                                        <br />
+                                        <span style="font-size: small;" class="smaller">
                       Address reference: <br />
                       {{ getSafeAddress( cryptoResponse.result.address ) }}
                     </span>
-                  </p>
-                </div>
-              </ion-col>
-            </ion-row>
-            <ion-row no-padding>
-              <ion-col size="6" no-padding class="share-content border-right">
-                <div class="offer wp100">
-                  <p class="wp100 ion-text-left smaller">Deposit amount</p>
-                  <span style="font-size: 18px;">{{ cryptoResponse.result.amount | number : '0.0-8' }}
+                                    </p>
+                                </div>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row no-padding>
+                            <ion-col size="6" no-padding class="share-content border-right">
+                                <div class="offer wp100">
+                                    <p class="wp100 ion-text-left smaller">Deposit amount</p>
+                                    <span style="font-size: 18px;">{{ cryptoResponse.result.amount | number : '0.0-8' }}
                     {{ depositObject.depositDetails.base }}</span>
-                </div>
-              </ion-col>
+                                </div>
+                            </ion-col>
 
-              <ion-col size="6" class="ion-no-padding share-content">
-                <div class="offer wp100">
-                  <p class="wp100 ion-text-right smaller">Azuza fees</p>
-                  <span style="font-size: 18px;">
-                    {{ cryptoResponse.fees ? ( toFloat(cryptoResponse.fees) | number : '0.0-8'  )  + " " + depositObject.depositDetails.base  : '0.5%' }}</span>
-                </div>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-        </ion-item>
+                            <ion-col size="6" class="ion-no-padding share-content">
+                                <div class="offer wp100">
+                                    <p class="wp100 ion-text-right smaller">Instavest fees</p>
+                                    <span style="font-size: 18px;">
+                    {{ cryptoResponse.fees ? ( toFloat(cryptoResponse.fees) | number : '0.0-8' ) + " " +
+                    depositObject.depositDetails.base : '0.5%' }}</span>
+                                </div>
+                            </ion-col>
+                        </ion-row>
+                    </ion-grid>
+                </ion-item>
 
-      </ion-list>
+            </ion-list>
 
-      <ion-list lines="none" class="swipecard  swipecard-flat  ion-no-padding cs-transparent-list">
-        <ion-item color="bg-none" class="share-list-item" style="padding:0px !important;">
-          <ion-grid class="ion-padding-vertical">
-            <ion-row class="ion-no-padding">
-              <ion-col size="12" class="ion-no-padding">
-                <div class="slides-heading pl16 pr16">
-                  <h3 class="padding0">Track your payment</h3>
-                </div>
-              </ion-col>
-            </ion-row>
-            <ion-row no-padding>
-              <ion-col no-padding text-center col-6 class="share-content border-right">
-                <button ion-button text-center color="light"
-                  style="border: 0px; background-color: transparent; width: 100%; color: white;"
-                  (click)="launchExternalWebsite(cryptoResponse.result.status_url)">
+            <ion-list lines="none" class="swipecard  swipecard-flat  ion-no-padding cs-transparent-list">
+                <ion-item color="bg-none" class="share-list-item" style="padding:0px !important;">
+                    <ion-grid class="ion-padding-vertical">
+                        <ion-row class="ion-no-padding">
+                            <ion-col size="12" class="ion-no-padding">
+                                <div class="slides-heading pl16 pr16">
+                                    <h3 class="padding0">Track your payment</h3>
+                                </div>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row no-padding>
+                            <ion-col no-padding text-center col-6 class="share-content border-right">
+                                <button ion-button text-center color="light" style="border: 0px; background-color: transparent; width: 100%; color: white;" (click)="launchExternalWebsite(cryptoResponse.result.status_url)">
                   Open status page
                 </button>
-              </ion-col>
+                            </ion-col>
 
-              <ion-col no-padding text-center col-6 class="share-content">
-                <button ion-button text-center color="light"
-                  style="border: 0px; background-color: transparent; width: 100%; color: white;"
-                  (click)="copyToClipboard(depositObject.depositDetails.base + ' status link ', cryptoResponse.result.status_url)">
+                            <ion-col no-padding text-center col-6 class="share-content">
+                                <button ion-button text-center color="light" style="border: 0px; background-color: transparent; width: 100%; color: white;" (click)="copyToClipboard(depositObject.depositDetails.base + ' status link ', cryptoResponse.result.status_url)">
                   Copy status link
                 </button>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-        </ion-item>
+                            </ion-col>
+                        </ion-row>
+                    </ion-grid>
+                </ion-item>
 
-      </ion-list>
+            </ion-list>
 
-      <ion-list lines="none" class="swipecard  swipecard-flat  ion-no-padding cs-transparent-list">
-        <ion-item color="bg-none" class="share-list-item" style="padding:0px !important;">
-          <ion-grid class="ion-padding-vertical">
-            <ion-row class="ion-no-padding">
-              <ion-col size="12" class="ion-no-padding">
-                <div class="slides-heading pl16 pr16">
-                  <h3 class="padding0">Important notes:</h3>
-                </div>
-              </ion-col>
-            </ion-row>
-            <ion-row class="ion-no-padding">
-              <ion-col size="12">
-                <div class="offer afs wp100">
-                  <span class="small lineh20">1. We use coinpayments.net for multi-cryptocurrency deposits who charges a
+            <ion-list lines="none" class="swipecard  swipecard-flat  ion-no-padding cs-transparent-list">
+                <ion-item color="bg-none" class="share-list-item" style="padding:0px !important;">
+                    <ion-grid class="ion-padding-vertical">
+                        <ion-row class="ion-no-padding">
+                            <ion-col size="12" class="ion-no-padding">
+                                <div class="slides-heading pl16 pr16">
+                                    <h3 class="padding0">Important notes:</h3>
+                                </div>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row class="ion-no-padding">
+                            <ion-col size="12">
+                                <div class="offer afs wp100">
+                                    <span class="small lineh20">1. We use coinpayments.net for multi-cryptocurrency deposits who charges a
                     deposit fee of 0.25%.</span>
-                </div>
-              </ion-col>
-            </ion-row>
-            <ion-row class="ion-no-padding">
-              <ion-col size="12">
-                <div class="offer afs wp100">
-                  <span class="small lineh20">2. The balance of the deposit received is convert to ZAR at the current
+                                </div>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row class="ion-no-padding">
+                            <ion-col size="12">
+                                <div class="offer afs wp100">
+                                    <span class="small lineh20">2. The balance of the deposit received is convert to ZAR at the current
                     Binance {{ depositObject.depositDetails.base }} : ZAR spot price - Conversion fee: 0.25%.</span>
-                </div>
-              </ion-col>
+                                </div>
+                            </ion-col>
 
-            </ion-row>
-            <ion-row class="ion-no-padding">
-              <ion-col size="12">
-                <div class="offer afs wp100">
-                  <span class="small lineh20">3. The total crypto deposit fee payable is 0.5%. </span>
-                </div>
-              </ion-col>
-            </ion-row>
-            <ion-row class="ion-no-padding">
-              <ion-col size="12">
-                <div class="offer afs wp100">
-                  <span class="small lineh20">4. Azuza Wealth, it's suppliers, shareholders and partners cannot be held
+                        </ion-row>
+                        <ion-row class="ion-no-padding">
+                            <ion-col size="12">
+                                <div class="offer afs wp100">
+                                    <span class="small lineh20">3. The total crypto deposit fee payable is 0.5%. </span>
+                                </div>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row class="ion-no-padding">
+                            <ion-col size="12">
+                                <div class="offer afs wp100">
+                                    <span class="small lineh20">4. Instavest Wealth, it's suppliers, shareholders and partners cannot be
+                    held
                     responsible for deposits that go missing or are paid into the wrong deposit address. Please confirm
                     the address before hitting send.</span>
-                </div>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-        </ion-item>
-      </ion-list>
+                                </div>
+                            </ion-col>
+                        </ion-row>
+                    </ion-grid>
+                </ion-item>
+            </ion-list>
+        </div>
+        <!-- EFT section end -->
+
     </div>
-    <!-- EFT section end -->
-
-  </div>
 
 
 
-  <ion-fab horizontal="start" vertical="bottom" slot="fixed">
-    <ion-fab-button class="ionFabMenuButton" size="small" [routerLink]="['/home']">
-      <ion-icon class="" name="close"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
+    <ion-fab horizontal="start" vertical="bottom" slot="fixed">
+        <ion-fab-button class="ionFabMenuButton" size="small" [routerLink]="['/home']">
+            <ion-icon class="" name="close"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
 
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button color="light" *ngIf="currentPage === 'setup'" (click)="nextStep()"
-      [disabled]="!depositObject.depositDetails.currency || !depositObject.depositDetails.amount" size="small">
-      <ion-icon name="arrow-forward-outline"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
-  <div class="h80">&nbsp;</div>
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button color="light" *ngIf="currentPage === 'setup'" (click)="nextStep()" [disabled]="!depositObject.depositDetails.currency || !depositObject.depositDetails.amount" size="small">
+            <ion-icon name="arrow-forward-outline"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
+    <div class="h80">&nbsp;</div>
 
 </ion-content>

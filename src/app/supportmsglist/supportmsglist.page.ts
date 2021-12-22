@@ -177,7 +177,7 @@ export class SupportmsglistPage implements OnInit {
       this.user.getSupportMessages().then(async (data) => {
         console.log(data);
         if (!data || !data.data) {
-          this.user.setToast("We were unable to connect with support. Try sending us a message or email us for assistance (support@azuzawealth.com).");
+          this.user.setToast("We were unable to connect with support. Try sending us a message or email us for assistance (support@instavestcapital.com).");
           resolve(false);
         }
 

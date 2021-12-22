@@ -17,7 +17,7 @@ export class Login {
 })
 
 export class UserService {
-  public websiteUrl = 'https://azuzawealth.com';
+  public websiteUrl = 'https://instavestcapital.com';
 
   public server: ServerService;
   public popupPage: ModalController;

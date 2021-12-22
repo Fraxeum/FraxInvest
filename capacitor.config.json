@@ -1,6 +1,6 @@
 {
-    "appId": "com.azuzawealth.za",
-    "appName": "Azuza",
+    "appId": "com.instavest.za",
+    "appName": "Instavest",
     "webDir": "www",
     "bundledWebRuntime": false,
     "linuxAndroidStudioPath": "/opt/android-studio/bin/studio.sh",
