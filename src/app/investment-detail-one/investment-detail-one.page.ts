@@ -670,7 +670,7 @@ export class InvestmentDetailOnePage implements OnInit {
     this.accordionData = [
       {
         title: 'Is this company legit?',
-        description: 'To list on AZUZA a company is subject to a rigorous due dilligence process performed by AZUZA Wealth\'s team of chartered accountants. We check and approved everything from company registration to tax clearance, directors fitness to serve to business model feasibility and everything in between. Funds are only released once the company clears this due dilligence.',
+        description: 'To list on AZUZA a company is subject to a rigorous due dilligence process performed by Instavest Capital\'s team of chartered accountants. We check and approved everything from company registration to tax clearance, directors fitness to serve to business model feasibility and everything in between. Funds are only released once the company clears this due dilligence.',
         active: false
       },
       {
@@ -690,7 +690,7 @@ export class InvestmentDetailOnePage implements OnInit {
       },
       {
         title: 'What if the due dilligence fails?',
-        description: "Infinite Industries has already passed an indepth due diligence carried out by the investment committee of Azuza Wealth.",
+        description: "Infinite Industries has already passed an indepth due diligence carried out by the investment committee of Instavest Capital.",
         active: false
       },
       {
@@ -705,7 +705,7 @@ export class InvestmentDetailOnePage implements OnInit {
       },
       {
         title: 'Do I have voting rights ?',
-        description: 'No. AZUZA Wealth and its team of highly qualified, experienced individuals manages the SPV on behalf of all shareholders.',
+        description: 'No. Instavest Capital and its team of highly qualified, experienced individuals manages the SPV on behalf of all shareholders.',
         active: false
       },
       {
