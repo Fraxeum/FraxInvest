@@ -1,6 +1,6 @@
 {
-	"appId": "com.instavest.za",
-	"appName": "Instavest",
+	"appId": "com.instavest.app",
+	"appName": "instavest",
 	"webDir": "www",
 	"bundledWebRuntime": false,
 	"linuxAndroidStudioPath": "/opt/android-studio/bin/studio.sh",

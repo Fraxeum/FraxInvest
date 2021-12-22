@@ -1,1 +1,18 @@
-{}
+{
+    "appId": "com.instavest.app",
+    "appName": "instavest",
+    "webDir": "www",
+    "bundledWebRuntime": false,
+    "linuxAndroidStudioPath": "/opt/android-studio/bin/studio.sh",
+    "plugins": {
+        "SplashScreen": {
+            "launchAutoHide": false,
+            "backgroundColor": "#3b6d8c"
+        }
+    },
+    "SplashScreen": {
+        "launchAutoHide": false,
+        "backgroundColor": "#3b6d8c"
+    },
+    "cordova": {}
+}
